@@ -98,8 +98,8 @@ def add_grid(arr, tiles=4, lw=2, color=(0.78, 0.77, 0.75)):
 # ---------------- prep textures ----------------
 P = {}  # key -> filepath
 A, _, _ = src_pixels("beige_wall_001", "diff")
-P["wall_diff"] = save_pixels(adjust_diff(A, 0.5, 1.65, (1.0, 0.99, 0.97)), "wall_diff.jpg")
-P["wall_cap_diff"] = save_pixels(adjust_diff(A, 0.5, 1.6, (1.0, 0.99, 0.97)), "wall_cap_diff.jpg")
+P["wall_diff"] = save_pixels(adjust_diff(A, 0.4, 1.70, (1.0, 0.99, 0.97)), "wall_diff.jpg")
+P["wall_cap_diff"] = save_pixels(adjust_diff(A, 0.4, 1.65, (1.0, 0.99, 0.97)), "wall_cap_diff.jpg")
 A, _, _ = src_pixels("beige_wall_001", "nor")
 P["wall_nor"] = save_pixels(flip_g(A), "wall_nor.jpg")
 A, _, _ = src_pixels("beige_wall_001", "rough")
@@ -149,9 +149,9 @@ P["curtain_diff"] = save_pixels(
     adjust_diff(A, 0.10, 1.60, (0.95, 0.93, 0.89)), "curtain_diff.jpg")
 
 A, _, _ = src_pixels("marble_01", "diff")
-P["marble_diff"] = save_pixels(adjust_diff(A, 1.0, 1.12), "marble_diff.jpg")
+P["marble_diff"] = save_pixels(adjust_diff(A, 0.15, 1.30), "marble_diff.jpg")
 P["artwall_diff"] = save_pixels(
-    add_grid(adjust_diff(A, 0.85, 1.08)), "artwall_diff.jpg")
+    add_grid(adjust_diff(A, 0.5, 1.28)), "artwall_diff.jpg")
 A, _, _ = src_pixels("marble_01", "nor")
 P["marble_nor"] = save_pixels(flip_g(A), "marble_nor.jpg")
 A, _, _ = src_pixels("marble_01", "rough")
@@ -176,6 +176,15 @@ SPEC = {
     "Mat_Curtain": (1.5, "curtain_diff", None, "fab_nor", "fab_rough", 0.5),
     "Mat_ArtWall_Tile": (2.4, "artwall_diff", None, "marble_nor", "marble_rough", 0.5),
     "Mat_Marble_White": (2.0, "marble_diff", None, "marble_nor", "marble_rough", 0.4),
+    # --- v2 additions (flat sRGB->linear + fabric normal/rough) ---
+    "Mat_Cabinet_Cashmere": (2.0, None, (0.768, 0.723, 0.645), "plaster_nor", "plaster_rough", 0.25),
+    "Mat_Chair_Fabric": (0.6, None, (0.480, 0.428, 0.351), "fab_nor", "fab_rough", 0.6),
+    "Mat_Q2_Rug": (1.6, None, (0.552, 0.445, 0.412), "fab_nor", "fab_rough", 0.5),
+    "Mat_Q2_Boucle": (0.8, None, (0.686, 0.603, 0.480), "fab_nor", "fab_rough", 0.7),
+    "Mat_Q2_WallPanel": (1.8, None, (0.714, 0.657, 0.552), "fab_nor", "fab_rough", 0.4),
+    "Mat_Q2_Lilac": (1.0, None, (0.509, 0.445, 0.657), "fab_nor", "fab_rough", 0.5),
+    "Mat_Q2_Placemat": (0.5, None, (0.693, 0.623, 0.540), "fab_nor", "fab_rough", 0.6),
+    "Mat_Q2_CreamFabric": (0.8, None, (0.790, 0.723, 0.616), "fab_nor", "fab_rough", 0.5),
 }
 TARGETS = set(SPEC)
 
@@ -263,6 +272,15 @@ for name, (span, dk, flat, nk, rk, nstr) in SPEC.items():
     out = nodes.new("ShaderNodeOutputMaterial")
     links.new(bsdf.outputs["BSDF"], out.inputs["Surface"])
 print("[GLBTEX] export materials built")
+
+# generated landscape image needs a real file for the glTF exporter
+_land = bpy.data.images.get("Q2_Landscape")
+if _land is not None:
+    _lp = os.path.join(TEX_EXP, "q2_landscape.jpg")
+    _land.filepath_raw = _lp
+    _land.file_format = 'JPEG'
+    _land.save()
+    print(f"[GLBTEX] landscape saved {_lp}")
 
 # ---------------- export + restore ----------------
 saved = bpy.data.filepath
