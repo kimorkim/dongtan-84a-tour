@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>동탄 포레파크 84A — 웹 투어</title>
+    <link rel="icon" href="data:," />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="scene"></canvas>
+      <div id="crosshair" hidden></div>
+      <div id="loader">
+        <div class="loader-box">
+          <div class="loader-title">동탄 포레파크 자연&amp; 푸르지오 84A</div>
+          <div class="loader-bar"><div id="loader-fill"></div></div>
+          <div id="loader-text">모델 불러오는 중…</div>
+        </div>
+      </div>
+      <div id="lock-hint" hidden>
+        <div class="hint-box">클릭하면 마우스를 잡습니다 (해제: Esc)</div>
+      </div>
+      <div id="hud">
+        <div class="hud-title">84A 웹 투어 <span id="mode-label">걷기</span></div>
+        <div class="hud-row">
+          <button id="btn-walk" class="active">걷기</button>
+          <button id="btn-over">전체 보기</button>
+          <button id="btn-reset">위치 초기화</button>
+        </div>
+        <div class="hud-row">
+          <label>이동 속도 <span id="speed-val">3.5 m/s</span></label>
+          <input id="speed" type="range" min="1" max="8" step="0.5" value="3.5" />
+        </div>
+        <div id="pos">x — · y —</div>
+        <div class="hud-help">WASD 이동 · 마우스 시선 · Shift 빠르게 · V 모드 전환 · Esc 마우스 해제</div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

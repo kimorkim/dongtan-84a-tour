@@ -1,0 +1,26 @@
+# Node dependencies & caches
+node_modules/
+*/node_modules/
+.npm-cache/
+*/.npm-cache/
+
+# Web build output
+dist/
+*/dist/
+
+# Python cache
+__pycache__/
+*/__pycache__/
+*.py[cod]
+*$py.class
+
+# Blender auto-backups
+*.blend1
+*.blend2
+*.blend@
+*.bak
+
+# Environment & OS
+.DS_Store
+Thumbs.db
+*.log
