@@ -110,6 +110,24 @@ async function boot(): Promise<void> {
 
   let mode: Mode = 'walk';
 
+  const hud = el('hud');
+  const btnHudToggle = el<HTMLButtonElement>('btn-hud-toggle');
+
+  function setHudCollapsed(collapsed: boolean): void {
+    hud.classList.toggle('collapsed', collapsed);
+    btnHudToggle.textContent = collapsed ? '▼' : '▲';
+  }
+
+  btnHudToggle.addEventListener('click', (ev) => {
+    ev.stopPropagation();
+    setHudCollapsed(!hud.classList.contains('collapsed'));
+  });
+
+  // Default to slim/collapsed HUD on mobile/touch devices
+  if (isTouch || window.innerWidth <= 640) {
+    setHudCollapsed(true);
+  }
+
   const btnWalk = el<HTMLButtonElement>('btn-walk');
   const btnOver = el<HTMLButtonElement>('btn-over');
   const btnReset = el<HTMLButtonElement>('btn-reset');
@@ -187,6 +205,9 @@ async function boot(): Promise<void> {
         break;
       case 'KeyV':
         setMode(mode === 'walk' ? 'overview' : 'walk');
+        break;
+      case 'KeyH':
+        setHudCollapsed(!hud.classList.contains('collapsed'));
         break;
       case 'KeyR':
         player.spawn(SPAWN.x, SPAWN.z, SPAWN_YAW);
