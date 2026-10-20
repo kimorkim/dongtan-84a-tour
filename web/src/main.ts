@@ -7,6 +7,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import './style.css';
 import { loadColliders } from './colliders';
 import { Player } from './player';
+import { TouchControls } from './touch';
 import { loadWorld } from './world';
 
 type Mode = 'walk' | 'overview';
@@ -26,9 +27,14 @@ function el<T extends HTMLElement>(id: string): T {
 }
 
 async function boot(): Promise<void> {
+  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  if (isTouch) {
+    document.body.classList.add('is-touch');
+  }
+
   const canvas = el<HTMLCanvasElement>('scene');
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isTouch ? 1.5 : 2));
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
@@ -65,30 +71,33 @@ async function boot(): Promise<void> {
   let composer: EffectComposer | null = null;
   let renderPass: RenderPass | null = null;
   let gtaoPass: GTAOPass | null = null;
-  try {
-    composer = new EffectComposer(renderer);
-    renderPass = new RenderPass(scene, walkCam);
-    composer.addPass(renderPass);
+  if (!isTouch) {
+    try {
+      composer = new EffectComposer(renderer);
+      renderPass = new RenderPass(scene, walkCam);
+      composer.addPass(renderPass);
 
-    gtaoPass = new GTAOPass(scene, walkCam, window.innerWidth, window.innerHeight);
-    gtaoPass.blendIntensity = 0.85;
-    gtaoPass.pdRings = 2;
-    gtaoPass.pdSamples = 8;
-    gtaoPass.pdRadiusExponent = 2.0;
-    composer.addPass(gtaoPass);
+      gtaoPass = new GTAOPass(scene, walkCam, window.innerWidth, window.innerHeight);
+      gtaoPass.blendIntensity = 0.85;
+      gtaoPass.pdRings = 2;
+      gtaoPass.pdSamples = 8;
+      gtaoPass.pdRadiusExponent = 2.0;
+      composer.addPass(gtaoPass);
 
-    const outputPass = new OutputPass();
-    composer.addPass(outputPass);
-  } catch (err) {
-    console.warn('Postprocessing GTAO failed to initialize, falling back to standard renderer:', err);
-    composer = null;
-    renderPass = null;
-    gtaoPass = null;
+      const outputPass = new OutputPass();
+      composer.addPass(outputPass);
+    } catch (err) {
+      console.warn('Postprocessing GTAO failed to initialize, falling back to standard renderer:', err);
+      composer = null;
+      renderPass = null;
+      gtaoPass = null;
+    }
   }
 
   const player = new Player(walkCam);
   player.setColliders(boxes);
   player.spawn(SPAWN.x, SPAWN.z, SPAWN_YAW);
+  const touchControls = new TouchControls(canvas, player);
 
   const orbit = new OrbitControls(overCam, renderer.domElement);
   orbit.target.copy(OVER_TARGET);
@@ -110,12 +119,17 @@ async function boot(): Promise<void> {
   const posEl = el('pos');
   const speedInput = el<HTMLInputElement>('speed');
   const speedVal = el('speed-val');
+  const hudHelp = document.querySelector('.hud-help');
+  if (isTouch && hudHelp) {
+    hudHelp.textContent = '왼손 조이스틱 이동 · 오른손 드래그 시선 · V 전체 보기';
+  }
 
   player.speed = Number(speedInput.value);
 
   function setMode(next: Mode): void {
     mode = next;
     const walk = mode === 'walk';
+    touchControls.setEnabled(walk);
     btnWalk.classList.toggle('active', walk);
     btnOver.classList.toggle('active', !walk);
     modeLabel.textContent = walk ? '걷기' : '전체 보기';
@@ -205,7 +219,7 @@ async function boot(): Promise<void> {
   });
 
   canvas.addEventListener('click', () => {
-    if (mode === 'walk' && document.pointerLockElement !== canvas) {
+    if (!isTouch && mode === 'walk' && document.pointerLockElement !== canvas) {
       canvas.requestPointerLock();
     }
   });
@@ -236,7 +250,8 @@ async function boot(): Promise<void> {
   renderer.setAnimationLoop(() => {
     const dt = Math.min(clock.getDelta(), 0.05);
     if (mode === 'walk') {
-      player.update(dt, keys);
+      const analog = touchControls.getAnalogMove();
+      player.update(dt, { ...keys, analogMove: analog });
       // Show Blender coords (x=east, y=north) for cross-reference with the model.
       posEl.textContent = `x ${player.pos.x.toFixed(2)} · y ${(-player.pos.z).toFixed(2)}`;
     } else {
