@@ -10,6 +10,7 @@ export interface WalkInput {
   left: boolean;
   right: boolean;
   sprint: boolean;
+  analogMove?: { x: number; y: number };
 }
 
 /** First-person walker on a flat floor with axis-separated AABB sliding. */
@@ -44,13 +45,29 @@ export class Player {
   }
 
   update(dt: number, input: WalkInput): void {
-    const f = (input.forward ? 1 : 0) - (input.back ? 1 : 0);
-    const s = (input.right ? 1 : 0) - (input.left ? 1 : 0);
+    let f = 0;
+    let s = 0;
+    const speedMult = input.sprint ? 1.7 : 1.0;
+
+    if (input.analogMove && (Math.abs(input.analogMove.x) > 0.05 || Math.abs(input.analogMove.y) > 0.05)) {
+      s = input.analogMove.x;
+      f = input.analogMove.y;
+      const mag = Math.hypot(s, f);
+      if (mag > 1) {
+        s /= mag;
+        f /= mag;
+      }
+    } else {
+      f = (input.forward ? 1 : 0) - (input.back ? 1 : 0);
+      s = (input.right ? 1 : 0) - (input.left ? 1 : 0);
+    }
+
     if (f === 0 && s === 0) {
       this.applyToCamera();
       return;
     }
-    const v = (input.sprint ? this.speed * 1.7 : this.speed) * dt;
+
+    const v = this.speed * speedMult * dt;
     const sin = Math.sin(this.yaw);
     const cos = Math.cos(this.yaw);
     // Forward on -Z at yaw 0; strafe right on +X.
