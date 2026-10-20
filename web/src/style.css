@@ -19,6 +19,9 @@ body {
 #app {
   position: fixed;
   inset: 0;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 #scene {
@@ -171,3 +174,70 @@ input[type="range"] {
   line-height: 1.5;
   color: #8f8f8f;
 }
+
+/* Virtual Joystick */
+.joystick-base {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  margin-left: -45px;
+  margin-top: -45px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s ease;
+}
+
+.joystick-base.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.joystick-knob {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #f6d365, #e0a83c);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+/* Touch device specific adjustments */
+body.is-touch #lock-hint,
+body.is-touch #crosshair {
+  display: none !important;
+}
+
+/* Mobile responsive layout */
+@media (max-width: 640px) {
+  #hud {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    width: auto;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .hud-title {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .hud-row button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .hud-help {
+    font-size: 11px;
+    margin-top: 6px;
+  }
+}
+
