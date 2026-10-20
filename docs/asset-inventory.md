@@ -77,6 +77,20 @@ Q7 현관 보강에서 참고 JPG 8장·백업 1개·렌더 4개를 추가했다
 - [수정 후](../renders/review/web_hotspot_ao_after.jpg): 같은 카메라에서 사각 음영 제거, 아이콘과 벽 유지.
   개발용 고정 카메라 검사 화면의 브라우저 캡처이며 Blender 렌더가 아니다.
 
+## 정리 후 추가 — Q9 우드 바닥
+
+| 현재 파일 | 용도 |
+| --- | --- |
+| [바닥 보강 전 모델](../models/backups/apt_84a_photoreal_tour_before_flooring.blend) | 제거한 방별 우드 덧판 5개와 이전 재질을 복원할 수 있는 전체 백업 |
+| [28번 복도](../renders/review/render_28_oak_corridor.png) | 복도와 방문 경계, 밝은 오크 결/연결 확인 |
+| [29번 거실](../renders/review/render_29_oak_living.png) | 거실·복도 공통 마감과 가까운 나뭇결 확인 |
+| [웹 바닥 수정 전](../renders/review/web_floor_before.jpg) | 기존 바닥의 고정 카메라 브라우저 캡처 |
+| [웹 바닥 수정 후](../renders/review/web_floor_after.jpg) | 같은 카메라에서 새 바닥 비교 |
+
+`assets/textures_export/q9_oak_albedo.jpg`, `q9_oak_normal.jpg`, `q9_oak_roughness.jpg`는
+기존 `assets/textures/laminate_floor_02`에서 생성한 2K 파생 재질이다. 제조사 원본이 아니다.
+원본 텍스처는 보존한다. 생성/검사는 `scripts/improve_flooring.py`와 `verify_flooring.py`다.
+
 ## 루트 — 현행 작업 모델
 
 추가 검증 이미지: [web_start_view.jpg](../renders/review/web_start_view.jpg).
@@ -262,6 +276,26 @@ Q7 현관 보강에서 참고 JPG 8장·백업 1개·렌더 4개를 추가했다
 | [render_8_bath_pov.png](<../renders/previews/render_8_bath_pov.png>) | `previews_pbr/render_8_bath_pov.png` | 917306 | 2026-10-16 22:30:11 |
 
 ## renders/review
+
+### Q10 유나방 추가 자료 (2026-10-20)
+
+Q10b 교정: 사용자 기본 옵션은 방문 옆 장이다. 기존 30·31번 렌더와 `web_yuna_after.jpg`,
+`yuna-room.webp`를 새 배치로 갱신했다. 추가 파일은 다음과 같다.
+
+- `models/backups/apt_84a_photoreal_tour_before_yuna_basic_correction.blend`: 옵션 교정 전 Q10 복원본.
+- `renders/review/render_32_yuna_basic_builtin.png`: 창 쪽에서 방문 옆 기본장을 보는 최종 확인 렌더.
+- `web/public/gallery/yuna-builtin.webp` 및 `thumbs/yuna-builtin.webp`: 위 32번의 웹용 파생본.
+  `yuna-room`과 함께 갤러리 아이방 탭에서 볼 수 있다.
+
+- 공식 원본: `references/modelhouse/vr84a/013_f.jpg`, `013_r.jpg`, `013_b.jpg`, `013_l.jpg`.
+  출처와 해석은 해당 폴더 README. Blender 생성 이미지가 아니다.
+- 변경 전 복원본: `models/backups/apt_84a_photoreal_tour_before_yuna_room.blend`.
+  Q9까지의 현행 모델을 보존하며, 초기 전체 모델로 되돌리는 용도가 아니다.
+- 현행 확인 렌더: `renders/review/render_30_yuna_pov.png`, `render_31_yuna_plan.png`.
+  CAD 외곽 유지·가구 재배치·투과 유리·아이방 마감을 확인한다. 가구 치수는 제안값이다.
+- 실제 웹 캡처: `renders/review/web_yuna_after.jpg`.
+- 파생 웹 갤러리: `web/public/gallery/yuna-room.webp`와 `thumbs/yuna-room.webp`.
+  생산 스크립트는 `scripts/optimize_gallery.py`, 소비 목록은 `web/src/gallery-data.ts`다.
 
 | 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
 | --- | --- | ---: | --- |

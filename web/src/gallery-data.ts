@@ -1,6 +1,6 @@
 export interface GalleryItem {
   id: string;
-  room: '전체' | '거실' | '주방' | '안방' | '욕실' | '현관' | '발코니';
+  room: '전체' | '거실' | '주방' | '안방' | '욕실' | '현관' | '발코니' | '아이방';
   title: string;
   description: string;
   src: string;
@@ -10,6 +10,23 @@ export interface GalleryItem {
 }
 
 export const GALLERY_ITEMS: GalleryItem[] = [
+  {
+    id: 'yuna-room',
+    room: '아이방',
+    title: '유나방 (침실3)',
+    description: '방문 옆 기본 붙박이장을 고려한 낮은 침대·그림책 수납·놀이 공간',
+    src: './gallery/yuna-room.webp',
+    thumb: './gallery/thumbs/yuna-room.webp',
+    worldPos: [13.4, 1.35, -2.6],
+  },
+  {
+    id: 'yuna-builtin',
+    room: '아이방',
+    title: '유나방 기본 붙박이장',
+    description: '방문 옆 천장 맞춤 기본형 장과 비워 둔 도어 앞 공간 — 규격은 가정값',
+    src: './gallery/yuna-builtin.webp',
+    thumb: './gallery/thumbs/yuna-builtin.webp',
+  },
   {
     id: 'foyer',
     room: '현관',
@@ -32,7 +49,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     id: 'living',
     room: '거실',
     title: '거실 아트월 및 우물천장',
-    description: '대형 타일 아트월과 3000K 간접조명',
+    description: '밝은 오크 바닥과 아트월·우물천장',
     src: './gallery/living.webp',
     thumb: './gallery/thumbs/living.webp',
     worldPos: [6.5, 1.35, -3.8],

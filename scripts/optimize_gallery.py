@@ -10,10 +10,12 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 THUMB_DIR.mkdir(parents=True, exist_ok=True)
 
 IMAGES = [
+    ("yuna-room", "renders/review/render_30_yuna_pov.png", "아이방", "유나방 (침실3)", "방문 옆 기본 붙박이장을 고려한 낮은 침대·그림책 수납·놀이 공간", (13.4, 2.6, 1.35)),
+    ("yuna-builtin", "renders/review/render_32_yuna_basic_builtin.png", "아이방", "유나방 기본 붙박이장", "방문 옆 천장 맞춤 기본형 장과 비워 둔 도어 앞 공간 — 규격은 가정값", None),
     # (id, src_rel, room, title, desc, world_pos: (blender_x, blender_y, blender_z))
     ("foyer", "renders/presentation/render_5_foyer_corridor_pov.png", "현관", "현관 및 복도", "중문과 현관 팬트리가 마주보는 진입 복도", (12.33, 7.0, 1.35)),
     ("foyer-pantry", "renders/review/render_22_entry_pantry.png", "현관", "현관 워크인 팬트리", "ㄷ자 시스템 선반이 설치된 대용량 수납공간", (11.15, 6.7, 1.35)),
-    ("living", "renders/presentation/render_2_living_room_pov.png", "거실", "거실 아트월 및 우물천장", "대형 타일 아트월과 3000K 간접조명", (6.5, 3.8, 1.35)),
+    ("living", "renders/review/render_29_oak_living.png", "거실", "거실 아트월 및 우물천장", "밝은 오크 바닥과 아트월·우물천장", (6.5, 3.8, 1.35)),
     ("kitchen-island", "renders/presentation/render_3_kitchen_dining_pov.png", "주방", "대면형 주방 및 식당", "11자형 아일랜드 조리대와 6인용 식탁", (6.8, 6.8, 1.35)),
     ("fridge-wall", "renders/review/render_11_fridge_pov.png", "주방", "냉장고장 및 빌트인 수납", "빌트인 냉장고·김치냉장고·밥솥장 라인", (6.0, 7.0, 1.35)),
     ("kitchen-prep", "renders/presentation/render_9_kitchen_prep_pov.png", "주방", "싱크대 및 조리 공간", "와이드 사각 싱크볼과 주방 환기창", (7.4, 7.2, 1.35)),

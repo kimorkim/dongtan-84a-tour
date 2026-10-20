@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<base href="/">
+<title>유나방 구조·가구·재질 검토</title>
+<style>body{margin:0}canvas{display:block}</style>
+<canvas></canvas>
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { SceneGTAOPass } from '/src/scene-gtao-pass.ts';
+import { loadWorld } from '/src/world.ts';
+const renderer = new THREE.WebGLRenderer({canvas:document.querySelector('canvas'),antialias:true});
+renderer.setSize(innerWidth,innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(78,innerWidth/innerHeight,.05,120);
+camera.position.set(12.55,1.55,-3.85);
+camera.lookAt(13.65,.85,-1.8);
+await loadWorld(scene,renderer,()=>{});
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene,camera));
+const ao = new SceneGTAOPass(scene,camera,innerWidth,innerHeight);
+ao.blendIntensity = .85;
+composer.addPass(ao);
+composer.addPass(new OutputPass());
+renderer.setAnimationLoop(()=>composer.render());
+</script>
+</html>

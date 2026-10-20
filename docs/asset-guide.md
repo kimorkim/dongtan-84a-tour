@@ -23,6 +23,11 @@
 - 현재 현관: 20번 평면·22번 팬트리·23번 열린 현관. 21번 중문은 재질 비교용 임시 닫힘 상태다.
   Q7의 공식 VR 원본 8장과 장면별 해석은 [참고 이미지 출처](../references/modelhouse/vr84a/README.md)를 본다.
 - 다른 에이전트의 시작점: [AGENTS.md](../AGENTS.md).
+- 현재 우드 바닥: Q9의 `renders/review/` 28번 복도·29번 거실 및 `web_floor_before/after.jpg`.
+  방별 덧판 대신 공통 상면과 같은 UV를 사용하며, 기존 타일은 유지한다.
+- 현재 유나방(침실3): Q10b의 갱신된 30번 POV·31번 평면·32번 기본장과 `web_yuna_after.jpg`.
+  사용자 옵션은 방문 옆 기본 붙박이장이다. 공식 VR 013의 창 옆 장은 다른 옵션이며 재현 대상이 아니다.
+  기본장 규격은 가정값이고, 창 쪽 실내 마감선을 일자로 보완했다.
 - 현재 거실 욕실: `renders/review/` 24번 평면·25번 건식 세면대·26번 변기·27번 샤워실.
   Q8 근거 사진은 공식 VR 015/016이며 기존 발표용 욕실 렌더보다 최신이다.
 - 실제 웹 투어: `web/public/house.glb`와 `web/public/colliders.json`.
@@ -39,10 +44,10 @@
 | `references/layout/crops/` | 11 | 입체·평면 참고도의 방별 발췌, 주방/중앙 구역/욕실 확대. |
 | `references/modelhouse/original/` | 6 | `display84a_01,03,05,06,07,08.jpg` 모델하우스 웹페이지 캡처. 원본 CAD가 아니다. |
 | `references/modelhouse/crops/` | 7 | 주방 3장, 욕실·건식 세면대 4장의 부분 이미지. |
-| `references/modelhouse/vr84a/` | 16 JPG | 공식 84A VR 015/016 욕실·017 현관/018 현관창고 큐브맵 면. README에 출처·사진 해석 기록. |
+| `references/modelhouse/vr84a/` | 20 JPG | 공식 84A VR 013 침실3·015/016 욕실·017 현관/018 현관창고 큐브맵 면. README에 출처·사진 해석 기록. |
 | `references/materials/` | 1 | `prugio_84a_finishes.jpg` 마감·자재 참고 이미지. |
 | `assets/analysis/` | 5 | 벽 마스크·윤곽 오버레이·좌표 격자·`polys.json`. 도면에서 가공한 작업 데이터. |
-| `renders/review/` | 21 | 가전 11·12번, 발코니·대피실 13~15번, 알파룸 16·17번, 실외기실 18·19번, 현관 20~23번, 거실 욕실 24~27번, 웹 시작 화면·욕실 갤러리·안내 아이콘 음영 전후 캡처. |
+| `renders/review/` | 29 | 가전 11·12번, 발코니·대피실 13~15번, 알파룸 16·17번, 실외기실 18·19번, 현관 20~23번, 욕실 24~27번, 바닥 28·29번, 유나방 30~32번, 웹 시작/갤러리/아이콘 음영/바닥 전후/유나방 캡처. |
 | `renders/presentation/` | 10 | 탑뷰·거실·주방·안방·현관·욕실 등의 발표용 렌더. 생성 시점이 서로 다르다. |
 | `renders/comparisons/` | 3 | 거실·주방·안방 품질 개선 전후 비교. 현재 배치 전체를 증명하는 이미지가 아니다. |
 | `renders/previews/` | 9 | 이전 `previews_pbr/`. 저샘플 PBR/평면 검토 이미지. |
@@ -51,7 +56,7 @@
 | `renders/archive/early-tour/` | 4 | 초기 가구 배치 투어. 현재 모델보다 이전 단계다. |
 | `renders/archive/before-quality-v2/` | 8 | 이전 `renders_prev/`. 품질 개선 이전 렌더 보관본. |
 | `models/archive/` | 4 | 초기·골조·초기 가구 모델. 현행 모델로 오인하지 않는다. |
-| `models/backups/` | 8 | 품질 개선 전, 냉장고장 변경 전, 발코니 보수 전, 미닫이 교정 전, 알파룸 보수 전, 실외기실 보수 전, 현관 보강 전, 거실 욕실 보강 전. |
+| `models/backups/` | 11 | 품질 개선 전, 냉장고장 변경 전, 발코니 보수 전, 미닫이 교정 전, 알파룸 보수 전, 실외기실 보수 전, 현관 보강 전, 욕실 보강 전, 우드 바닥 보강 전, 유나방 변경 전, 유나방 기본 옵션 교정 전. |
 | `assets/textures/`, `assets/textures_export/` | 목록 제외 | 기존 원본 텍스처와 웹 익스포트용 가공 텍스처. 위치를 유지한다. |
 
 ## 출처와 해석 주의
@@ -82,7 +87,7 @@ PDF 추출본과 CAD 확대는 실제 도면 계열이고, `84A.jpg`의 가구�
 | `display84a_01.jpg` | 거실·TV 벽·창가 시점 묶음 |
 | `display84a_03.jpg` | 식당·주방 시점 묶음 |
 | `display84a_05.jpg` | 안방 시점 묶음 |
-| `display84a_06.jpg` | 작은방·서재 등 보조 공간 시점 묶음. 세부 방 번호 미확정 |
+| `display84a_06.jpg` | 상단 침실2 서재, 하단 침실3 아이방. 공식 VR 012/013 메뉴 및 사진 표제로 대조 |
 | `display84a_07.jpg` | 건식 세면대·습식 욕실 등 욕실 공간 묶음 |
 | `display84a_08.jpg` | 공식 전시품목 분류와 VR로 재확인: 현관·신발장·현관창고 묶음. 드레스룸이 아님 |
 | `display_03_part_1,2,3.jpg` | 식당 전체, 싱크대, 조리대·오븐 쪽 주방 부분 |
@@ -124,6 +129,9 @@ PDF 추출본과 CAD 확대는 실제 도면 계열이고, `84A.jpg`의 가구�
 | 현관 확인 렌더 | `scripts/render_foyer_detail.py` | `renders/review/` 20~23번. 21번만 임시 닫힘 촬영, 원본 저장 안 함 |
 | 거실 욕실 디테일·검증 | `scripts/detail_common_bath.py`, `verify_common_bath.py` | Q7 뒤 Q8 적용. 실제 세면볼 개구부·곡면 변기·샤프트 앞 샤워 부속·사진 타일 검사 |
 | 거실 욕실 렌더 | `scripts/render_common_bath.py` | `renders/review/` 24~27번. 원본 저장 안 함 |
+| 우드 바닥 개선·검증 | `scripts/improve_flooring.py`, `verify_flooring.py` | Q8 뒤 Q9 적용. 덧판 제거·공통 UV·2K PBR·타일 보존 검사 |
+| 우드 바닥 렌더 | `scripts/render_flooring.py` | `renders/review/` 28·29번. 원본 저장 안 함 |
+| 유나방 보강·검증·렌더 | `scripts/detail_yuna_room.py`, `verify_yuna_room.py`, `render_yuna_room.py` | Q9 뒤 Q10b. 방문 옆 기본장·도어 여유·일자 창 벽·통로 검사, 30~32번 렌더 |
 | 발코니·대피실 렌더/보행 검증 | `scripts/render_master_balcony.py`, `verify_master_balcony.py` | `renders/review/` 13~15번 / 현행 충돌 JSON 검사 |
 | 품질 v2 렌더 | `scripts/render_quality_v2.py` | `renders/presentation/` |
 | 기존 10뷰 렌더 | `scripts/render_present_views.py` | `renders/presentation/`. 과거 조명 재설정 로직이 있어 품질 보고서를 먼저 확인 |

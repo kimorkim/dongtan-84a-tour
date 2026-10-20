@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<base href="/">
+<title>우드 바닥 연결·재질 검토</title>
+<style>body{margin:0}canvas{display:block}</style>
+<canvas></canvas>
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { SceneGTAOPass } from '/src/scene-gtao-pass.ts';
+import { loadWorld } from '/src/world.ts';
+const renderer = new THREE.WebGLRenderer({canvas:document.querySelector('canvas'),antialias:true});
+renderer.setSize(innerWidth,innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.05,120);
+camera.position.set(12.7,1.50,-5.05);
+camera.lookAt(8.4,.65,-5.05);
+await loadWorld(scene,renderer,()=>{});
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene,camera));
+const ao = new SceneGTAOPass(scene,camera,innerWidth,innerHeight);
+ao.blendIntensity = .85;
+composer.addPass(ao);
+composer.addPass(new OutputPass());
+renderer.setAnimationLoop(()=>composer.render());
+</script>
+</html>
