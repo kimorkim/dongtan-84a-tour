@@ -6,6 +6,8 @@ import { GTAOPass } from 'three/addons/postprocessing/GTAOPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import './style.css';
 import { loadColliders } from './colliders';
+import { GalleryModal } from './gallery-modal';
+import { HotspotManager } from './hotspots';
 import { Player } from './player';
 import { TouchControls } from './touch';
 import { loadWorld } from './world';
@@ -110,6 +112,40 @@ async function boot(): Promise<void> {
 
   let mode: Mode = 'walk';
 
+  const keys = { forward: false, back: false, left: false, right: false, sprint: false };
+
+  const galleryModal = new GalleryModal((open) => {
+    if (open) {
+      touchControls.setEnabled(false);
+      keys.forward = false;
+      keys.back = false;
+      keys.left = false;
+      keys.right = false;
+      keys.sprint = false;
+      if (document.pointerLockElement === canvas) {
+        document.exitPointerLock();
+      }
+    } else {
+      if (mode === 'walk') {
+        touchControls.setEnabled(true);
+      }
+    }
+  });
+
+  const hotspots = new HotspotManager(
+    scene,
+    walkCam,
+    overCam,
+    (id) => galleryModal.open(id),
+    canvas,
+  );
+
+  const btnGalleryOpen = el<HTMLButtonElement>('btn-gallery-open');
+  btnGalleryOpen.addEventListener('click', (ev) => {
+    ev.stopPropagation();
+    galleryModal.open();
+  });
+
   const hud = el('hud');
   const btnHudToggle = el<HTMLButtonElement>('btn-hud-toggle');
 
@@ -148,7 +184,7 @@ async function boot(): Promise<void> {
   function setMode(next: Mode): void {
     mode = next;
     const walk = mode === 'walk';
-    touchControls.setEnabled(walk);
+    touchControls.setEnabled(walk && !galleryModal.isOpen());
     btnWalk.classList.toggle('active', walk);
     btnOver.classList.toggle('active', !walk);
     modeLabel.textContent = walk ? '걷기' : '전체 보기';
@@ -181,8 +217,10 @@ async function boot(): Promise<void> {
     speedVal.textContent = `${player.speed.toFixed(1)} m/s`;
   });
 
-  const keys = { forward: false, back: false, left: false, right: false, sprint: false };
   window.addEventListener('keydown', (ev) => {
+    if (galleryModal.isOpen()) {
+      return;
+    }
     switch (ev.code) {
       case 'KeyW':
       case 'ArrowUp':
@@ -242,12 +280,14 @@ async function boot(): Promise<void> {
 
   canvas.addEventListener('click', (ev: MouseEvent) => {
     if ((ev as PointerEvent).pointerType === 'touch') return;
+    if (galleryModal.isOpen()) return;
     if (mode === 'walk' && document.pointerLockElement !== canvas) {
       canvas.requestPointerLock();
     }
   });
   document.addEventListener('pointerlockchange', updateLockHint);
   document.addEventListener('mousemove', (ev) => {
+    if (galleryModal.isOpen()) return;
     if (mode === 'walk' && document.pointerLockElement === canvas) {
       player.addLook(ev.movementX, ev.movementY);
     }
@@ -272,9 +312,14 @@ async function boot(): Promise<void> {
   const clock = new THREE.Clock();
   renderer.setAnimationLoop(() => {
     const dt = Math.min(clock.getDelta(), 0.05);
+    const activeCam = mode === 'walk' ? walkCam : overCam;
+    hotspots.update(dt, activeCam);
+
     if (mode === 'walk') {
-      const analog = touchControls.getAnalogMove();
-      player.update(dt, { ...keys, analogMove: analog });
+      if (!galleryModal.isOpen()) {
+        const analog = touchControls.getAnalogMove();
+        player.update(dt, { ...keys, analogMove: analog });
+      }
       // Show Blender coords (x=east, y=north) for cross-reference with the model.
       posEl.textContent = `x ${player.pos.x.toFixed(2)} · y ${(-player.pos.z).toFixed(2)}`;
     } else {
@@ -284,7 +329,7 @@ async function boot(): Promise<void> {
     if (composer) {
       composer.render();
     } else {
-      renderer.render(scene, mode === 'walk' ? walkCam : overCam);
+      renderer.render(scene, activeCam);
     }
   });
 

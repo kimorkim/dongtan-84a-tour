@@ -122,6 +122,14 @@ export class GalleryModal {
       },
       { passive: true },
     );
+
+    this.stageEl.addEventListener(
+      'touchcancel',
+      () => {
+        this.isSwiping = false;
+      },
+      { passive: true },
+    );
   }
 
   private getFilteredItems(category: string): GalleryItem[] {
@@ -174,6 +182,12 @@ export class GalleryModal {
   }
 
   private renderStage(): void {
+    const hasMultiple = this.filteredItems.length > 1;
+    this.prevBtn.style.display = hasMultiple ? '' : 'none';
+    this.nextBtn.style.display = hasMultiple ? '' : 'none';
+    this.prevBtn.disabled = !hasMultiple;
+    this.nextBtn.disabled = !hasMultiple;
+
     const item = this.filteredItems[this.currentIndex];
     if (!item) return;
 
