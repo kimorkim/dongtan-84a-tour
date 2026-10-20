@@ -55,6 +55,28 @@ Q7 현관 보강에서 참고 JPG 8장·백업 1개·렌더 4개를 추가했다
 | [22번 현관 팬트리](../renders/review/render_22_entry_pantry.png) | 열린 양개문·ㄷ자 선반·금속 기둥 |
 | [23번 현관 열린 모습](../renders/review/render_23_foyer_open.png) | 실제 투어의 열린 중문·현관·신발장 |
 
+## 정리 후 추가 — Q8 거실 욕실 디테일
+
+공식 VR 015/016 JPG 8장·백업 1개·확인 렌더 4개를 추가했다.
+사진별 용도와 출처는 [VR 안내](../references/modelhouse/vr84a/README.md)의 욕실 조사 항목을 본다.
+
+| 현재 파일 | 용도 |
+| --- | --- |
+| `references/modelhouse/vr84a/015_{f,r,b,l}.jpg` | 공식 원본: 건식 세면대·욕실 입구·복도 |
+| `references/modelhouse/vr84a/016_{f,r,b,l}.jpg` | 공식 원본: 타일·샤워·변기·거울장. 016_f의 타일 부분을 UV로 사용 |
+| [욕실 보강 전 원본](../models/backups/apt_84a_photoreal_tour_before_common_bath_detail.blend) | Q7 및 웹 시작점 교정 후, Q8 이전 전체 모델 |
+| [24번 평면](../renders/review/render_24_common_bath_plan.png) | 실제 샤프트·변기·열린 샤워문·건식 공간 배치 |
+| [25번 세면대](../renders/review/render_25_dry_vanity_detail.png) | 파인 볼·수전·양개 하부장·직사각 거울 |
+| [26번 변기](../renders/review/render_26_common_toilet_detail.png) | 곡면 도기·물탱크·거울장·위생 샤워기·휴지걸이 |
+| [27번 샤워실](../renders/review/render_27_shower_detail.png) | 유리·프레임·레인/핸드 샤워·호스·선반·배수구 |
+| [웹 욕실 갤러리](../renders/review/web_common_bath_gallery.jpg) | 실제 브라우저에서 새 욕실 이미지와 설명 표시 확인 |
+
+## 웹 안내 아이콘 음영 교정 증빙
+
+- [수정 전](../renders/review/web_hotspot_ao_before.jpg): 실제 욕실 모델에서 안내 아이콘의 투명 영역에 사각 AO가 생김.
+- [수정 후](../renders/review/web_hotspot_ao_after.jpg): 같은 카메라에서 사각 음영 제거, 아이콘과 벽 유지.
+  개발용 고정 카메라 검사 화면의 브라우저 캡처이며 Blender 렌더가 아니다.
+
 ## 루트 — 현행 작업 모델
 
 추가 검증 이미지: [web_start_view.jpg](../renders/review/web_start_view.jpg).

@@ -19,8 +19,8 @@ IMAGES = [
     ("kitchen-prep", "renders/presentation/render_9_kitchen_prep_pov.png", "주방", "싱크대 및 조리 공간", "와이드 사각 싱크볼과 주방 환기창", (7.4, 7.2, 1.35)),
     ("master-bed", "renders/presentation/render_4_master_bedroom_pov.png", "안방", "안방 (침실 1)", "아늑한 마스터 베드룸 및 발코니 출입문", (2.5, 3.8, 1.35)),
     ("master-balcony", "renders/review/render_14_master_balcony_pov.png", "발코니", "안방 발코니", "세탁 공간과 연결되는 전면 발코니", (2.5, 1.6, 1.35)),
-    ("dry-vanity", "renders/presentation/render_10_common_bath_dry_vanity_pov.png", "욕실", "호텔식 건식 세면대", "복도형 LED 원형 거울 건식 파우더 공간", (12.33, 5.2, 1.35)),
-    ("bath", "renders/presentation/render_8_bath_pov.png", "욕실", "공용 욕실 (습식)", "샤워부스 및 고급 포세린 타일 마감", (14.65, 6.8, 1.35)),
+    ("dry-vanity", "renders/review/render_25_dry_vanity_detail.png", "욕실", "호텔식 건식 세면대", "언더마운트 세면볼·양개 하부장·직사각 간접조명 거울", (14.0, 5.0, 1.35)),
+    ("bath", "renders/review/render_26_common_toilet_detail.png", "욕실", "공용 욕실 (습식)", "곡면 도기 변기·거울 수납장·모델하우스 사진 기반 타일", (13.98, 6.45, 1.35)),
     ("dressroom", "renders/presentation/render_7_dress_pov.png", "안방", "드레스룸 및 파우더장", "안방과 연결된 워크인 드레스룸 시스템", (2.2, 7.0, 1.35)),
     ("topdown", "renders/presentation/render_1_isometric_topdown.png", "전체", "84A 입체 평면도", "전체 공간 구조 및 가구 배치도", (7.15, 5.0, 8.0)),
 ]
