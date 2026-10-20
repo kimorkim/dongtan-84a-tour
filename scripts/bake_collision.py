@@ -12,7 +12,8 @@ import json
 import os
 from mathutils import Vector
 
-EXCLUDE_PREFIXES = ("ProDoorLeaf_", "ProDoorHandle_")  # open leaves stay walkable
+EXCLUDE_PREFIXES = ("ProDoorLeaf_", "ProDoorHandle_",
+                    "Vent_ACRoom_")  # louver door to the AC room: passable like other leaves
 
 CELL = 0.12
 X0, X1 = 0.0, 15.5

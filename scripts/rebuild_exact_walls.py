@@ -26,7 +26,7 @@ def build_exact():
     col.hide_render = False
 
     # 3. Load polygon contours
-    with open("polys.json", "r") as f:
+    with open("assets/analysis/polys.json", "r") as f:
         polys_data = json.load(f)
 
     wall_height = 2.30
@@ -92,7 +92,9 @@ def build_exact():
     bpy.context.scene.camera = cam_obj
     bpy.context.scene.render.resolution_x = 1280
     bpy.context.scene.render.resolution_y = 960
-    bpy.context.scene.render.filepath = os.path.abspath("exact_structure_preview.png")
+    out_path = os.path.abspath("renders/verification/structure/exact_structure_preview.png")
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    bpy.context.scene.render.filepath = out_path
     bpy.ops.render.render(write_still=True)
     print("SUCCESS: Exact structure generated and preview rendered to exact_structure_preview.png")
 

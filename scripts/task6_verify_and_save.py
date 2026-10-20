@@ -105,7 +105,8 @@ def render_view(cam_name, filepath, location, rotation, is_ortho=False, ortho_sc
     bpy.context.scene.camera = cam_obj
     bpy.context.scene.render.resolution_x = 1280
     bpy.context.scene.render.resolution_y = 960
-    abs_path = os.path.abspath(filepath)
+    abs_path = os.path.abspath(os.path.join("renders", "verification", "structure", filepath))
+    os.makedirs(os.path.dirname(abs_path), exist_ok=True)
     bpy.context.scene.render.filepath = abs_path
     
     bpy.ops.render.render(write_still=True)
@@ -152,7 +153,8 @@ def main():
     )
     
     # 6. Save milestone .blend file
-    save_path = os.path.abspath("apt_v01_structure.blend")
+    save_path = os.path.abspath("models/archive/apt_v01_structure.blend")
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
     bpy.ops.wm.save_as_mainfile(filepath=save_path)
     blend_size = os.path.getsize(save_path) if os.path.exists(save_path) else 0
     print(f"SUCCESS: Saved milestone model to {save_path} ({blend_size:,} bytes)")

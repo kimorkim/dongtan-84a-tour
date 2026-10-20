@@ -135,13 +135,11 @@ def run():
     # Dress Room (Warm Oak: X: [0.6, 2.6], Y: [5.8, 9.9])
     create_beveled_box("Floor_DressRoom", 1.6, 7.85, 0.002, 1.9, 3.9, 0.01, bevel=0, mat=mat_warm_wood, col=col_zones)
     
-    # Utility Balcony 2 (Kitchen Tile: X: [7.8, 9.4], Y: [8.0, 10.0])
-    create_beveled_box("Floor_KitchenBalcony", 8.6, 9.0, 0.002, 1.5, 1.8, 0.01, bevel=0, mat=mat_tile_grey, col=col_zones)
-    # AC Outdoor Unit Room (X: [8.0, 9.9], Y: [8.2, 9.9])
-    create_beveled_box("Floor_ACOutdoor", 8.95, 9.05, 0.003, 1.8, 1.6, 0.01, bevel=0, mat=mat_tile_grey, col=col_zones)
+    # One AC-room floor inside the traced wall boundary; Q6 finishes the opening.
+    create_beveled_box("Floor_ACOutdoor", 9.4215, 8.7375, 0.002, 1.519, 1.125, 0.012, bevel=0, mat=mat_tile_grey, col=col_zones)
     
-    # Alpha Room (Warm Oak: X: [9.0, 11.6], Y: [5.8, 8.0])
-    create_beveled_box("Floor_AlphaRoom", 10.3, 6.9, 0.002, 2.5, 2.1, 0.01, bevel=0, mat=mat_light_wood, col=col_zones)
+    # Alpha Room (west of the entrance pantry, bounded by traced walls)
+    create_beveled_box("Floor_AlphaRoom", 9.187, 6.834, 0.002, 2.4, 2.194, 0.01, bevel=0, mat=mat_light_wood, col=col_zones)
     # Bedroom 2 (Warm Oak: X: [9.0, 12.0], Y: [0.5, 4.4])
     create_beveled_box("Floor_Bedroom2", 10.5, 2.45, 0.002, 2.9, 3.8, 0.01, bevel=0, mat=mat_light_wood, col=col_zones)
     # Bedroom 3 (Warm Oak: X: [12.2, 15.0], Y: [0.5, 4.4])
@@ -393,7 +391,8 @@ def run():
     for cam, filename, hide_ceiling in renders:
         ceil_obj.hide_render = hide_ceiling
         bpy.context.scene.camera = cam
-        out_path = os.path.abspath(filename)
+        out_path = os.path.abspath(os.path.join("renders", "presentation", filename))
+        os.makedirs(os.path.dirname(out_path), exist_ok=True)
         bpy.context.scene.render.filepath = out_path
         print(f"Rendering {filename} with Cycles GPU OptiX (hide_ceiling={hide_ceiling})...")
         bpy.ops.render.render(write_still=True)

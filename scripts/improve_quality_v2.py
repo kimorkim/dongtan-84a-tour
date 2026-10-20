@@ -519,7 +519,7 @@ def build_kitchen(m):
     assign("Kitchen_Induction_Glass", m['blackglass'])
     assign("ProK_Oven_DoorGlass", m['blackglass'])
     # dining rug
-    box("Q2_Dining_Rug", (6.95, 6.70, 0.010), (2.35, 1.75, 0.020), m['cream'], bevel=0.008)
+    box("Q2_Dining_Rug", (6.85, 6.70, 0.010), (1.90, 1.75, 0.020), m['cream'], bevel=0.008)
     # pot on induction (east run x=7.50)
     cyl("Q2_PotBody", (7.50, 8.85, 0.96), 0.115, 0.11, steel)
     cyl("Q2_PotLid", (7.50, 8.85, 1.025), 0.10, 0.018, steel)

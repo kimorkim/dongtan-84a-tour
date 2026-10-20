@@ -21,7 +21,8 @@ ALL_VIEWS = [
 
 batch = globals().get("RENDER_BATCH", None)
 preview = globals().get("PREVIEW", False)
-render_dir = globals().get("RENDER_DIR", None)
+render_dir = globals().get("RENDER_DIR") or os.path.abspath("renders/presentation")
+os.makedirs(render_dir, exist_ok=True)
 views = [v for v in ALL_VIEWS if (batch is None or v[1] in batch)]
 print(f"HQ render batch: {[v[1] for v in views]} (preview={preview})")
 
@@ -62,7 +63,7 @@ for cam_name, filename, hide_ceiling in views:
             lo.data.energy = e
     scene.view_settings.exposure = -0.2 if hide_ceiling else 0.4
     scene.camera = cam
-    out_path = os.path.join(render_dir, filename) if render_dir else os.path.abspath(filename)
+    out_path = os.path.join(render_dir, filename)
     scene.render.filepath = out_path
     print(f"Rendering {filename} (hide_ceiling={hide_ceiling}) ...")
     bpy.ops.render.render(write_still=True)

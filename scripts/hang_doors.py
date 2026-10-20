@@ -49,7 +49,8 @@ def ray_any(origin, direction, maxd=6.0):
 
 DOORS = [
     # name, seed(xy), leaf material, open_deg
-    ("Alpha", (11.65, 6.73), "Mat_Wood_Walnut", 35),
+    ("EntryPantry", (11.65, 6.73), "Mat_Wood_Walnut", 35),
+    ("Alpha", (9.881, 5.69), "Mat_Wood_Walnut", 90),
     ("Bed2", (9.64, 4.35), "Mat_Wood_Walnut", 35),
     ("Bed3", (12.46, 4.35), "Mat_Wood_Walnut", 35),
     ("CommonBath", (13.83, 5.65), "Mat_Cabinet_Cashmere", 30),
@@ -58,7 +59,8 @@ DOORS = [
 # Manual specs from plan-segment survey (center, axis, width, th, head, header?, swing)
 # swing: +1/-1 along wall normal n, None = auto (more clearance)
 MANUAL = {
-    "Alpha": ((11.65, 6.73), 1, 0.94, 0.10, 2.10, True, None),
+    "EntryPantry": ((11.65, 6.73), 1, 0.94, 0.10, 2.10, True, None),
+    "Alpha": ((9.881, 5.69), 0, 0.938, 0.093, 2.10, True, 1),
     "Bed2": ((9.64, 4.325), 0, 0.94, 0.17, 2.10, True, -1),
     "Bed3": ((12.46, 4.33), 0, 0.92, 0.18, 2.10, True, -1),
     "CommonBath": ((13.83, 5.65), 0, 0.80, 0.14, 2.10, True, -1),

@@ -32,7 +32,8 @@ if ceil_obj:
     ceil_obj.hide_render = False
 
 bpy.context.scene.camera = cam_foy_obj
-out_path = os.path.abspath("render_5_foyer_corridor_pov.png")
+out_path = os.path.abspath("renders/presentation/render_5_foyer_corridor_pov.png")
+os.makedirs(os.path.dirname(out_path), exist_ok=True)
 bpy.context.scene.render.filepath = out_path
 print("Rendering updated Camera 5...")
 bpy.ops.render.render(write_still=True)

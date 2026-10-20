@@ -260,28 +260,30 @@ def setup_interior():
 
     # Screenshot 1: Foyer entrance
     bpy.context.scene.frame_set(1)
-    bpy.context.scene.render.filepath = os.path.abspath("tour_1_entrance_foyer.png")
+    os.makedirs("renders/archive/early-tour", exist_ok=True)
+    bpy.context.scene.render.filepath = os.path.abspath("renders/archive/early-tour/tour_1_entrance_foyer.png")
     bpy.ops.render.render(write_still=True)
 
     # Screenshot 2: Living room & Kitchen perspective
     bpy.context.scene.frame_set(170)
-    bpy.context.scene.render.filepath = os.path.abspath("tour_2_living_kitchen.png")
+    bpy.context.scene.render.filepath = os.path.abspath("renders/archive/early-tour/tour_2_living_kitchen.png")
     bpy.ops.render.render(write_still=True)
 
     # Screenshot 3: Master bedroom perspective
     bpy.context.scene.frame_set(250)
-    bpy.context.scene.render.filepath = os.path.abspath("tour_3_master_bedroom.png")
+    bpy.context.scene.render.filepath = os.path.abspath("renders/archive/early-tour/tour_3_master_bedroom.png")
     bpy.ops.render.render(write_still=True)
 
     # Screenshot 4: Top-down orthographic 3D floor plan (like 84A.jpg)
     top_cam = bpy.data.objects.get("Cam_Corrected_Topdown")
     if top_cam:
         bpy.context.scene.camera = top_cam
-        bpy.context.scene.render.filepath = os.path.abspath("tour_topdown_furnished.png")
+        bpy.context.scene.render.filepath = os.path.abspath("renders/archive/early-tour/tour_topdown_furnished.png")
         bpy.ops.render.render(write_still=True)
 
     # 17. Save final blend file
-    save_path = os.path.abspath("apt_84a_furnished_tour.blend")
+    save_path = os.path.abspath("models/archive/apt_84a_furnished_tour.blend")
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
     bpy.ops.wm.save_as_mainfile(filepath=save_path)
     print("SUCCESS: Fully furnished apartment created and saved to:", save_path)
 

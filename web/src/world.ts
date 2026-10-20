@@ -70,7 +70,8 @@ export async function loadWorld(
     // Common Bath (inside wet bath)
     { pos: [14.65, 6.8, 2.15], color: 0xfff0e4, intensity: 8, dist: 4 },
     // Foyer
-    { pos: [12.55, 8.8, 2.20], color: 0xffe4bc, intensity: 12, dist: 4 },
+    { pos: [12.32, 6.65, 2.20], color: 0xffe4bc, intensity: 12, dist: 4 },
+    { pos: [11.15, 6.70, 2.20], color: 0xffead6, intensity: 6, dist: 2.5 }, // Entry pantry
     // Master Bedroom & Bath
     { pos: [2.4, 3.7, 2.25], color: 0xffebd4, intensity: 12, dist: 6 },
     { pos: [3.45, 6.9, 2.15], color: 0xfff0e4, intensity: 8, dist: 4 },
@@ -138,9 +139,10 @@ export async function loadWorld(
         if (name.includes('Glass') || o.name.includes('Glass') || o.name.includes('Screen') || o.name.includes('Shower_Screen')) {
           const std = mat as THREE.MeshStandardMaterial;
           std.transparent = true;
-          std.opacity = 0.22;
-          std.roughness = 0.04;
-          std.metalness = 0.1;
+          const frosted = name.includes('FrostedGlass');
+          std.opacity = frosted ? 0.88 : 0.22;
+          std.roughness = frosted ? 0.55 : 0.04;
+          std.metalness = frosted ? 0.0 : 0.1;
           std.depthWrite = false;
           m.castShadow = false; // Prevent hard opaque shadow from glass
         }

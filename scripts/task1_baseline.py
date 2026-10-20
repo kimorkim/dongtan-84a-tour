@@ -40,7 +40,8 @@ def setup_baseline():
             bpy.context.scene.collection.children.link(col)
 
     # 3. Save baseline blend
-    save_path = os.path.abspath("apt_v00_initial.blend")
+    save_path = os.path.abspath("models/archive/apt_v00_initial.blend")
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
     bpy.ops.wm.save_as_mainfile(filepath=save_path)
     print(f"SUCCESS: Baseline configured and saved to {save_path}")
 

@@ -1,0 +1,266 @@
+# 자료 파일 목록과 이동표
+
+2026-10-20 정리 시점의 목록이다. [분류 기준과 사용법](asset-guide.md)을 먼저 읽는다.
+총 104개 자료 중 103개를 이동했고, 작업용 모델 1개는 루트에 유지했다.
+파일명·바이트 내용은 변경하지 않았으며 이동 전후 SHA-256 일치를 검사했다.
+수정 시각은 정리 전 파일의 로컬 시각(Asia/Seoul)이다. 최신성 판단은 안내 문서의 상태 설명을 우선한다.
+`*.blend1`, 텍스처·코드·웹 산출물은 목록에서 제외했다.
+
+## 정리 후 추가 — Q4 안방 발코니·대피실 보수
+
+아래 5개는 최초 104개 자료 목록 이후 추가됐다. 현행 원본 Blender 파일과 웹 데이터도 Q4 보수로
+변경됐으므로 아래 과거 이동표의 원본 크기·수정 시각을 현행 파일 값으로 해석하지 않는다.
+새 생성·검증 스크립트는 `scripts/fix_master_balcony.py`, `render_master_balcony.py`,
+`verify_master_balcony.py`다. 근거와 가정은 [품질 보고서](quality-v2-report.md)의 Q4 항목을 본다.
+
+| 현재 파일 | 바이트 | 용도 |
+| --- | ---: | --- |
+| [발코니 보수 전 원본](../models/backups/apt_84a_photoreal_tour_before_master_balcony.blend) | 8902932 | 보수 이전 전체 모델 백업 |
+| [미닫이 교정 전 원본](../models/backups/apt_84a_photoreal_tour_before_sliding_correction.blend) | 8627184 | 초기 여닫이 해석이 남은 보수본. 현행 원본으로 사용하지 않음 |
+| [13번 평면 검토](../renders/review/render_13_master_balcony_plan.png) | 1073835 | Workbench 위쪽 시점: 방 경계·미닫이문 확인 |
+| [14번 발코니 POV](../renders/review/render_14_master_balcony_pov.png) | 1031669 | 안방에서 열린 미닫이문·외창 확인 |
+| [15번 대피실 POV](../renders/review/render_15_refuge_pov.png) | 976751 | 발코니에서 대피실 문·창·바닥 확인 |
+
+## 정리 후 추가 — Q5 알파룸 보수
+
+최초 목록 이후 백업과 확인 이미지 3개를 추가했다. 현재 모델·웹 데이터도 함께 갱신했다.
+생성/검증은 `scripts/fix_alpha_room.py`, `verify_alpha_room.py`, `render_alpha_room.py`를 사용한다.
+
+| 현재 파일 | 용도 |
+| --- | --- |
+| [알파룸 보수 전 원본](../models/backups/apt_84a_photoreal_tour_before_alpha_cleanup.blend) | 벽·가구 변경 전 전체 모델. 제거한 책상·의자 복원 가능 |
+| [16번 평면 검토](../renders/review/render_16_alpha_plan.png) | 복원한 벽·출입구와 빈 알파룸. 식탁 러그 침범 수정 후 식탁까지 넓혀 재촬영 |
+| [17번 실내 POV](../renders/review/render_17_alpha_pov.png) | 벽면·실외기실 문 확인. 검토용 임시 보조광 사용 |
+
+## 정리 후 추가 — Q6 실외기실 보수
+Q6 실외기실 보수에서 아래 자료 3개를 추가했다. 현행 모델·웹 데이터도 Q6 상태다.
+
+| 현재 파일 | 용도 |
+| --- | --- |
+| [실외기실 보수 전 원본](../models/backups/apt_84a_photoreal_tour_before_utility_cleanup.blend) | Q5 및 식탁 러그 교정까지 반영된 복원용 모델 |
+| [18번 실외기실 평면](../renders/review/render_18_utility_plan.png) | 방 경계·바닥·문·실외기 배치 확인 |
+| [19번 실외기실 POV](../renders/review/render_19_utility_pov.png) | 벽면과 북쪽 루버, 실외기 확인. 검토용 임시 보조광 사용 |
+
+## 정리 후 추가 — Q7 현관 디테일
+Q7 현관 보강에서 참고 JPG 8장·백업 1개·렌더 4개를 추가했다. 사진 출처/용도는
+[VR 이미지 안내](../references/modelhouse/vr84a/README.md)에 기록했다.
+
+| 현재 파일 | 용도 |
+| --- | --- |
+| [017_f](../references/modelhouse/vr84a/017_f.jpg), [017_r](../references/modelhouse/vr84a/017_r.jpg), [017_b](../references/modelhouse/vr84a/017_b.jpg), [017_l](../references/modelhouse/vr84a/017_l.jpg) | 공식 VR 현관: 중문·면재·신발장 참고 |
+| [018_f](../references/modelhouse/vr84a/018_f.jpg), [018_r](../references/modelhouse/vr84a/018_r.jpg), [018_l](../references/modelhouse/vr84a/018_l.jpg), [018_b](../references/modelhouse/vr84a/018_b.jpg) | 공식 VR 현관창고: 선반·기둥·양개문 참고 |
+| [현관 보강 전 원본](../models/backups/apt_84a_photoreal_tour_before_foyer_detail.blend) | Q6까지 반영된 복원용 모델 |
+| [20번 평면](../renders/review/render_20_foyer_plan.png) | 현관·팬트리·중문 열린 배치 |
+| [21번 중문 디테일](../renders/review/render_21_middle_door_detail.png) | 임시 닫힘 촬영. 실제 투어는 열린 상태 |
+| [22번 현관 팬트리](../renders/review/render_22_entry_pantry.png) | 열린 양개문·ㄷ자 선반·금속 기둥 |
+| [23번 현관 열린 모습](../renders/review/render_23_foyer_open.png) | 실제 투어의 열린 중문·현관·신발장 |
+
+## 루트 — 현행 작업 모델
+
+추가 검증 이미지: [web_start_view.jpg](../renders/review/web_start_view.jpg).
+시작점을 현관문 안쪽 x12.33/y7.40으로 교정한 뒤 실제 브라우저에서 캡처했다.
+처음 접속·초기화 버튼·R 키의 방향 확인용이며 Blender 렌더가 아니다.
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [apt_84a_photoreal_tour.blend](<../apt_84a_photoreal_tour.blend>) | `apt_84a_photoreal_tour.blend` | 8902932 | 2026-10-20 09:37:24 |
+
+## assets/analysis
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [blueprint_grid.png](<../assets/analysis/blueprint_grid.png>) | `blueprint_grid.png` | 26054 | 2026-10-18 22:15:03 |
+| [contours_overlay.png](<../assets/analysis/contours_overlay.png>) | `contours_overlay.png` | 22956 | 2026-10-16 14:00:24 |
+| [polys.json](<../assets/analysis/polys.json>) | `polys.json` | 3158 | 2026-10-16 14:01:18 |
+| [wall_mask_crop.png](<../assets/analysis/wall_mask_crop.png>) | `wall_mask_crop.png` | 924 | 2026-10-18 22:17:53 |
+| [wall_mask.png](<../assets/analysis/wall_mask.png>) | `wall_mask.png` | 2106 | 2026-10-16 13:59:17 |
+
+## models/archive
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [apt_84a_furnished_tour.blend](<../models/archive/apt_84a_furnished_tour.blend>) | `apt_84a_furnished_tour.blend` | 1924620 | 2026-10-16 14:07:44 |
+| [apt_84a.blend](<../models/archive/apt_84a.blend>) | `apt_84a.blend` | 1291580 | 2026-10-16 14:04:33 |
+| [apt_v00_initial.blend](<../models/archive/apt_v00_initial.blend>) | `apt_v00_initial.blend` | 934724 | 2026-10-16 12:14:16 |
+| [apt_v01_structure.blend](<../models/archive/apt_v01_structure.blend>) | `apt_v01_structure.blend` | 1203180 | 2026-10-16 12:39:04 |
+
+## models/backups
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [apt_84a_photoreal_tour_before_bay_reorder.blend](<../models/backups/apt_84a_photoreal_tour_before_bay_reorder.blend>) | `apt_84a_photoreal_tour_before_bay_reorder.blend` | 8690612 | 2026-10-19 21:54:49 |
+| [apt_84a_photoreal_tour_before_quality_v2.blend](<../models/backups/apt_84a_photoreal_tour_before_quality_v2.blend>) | `apt_84a_photoreal_tour_before_quality_v2.blend` | 5544517 | 2026-10-18 23:38:23 |
+
+## references/drawings/crops
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [cad_entry_detail_flipped.png](<../references/drawings/crops/cad_entry_detail_flipped.png>) | `cad_entry_detail_flipped.png` | 66742 | 2026-10-18 22:13:23 |
+| [cad_entry_detail.png](<../references/drawings/crops/cad_entry_detail.png>) | `cad_entry_detail.png` | 66362 | 2026-10-18 22:12:51 |
+| [crop_cad_entry_foyer.png](<../references/drawings/crops/crop_cad_entry_foyer.png>) | `crop_cad_entry_foyer.png` | 138346 | 2026-10-18 18:16:43 |
+| [crop_cad_kitchen_full.png](<../references/drawings/crops/crop_cad_kitchen_full.png>) | `crop_cad_kitchen_full.png` | 72590 | 2026-10-17 23:09:36 |
+| [crop_cad_kitchen.png](<../references/drawings/crops/crop_cad_kitchen.png>) | `crop_cad_kitchen.png` | 67287 | 2026-10-17 23:09:02 |
+| [dim_left_74.png](<../references/drawings/crops/dim_left_74.png>) | `dim_left_74.png` | 28310 | 2026-10-16 12:02:53 |
+| [dim_top_74.png](<../references/drawings/crops/dim_top_74.png>) | `dim_top_74.png` | 10664 | 2026-10-16 12:02:53 |
+| [left_unit_74.png](<../references/drawings/crops/left_unit_74.png>) | `left_unit_74.png` | 125778 | 2026-10-16 13:57:52 |
+| [top_dim_context.png](<../references/drawings/crops/top_dim_context.png>) | `top_dim_context.png` | 35419 | 2026-10-16 13:58:52 |
+| [unit_crop_74_flipped.png](<../references/drawings/crops/unit_crop_74_flipped.png>) | `unit_crop_74_flipped.png` | 170381 | 2026-10-16 13:57:27 |
+| [unit_crop_74.png](<../references/drawings/crops/unit_crop_74.png>) | `unit_crop_74.png` | 169558 | 2026-10-16 12:02:53 |
+
+## references/drawings/original
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [정보공개 파일(A76-2BL_도면)_1.pdf](<../references/drawings/original/정보공개 파일(A76-2BL_도면)_1.pdf>) | `정보공개 파일(A76-2BL_도면)_1.pdf` | 16879768 | 2026-10-16 11:52:40 |
+
+## references/drawings/pages
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [page_1.png](<../references/drawings/pages/page_1.png>) | `page_1.png` | 516955 | 2026-10-16 11:58:22 |
+| [page_17.png](<../references/drawings/pages/page_17.png>) | `page_17.png` | 367643 | 2026-10-16 11:57:17 |
+| [page_18.png](<../references/drawings/pages/page_18.png>) | `page_18.png` | 386555 | 2026-10-16 11:57:17 |
+| [page_2.png](<../references/drawings/pages/page_2.png>) | `page_2.png` | 601883 | 2026-10-16 11:58:23 |
+| [page_3.png](<../references/drawings/pages/page_3.png>) | `page_3.png` | 454338 | 2026-10-16 11:57:16 |
+| [page_32.png](<../references/drawings/pages/page_32.png>) | `page_32.png` | 452601 | 2026-10-16 11:57:57 |
+| [page_4.png](<../references/drawings/pages/page_4.png>) | `page_4.png` | 472481 | 2026-10-16 11:57:17 |
+| [page_46.png](<../references/drawings/pages/page_46.png>) | `page_46.png` | 370785 | 2026-10-16 11:57:58 |
+| [page_60.png](<../references/drawings/pages/page_60.png>) | `page_60.png` | 320959 | 2026-10-16 11:57:58 |
+| [page_74.png](<../references/drawings/pages/page_74.png>) | `page_74.png` | 307337 | 2026-10-16 11:57:58 |
+
+## references/layout/crops
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [blueprint_bath1_detail.png](<../references/layout/crops/blueprint_bath1_detail.png>) | `blueprint_bath1_detail.png` | 9848 | 2026-10-18 23:30:16 |
+| [crop_84a_kitchen_dining.png](<../references/layout/crops/crop_84a_kitchen_dining.png>) | `crop_84a_kitchen_dining.png` | 139449 | 2026-10-17 22:25:12 |
+| [crop_center_zone.png](<../references/layout/crops/crop_center_zone.png>) | `crop_center_zone.png` | 37111 | 2026-10-17 22:26:30 |
+| [crop_kitchen_context.png](<../references/layout/crops/crop_kitchen_context.png>) | `crop_kitchen_context.png` | 17556 | 2026-10-17 22:24:19 |
+| [crop_kitchen_top.png](<../references/layout/crops/crop_kitchen_top.png>) | `crop_kitchen_top.png` | 21930 | 2026-10-17 22:24:43 |
+| [crop_ref_alpha.png](<../references/layout/crops/crop_ref_alpha.png>) | `crop_ref_alpha.png` | 15512 | 2026-10-17 09:24:53 |
+| [crop_ref_entry_blueprint.png](<../references/layout/crops/crop_ref_entry_blueprint.png>) | `crop_ref_entry_blueprint.png` | 24906 | 2026-10-18 22:10:35 |
+| [crop_ref_kitchen.png](<../references/layout/crops/crop_ref_kitchen.png>) | `crop_ref_kitchen.png` | 80568 | 2026-10-16 14:34:57 |
+| [crop_ref_living.png](<../references/layout/crops/crop_ref_living.png>) | `crop_ref_living.png` | 82660 | 2026-10-16 14:34:57 |
+| [crop_ref_master.png](<../references/layout/crops/crop_ref_master.png>) | `crop_ref_master.png` | 174226 | 2026-10-16 14:34:57 |
+| [crop_ref_right.png](<../references/layout/crops/crop_ref_right.png>) | `crop_ref_right.png` | 204757 | 2026-10-16 14:34:57 |
+
+## references/layout/original
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [84A.jpg](<../references/layout/original/84A.jpg>) | `84A.jpg` | 74511 | 2026-10-16 13:55:41 |
+| [unit_84a.png](<../references/layout/original/unit_84a.png>) | `unit_84a.png` | 89134 | 2026-10-16 13:55:07 |
+
+## references/materials
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [prugio_84a_finishes.jpg](<../references/materials/prugio_84a_finishes.jpg>) | `prugio_84a_finishes.jpg` | 1129061 | 2026-10-16 14:42:44 |
+
+## references/modelhouse/crops
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [display_03_part_1.jpg](<../references/modelhouse/crops/display_03_part_1.jpg>) | `display_03_part_1.jpg` | 92831 | 2026-10-17 23:07:06 |
+| [display_03_part_2.jpg](<../references/modelhouse/crops/display_03_part_2.jpg>) | `display_03_part_2.jpg` | 103711 | 2026-10-17 23:07:06 |
+| [display_03_part_3.jpg](<../references/modelhouse/crops/display_03_part_3.jpg>) | `display_03_part_3.jpg` | 111514 | 2026-10-17 23:07:06 |
+| [display84a_07_part_1.jpg](<../references/modelhouse/crops/display84a_07_part_1.jpg>) | `display84a_07_part_1.jpg` | 109555 | 2026-10-18 23:28:19 |
+| [display84a_07_part_2.jpg](<../references/modelhouse/crops/display84a_07_part_2.jpg>) | `display84a_07_part_2.jpg` | 125397 | 2026-10-18 23:28:19 |
+| [display84a_07_part_3.jpg](<../references/modelhouse/crops/display84a_07_part_3.jpg>) | `display84a_07_part_3.jpg` | 126566 | 2026-10-18 23:28:19 |
+| [display84a_07_part_4.jpg](<../references/modelhouse/crops/display84a_07_part_4.jpg>) | `display84a_07_part_4.jpg` | 128861 | 2026-10-18 23:28:19 |
+
+## references/modelhouse/original
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [display84a_01.jpg](<../references/modelhouse/original/display84a_01.jpg>) | `display84a_01.jpg` | 1027646 | 2026-10-16 14:44:05 |
+| [display84a_03.jpg](<../references/modelhouse/original/display84a_03.jpg>) | `display84a_03.jpg` | 1292228 | 2026-10-16 14:44:05 |
+| [display84a_05.jpg](<../references/modelhouse/original/display84a_05.jpg>) | `display84a_05.jpg` | 913049 | 2026-10-16 14:44:05 |
+| [display84a_06.jpg](<../references/modelhouse/original/display84a_06.jpg>) | `display84a_06.jpg` | 1359709 | 2026-10-16 14:44:47 |
+| [display84a_07.jpg](<../references/modelhouse/original/display84a_07.jpg>) | `display84a_07.jpg` | 2149118 | 2026-10-16 14:44:48 |
+| [display84a_08.jpg](<../references/modelhouse/original/display84a_08.jpg>) | `display84a_08.jpg` | 1721528 | 2026-10-16 14:44:48 |
+
+## renders/archive/before-quality-v2
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [render_1_isometric_topdown.png](<../renders/archive/before-quality-v2/render_1_isometric_topdown.png>) | `renders_prev/render_1_isometric_topdown.png` | 2026426 | 2026-10-16 18:38:39 |
+| [render_2_living_room_pov.png](<../renders/archive/before-quality-v2/render_2_living_room_pov.png>) | `renders_prev/render_2_living_room_pov.png` | 2008498 | 2026-10-16 17:26:03 |
+| [render_3_kitchen_dining_pov.png](<../renders/archive/before-quality-v2/render_3_kitchen_dining_pov.png>) | `renders_prev/render_3_kitchen_dining_pov.png` | 2133408 | 2026-10-16 18:39:37 |
+| [render_4_master_bedroom_pov.png](<../renders/archive/before-quality-v2/render_4_master_bedroom_pov.png>) | `renders_prev/render_4_master_bedroom_pov.png` | 1942840 | 2026-10-16 17:31:08 |
+| [render_5_foyer_corridor_pov.png](<../renders/archive/before-quality-v2/render_5_foyer_corridor_pov.png>) | `renders_prev/render_5_foyer_corridor_pov.png` | 1984480 | 2026-10-16 17:37:30 |
+| [render_6_kitchen_reverse.png](<../renders/archive/before-quality-v2/render_6_kitchen_reverse.png>) | `renders_prev/render_6_kitchen_reverse.png` | 1967813 | 2026-10-16 18:41:51 |
+| [render_7_dress_pov.png](<../renders/archive/before-quality-v2/render_7_dress_pov.png>) | `renders_prev/render_7_dress_pov.png` | 2057459 | 2026-10-16 17:42:05 |
+| [render_8_bath_pov.png](<../renders/archive/before-quality-v2/render_8_bath_pov.png>) | `renders_prev/render_8_bath_pov.png` | 1912336 | 2026-10-16 17:45:33 |
+
+## renders/archive/early-tour
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [tour_1_entrance_foyer.png](<../renders/archive/early-tour/tour_1_entrance_foyer.png>) | `tour_1_entrance_foyer.png` | 1085290 | 2026-10-16 14:07:42 |
+| [tour_2_living_kitchen.png](<../renders/archive/early-tour/tour_2_living_kitchen.png>) | `tour_2_living_kitchen.png` | 1137798 | 2026-10-16 14:07:42 |
+| [tour_3_master_bedroom.png](<../renders/archive/early-tour/tour_3_master_bedroom.png>) | `tour_3_master_bedroom.png` | 1172703 | 2026-10-16 14:07:43 |
+| [tour_topdown_furnished.png](<../renders/archive/early-tour/tour_topdown_furnished.png>) | `tour_topdown_furnished.png` | 1149816 | 2026-10-16 14:07:44 |
+
+## renders/comparisons
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [compare_kitchen.jpg](<../renders/comparisons/compare_kitchen.jpg>) | `compare_kitchen.jpg` | 87512 | 2026-10-19 12:41:31 |
+| [compare_living.jpg](<../renders/comparisons/compare_living.jpg>) | `compare_living.jpg` | 81571 | 2026-10-19 12:41:31 |
+| [compare_master.jpg](<../renders/comparisons/compare_master.jpg>) | `compare_master.jpg` | 66800 | 2026-10-19 12:41:31 |
+
+## renders/presentation
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [render_1_isometric_topdown.png](<../renders/presentation/render_1_isometric_topdown.png>) | `render_1_isometric_topdown.png` | 2260230 | 2026-10-19 21:40:46 |
+| [render_10_common_bath_dry_vanity_pov.png](<../renders/presentation/render_10_common_bath_dry_vanity_pov.png>) | `render_10_common_bath_dry_vanity_pov.png` | 1940909 | 2026-10-18 23:38:23 |
+| [render_2_living_room_pov.png](<../renders/presentation/render_2_living_room_pov.png>) | `render_2_living_room_pov.png` | 2419593 | 2026-10-19 22:01:37 |
+| [render_3_kitchen_dining_pov.png](<../renders/presentation/render_3_kitchen_dining_pov.png>) | `render_3_kitchen_dining_pov.png` | 2333979 | 2026-10-19 22:23:30 |
+| [render_4_master_bedroom_pov.png](<../renders/presentation/render_4_master_bedroom_pov.png>) | `render_4_master_bedroom_pov.png` | 2141388 | 2026-10-19 22:38:59 |
+| [render_5_foyer_corridor_pov.png](<../renders/presentation/render_5_foyer_corridor_pov.png>) | `render_5_foyer_corridor_pov.png` | 1934590 | 2026-10-18 22:24:29 |
+| [render_6_kitchen_reverse.png](<../renders/presentation/render_6_kitchen_reverse.png>) | `render_6_kitchen_reverse.png` | 2300087 | 2026-10-19 16:27:17 |
+| [render_7_dress_pov.png](<../renders/presentation/render_7_dress_pov.png>) | `render_7_dress_pov.png` | 2161523 | 2026-10-17 09:45:05 |
+| [render_8_bath_pov.png](<../renders/presentation/render_8_bath_pov.png>) | `render_8_bath_pov.png` | 1840284 | 2026-10-17 10:01:09 |
+| [render_9_kitchen_prep_pov.png](<../renders/presentation/render_9_kitchen_prep_pov.png>) | `render_9_kitchen_prep_pov.png` | 2018888 | 2026-10-18 12:20:52 |
+
+## renders/previews
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [plan_topdown.png](<../renders/previews/plan_topdown.png>) | `previews_pbr/plan_topdown.png` | 966914 | 2026-10-16 22:19:11 |
+| [render_1_isometric_topdown.png](<../renders/previews/render_1_isometric_topdown.png>) | `previews_pbr/render_1_isometric_topdown.png` | 812005 | 2026-10-16 22:37:19 |
+| [render_2_living_room_pov.png](<../renders/previews/render_2_living_room_pov.png>) | `previews_pbr/render_2_living_room_pov.png` | 856851 | 2026-10-16 22:37:23 |
+| [render_3_kitchen_dining_pov.png](<../renders/previews/render_3_kitchen_dining_pov.png>) | `previews_pbr/render_3_kitchen_dining_pov.png` | 879314 | 2026-10-16 22:29:52 |
+| [render_4_master_bedroom_pov.png](<../renders/previews/render_4_master_bedroom_pov.png>) | `previews_pbr/render_4_master_bedroom_pov.png` | 770902 | 2026-10-16 22:29:56 |
+| [render_5_foyer_corridor_pov.png](<../renders/previews/render_5_foyer_corridor_pov.png>) | `previews_pbr/render_5_foyer_corridor_pov.png` | 850141 | 2026-10-16 22:30:00 |
+| [render_6_kitchen_reverse.png](<../renders/previews/render_6_kitchen_reverse.png>) | `previews_pbr/render_6_kitchen_reverse.png` | 835838 | 2026-10-16 22:30:04 |
+| [render_7_dress_pov.png](<../renders/previews/render_7_dress_pov.png>) | `previews_pbr/render_7_dress_pov.png` | 777086 | 2026-10-16 22:30:08 |
+| [render_8_bath_pov.png](<../renders/previews/render_8_bath_pov.png>) | `previews_pbr/render_8_bath_pov.png` | 917306 | 2026-10-16 22:30:11 |
+
+## renders/review
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [render_11_fridge_pov.png](<../renders/review/render_11_fridge_pov.png>) | `render_11_fridge_pov.png` | 1482900 | 2026-10-20 09:41:35 |
+| [render_12_sink_door_pov.png](<../renders/review/render_12_sink_door_pov.png>) | `render_12_sink_door_pov.png` | 1450808 | 2026-10-20 09:45:07 |
+
+## renders/verification/crops
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [crop_render_bath1_after.png](<../renders/verification/crops/crop_render_bath1_after.png>) | `crop_render_bath1_after.png` | 68155 | 2026-10-18 23:36:20 |
+| [crop_render_foyer_after.png](<../renders/verification/crops/crop_render_foyer_after.png>) | `crop_render_foyer_after.png` | 68733 | 2026-10-18 22:22:09 |
+| [crop_render_foyer_zoom.png](<../renders/verification/crops/crop_render_foyer_zoom.png>) | `crop_render_foyer_zoom.png` | 176274 | 2026-10-18 22:11:52 |
+
+## renders/verification/structure
+
+| 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |
+| --- | --- | ---: | --- |
+| [exact_structure_preview.png](<../renders/verification/structure/exact_structure_preview.png>) | `exact_structure_preview.png` | 1034362 | 2026-10-16 14:01:46 |
+| [verification_alpha_pov.png](<../renders/verification/structure/verification_alpha_pov.png>) | `verification_alpha_pov.png` | 1081843 | 2026-10-16 12:39:04 |
+| [verification_living_pov.png](<../renders/verification/structure/verification_living_pov.png>) | `verification_living_pov.png` | 1071293 | 2026-10-16 12:39:04 |
+| [verification_topdown.png](<../renders/verification/structure/verification_topdown.png>) | `verification_topdown.png` | 1025130 | 2026-10-16 12:39:03 |
+
+

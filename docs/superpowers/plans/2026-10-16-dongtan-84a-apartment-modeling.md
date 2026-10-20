@@ -1,5 +1,9 @@
 # 84A Apartment Structural Modeling Implementation Plan
 
+> Historical plan: later layout/dimension corrections supersede parts of this document.
+> Read the [current report](../../quality-v2-report.md) and [asset guide](../../asset-guide.md) first.
+> File locations below are historical; use the [relocation index](../../asset-inventory.md).
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Build a 1:1 scale 3D structural model (floors, perimeter walls, interior partition walls, doors, windows) of the Dongtan A76-2BL 84A (Alpha Room) apartment in Blender via Blender MCP, verified by numerical queries and top-down/indoor POV screenshots.

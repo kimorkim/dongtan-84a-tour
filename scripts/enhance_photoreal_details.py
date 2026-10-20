@@ -1,6 +1,6 @@
 """84A photoreal enhancement pass (additive, idempotent).
 
-Adds interior detail props, lifestyle dressing, alpha-room home office,
+Adds interior detail props, lifestyle dressing,
 new cameras - without touching existing collections' contents.
 Run inside Blender (via MCP execute_code or blender --python).
 """
@@ -133,8 +133,7 @@ def build():
     A.create_ac_outdoor_unit("AC_Condenser", 8.9, hit[1] - 0.17 - 0.14, 0.0, facing='-y',
                              mat_body=M("Mat_AC_Body"), mat_grill=M("Mat_AC_Grill"),
                              mat_pipe=mat_chrome, col=col)
-    hit = snap_wall((8.9, 9.0, 1.3), (0, -1, 0), (8.9, 8.20, 1.3))
-    A.create_louver_door("Vent_ACRoom", 8.9, hit[1] + 0.03, 0.35, 0.90, 1.60, facing='+y', mat=mat_cab, col=col)
+    # The north alpha-room opening is an access door, not an exterior vent panel.
     hit = snap_wall((1.5, 1.1, 1.2), (-1, 0, 0), (0.70, 1.1, 1.2))
     A.create_refuge_door("Refuge_Balcony", hit[0] + 0.035, 1.1, 0.0, facing='+x',
                          mat_door=mat_cab, mat_sign=M("Mat_Sign_Red"), col=col)
@@ -143,24 +142,6 @@ def build():
     hit = snap_wall((13.9, 3.0, 1.2), (0, 1, 0), (13.9, 4.30, 1.2))
     A.create_wardrobe("Wardrobe_Bed3", 13.9, hit[1] - 0.01, 0.0, 2.0, 0.60, 2.15,
                       facing='-y', mat_cab=mat_cab, mat_handle=mat_chrome, col=col)
-
-    print("=== Alpha room: home office set ===")
-    # North wall solid only for X<10.35 (jog/opening east of it); west side is
-    # open plan, so the bookcase stands as a freestanding study divider.
-    hit_n = snap_wall((10.2, 6.5, 1.0), (0, 1, 0), (10.2, 7.934, 1.0))
-    desk_y = hit_n[1] - 0.34
-    A.create_desk("Office_Desk", 9.9, desk_y, 0.0, 1.2, 0.6, mat_top=mat_walnut, mat_leg=mat_cab, col=col)
-    desk_top = 0.765
-    A.create_office_chair("Office_Chair", 9.9, desk_y - 0.78, 0.0, rot_z_deg=90,
-                          mat_seat=mat_sofa, mat_frame=mat_frame, col=col)
-    A.create_bookshelf("Office_Shelf", 6.8, 9.15, 0.0, 1.7, 0.32, 1.9,
-                       facing='+x', mat_wood=mat_walnut, mat_books=mat_books, col=col)
-    A.create_desk_lamp("Office_Lamp", 9.45, desk_y + 0.12, desk_top, mat_arm=mat_frame,
-                       mat_shade=mat_shade, mat_bulb=mat_bulb, col=col)
-    A.create_laptop("Office_Laptop", 9.95, desk_y - 0.02, desk_top, mat_body=mat_frame,
-                    mat_screen=M("Mat_Laptop_Screen"), col=col)
-    A.create_mug("Office_Mug", 10.3, desk_y + 0.05, desk_top, mat=mat_ceramic, col=col)
-    A.create_rug("Office_Rug", 9.95, desk_y - 0.75, 0.012, 1.7, 1.3, mat=M("Mat_Rug_Office"), col=col)
 
     print("=== Dress room: open closet (wall-snapped) ===")
     hit = snap_wall((1.6, 7.9, 1.2), (-1, 0, 0), (0.70, 7.9, 1.2))
@@ -216,7 +197,7 @@ def build():
     # Verification summary
     owned = [o for o in bpy.data.objects if o.name.startswith(OWN_PREFIXES)]
     print(f"Enhancement objects in scene: {len(owned)}")
-    for key in ("Pendant_Dining1", "Gallery_Art1_Frame", "Office_Desk_Top",
+    for key in ("Pendant_Dining1", "Gallery_Art1_Frame",
                 "Wardrobe_Bed3_Carcass", "AC_Condenser_Body", "Cove_Living_TrimS"):
         o = bpy.data.objects.get(key)
         if o:

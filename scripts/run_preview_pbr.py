@@ -18,9 +18,9 @@ with open(os.path.join(os.path.dirname(__file__), "render_present_views.py"), "r
 
 prelude = (
     "RENDER_BATCH = %r\nPREVIEW = True\nRENDER_DIR = %r\n"
-    % (BATCH, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "previews_pbr"))
+    % (BATCH, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "renders", "previews"))
 )
-os.makedirs(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "previews_pbr"), exist_ok=True)
+os.makedirs(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "renders", "previews"), exist_ok=True)
 res = mcp_client.send_blender_command('execute_code', {'code': prelude + code}, timeout=300.0)
 s = json.dumps(res, ensure_ascii=False)
 print(s[:4000])
