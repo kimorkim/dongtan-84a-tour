@@ -116,6 +116,17 @@ body {
   font-size: 13px;
 }
 
+.hud-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.hud-header .hud-title {
+  flex: 1;
+}
+
 .hud-title {
   font-size: 14px;
   font-weight: 600;
@@ -126,6 +137,45 @@ body {
   float: right;
   color: #e0a83c;
   font-weight: 600;
+}
+
+.hud-toggle-btn {
+  flex: none;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ddd;
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.15s ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.hud-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+#hud.collapsed {
+  padding: 8px 14px;
+  width: auto;
+  min-width: 200px;
+}
+
+#hud.collapsed .hud-header .hud-title {
+  margin-bottom: 0;
+}
+
+#hud.collapsed #hud-body {
+  display: none;
 }
 
 .hud-row {
