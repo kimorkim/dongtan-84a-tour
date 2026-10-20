@@ -285,6 +285,12 @@ input[type="range"] {
     font-size: 12px;
   }
 
+  .hud-toggle-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 13px;
+  }
+
   .hud-help {
     font-size: 11px;
     margin-top: 6px;

@@ -116,6 +116,7 @@ async function boot(): Promise<void> {
   function setHudCollapsed(collapsed: boolean): void {
     hud.classList.toggle('collapsed', collapsed);
     btnHudToggle.textContent = collapsed ? '▼' : '▲';
+    btnHudToggle.setAttribute('aria-expanded', String(!collapsed));
   }
 
   btnHudToggle.addEventListener('click', (ev) => {
