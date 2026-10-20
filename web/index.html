@@ -42,6 +42,38 @@
           <div class="hud-help">WASD 이동 · 마우스 시선 · Shift 빠르게 · V 모드 전환 · H HUD 접기 · Esc 마우스 해제</div>
         </div>
       </div>
+
+      <!-- Gallery Modal -->
+      <div id="gallery-modal" class="gallery-modal" hidden>
+        <div class="gallery-backdrop"></div>
+        <div class="gallery-container">
+          <div class="gallery-header">
+            <div class="gallery-tabs" id="gallery-tabs">
+              <button class="gallery-tab active" data-room="전체">전체</button>
+              <button class="gallery-tab" data-room="거실">거실</button>
+              <button class="gallery-tab" data-room="주방">주방</button>
+              <button class="gallery-tab" data-room="안방">안방</button>
+              <button class="gallery-tab" data-room="욕실">욕실</button>
+              <button class="gallery-tab" data-room="현관">현관</button>
+            </div>
+            <button id="btn-gallery-close" class="gallery-close-btn" aria-label="갤러리 닫기">✕</button>
+          </div>
+
+          <div class="gallery-stage">
+            <button id="btn-gallery-prev" class="gallery-nav-btn prev" aria-label="이전 사진">‹</button>
+            <div class="gallery-view">
+              <img id="gallery-img" src="" alt="렌더링 뷰" />
+              <div class="gallery-caption">
+                <div id="gallery-title" class="gallery-caption-title"></div>
+                <div id="gallery-desc" class="gallery-caption-desc"></div>
+              </div>
+            </div>
+            <button id="btn-gallery-next" class="gallery-nav-btn next" aria-label="다음 사진">›</button>
+          </div>
+
+          <div class="gallery-thumbs-track" id="gallery-thumbs"></div>
+        </div>
+      </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
