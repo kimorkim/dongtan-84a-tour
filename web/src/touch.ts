@@ -28,7 +28,7 @@ export class TouchControls {
     this.knobEl.className = 'joystick-knob';
 
     this.baseEl.appendChild(this.knobEl);
-    this.container.appendChild(this.baseEl);
+    (this.container.parentElement ?? document.body).appendChild(this.baseEl);
 
     this.bindEvents();
   }
