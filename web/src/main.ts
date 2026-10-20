@@ -121,7 +121,7 @@ async function boot(): Promise<void> {
   const speedVal = el('speed-val');
   const hudHelp = document.querySelector('.hud-help');
   if (isTouch && hudHelp) {
-    hudHelp.textContent = '왼손 조이스틱 이동 · 오른손 드래그 시선 · V 전체 보기';
+    hudHelp.textContent = '왼손 조이스틱 이동 · 오른손 드래그 시선';
   }
 
   player.speed = Number(speedInput.value);
@@ -218,8 +218,9 @@ async function boot(): Promise<void> {
     }
   });
 
-  canvas.addEventListener('click', () => {
-    if (!isTouch && mode === 'walk' && document.pointerLockElement !== canvas) {
+  canvas.addEventListener('click', (ev: MouseEvent) => {
+    if ((ev as PointerEvent).pointerType === 'touch') return;
+    if (mode === 'walk' && document.pointerLockElement !== canvas) {
       canvas.requestPointerLock();
     }
   });

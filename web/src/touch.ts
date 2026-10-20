@@ -54,13 +54,13 @@ export class TouchControls {
 
   private onTouchStart = (ev: TouchEvent): void => {
     if (!this.active) return;
+    ev.preventDefault();
 
     const width = window.innerWidth;
     for (let i = 0; i < ev.changedTouches.length; i++) {
       const touch = ev.changedTouches[i];
       // Left half: joystick
       if (touch.clientX < width * 0.5 && this.joystickTouchId === null) {
-        ev.preventDefault();
         this.joystickTouchId = touch.identifier;
         this.joystickOrigin = { x: touch.clientX, y: touch.clientY };
 
@@ -72,7 +72,6 @@ export class TouchControls {
       }
       // Right half: look
       else if (touch.clientX >= width * 0.5 && this.lookTouchId === null) {
-        ev.preventDefault();
         this.lookTouchId = touch.identifier;
         this.lastLookPos = { x: touch.clientX, y: touch.clientY };
       }
@@ -81,12 +80,12 @@ export class TouchControls {
 
   private onTouchMove = (ev: TouchEvent): void => {
     if (!this.active) return;
+    ev.preventDefault();
 
     for (let i = 0; i < ev.changedTouches.length; i++) {
       const touch = ev.changedTouches[i];
 
       if (touch.identifier === this.joystickTouchId) {
-        ev.preventDefault();
         const dx = touch.clientX - this.joystickOrigin.x;
         const dy = touch.clientY - this.joystickOrigin.y;
         const dist = Math.hypot(dx, dy);
@@ -103,13 +102,12 @@ export class TouchControls {
           y: -knobY / this.maxRadius,
         };
       } else if (touch.identifier === this.lookTouchId) {
-        ev.preventDefault();
         const dx = touch.clientX - this.lastLookPos.x;
         const dy = touch.clientY - this.lastLookPos.y;
         this.lastLookPos = { x: touch.clientX, y: touch.clientY };
 
         // Rotate player camera
-        this.player.addLook(dx * (this.lookSensitivity / 0.0022), dy * (this.lookSensitivity / 0.0022));
+        this.player.addLook(dx, dy, this.lookSensitivity);
       }
     }
   };

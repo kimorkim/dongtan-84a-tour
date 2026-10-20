@@ -38,9 +38,9 @@ export class Player {
     this.applyToCamera();
   }
 
-  addLook(dx: number, dy: number): void {
-    this.yaw -= dx * 0.0022;
-    this.pitch -= dy * 0.0022;
+  addLook(dx: number, dy: number, sensitivity = 0.0022): void {
+    this.yaw -= dx * sensitivity;
+    this.pitch -= dy * sensitivity;
     this.pitch = Math.max(-1.45, Math.min(1.45, this.pitch));
   }
 

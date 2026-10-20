@@ -91,6 +91,7 @@ body {
   pointer-events: none;
 }
 
+#crosshair[hidden],
 #lock-hint[hidden] {
   display: none;
 }
@@ -208,14 +209,12 @@ input[type="range"] {
   pointer-events: none;
 }
 
-/* Touch device specific adjustments */
-body.is-touch #lock-hint,
-body.is-touch #crosshair {
-  display: none !important;
-}
-
 /* Mobile responsive layout */
 @media (max-width: 640px) {
+  #lock-hint {
+    display: none;
+  }
+
   #hud {
     top: 10px;
     left: 10px;
@@ -231,6 +230,7 @@ body.is-touch #crosshair {
   }
 
   .hud-row button {
+    min-height: 38px;
     padding: 6px 10px;
     font-size: 12px;
   }
