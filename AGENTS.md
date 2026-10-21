@@ -12,9 +12,13 @@
 
 ## 현행 배치와 자료 해석
 
-- 2026-10-21 치수 대조: `references/drawings/original/84a 평면도.pdf`의 표기와 현행 메시에는
-  수십 mm 차이가 있다. 특히 침실2/3 사이 벽은 도면 130mm/모델 94mm다.
-  `docs/dimension-audit-84a.md`를 먼저 읽는다. 기존 방 크기를 도면 확정 치수로 제시하지 않는다.
+- **Q12 치수 교정이 아래 Q4~Q11의 옛 절대 좌표보다 우선한다.**
+  `docs/dimension-correction-q12.md`와 `scripts/plan_dimensions.py`를 먼저 읽는다.
+  서재 2700×3410/유나방 3000×3410, 사이 벽 130mm로 교정했다. 창과 전체 외곽도 갱신했다.
+  실외기실·알파룸 깊이·천장고 등 문서에 남긴 가정은 확정 치수로 제시하지 않는다.
+  `calibrate_dimensions.py`는 Q11b 백업을 여는 일회성 마이그레이션이다. 후속 수정 뒤 재실행하면 안 된다.
+  Q12 검사는 `verify_dimensions.py` 및 기존 방별 검사, 충돌/보행, 웹 실제 GLB 검사다.
+  전체 현재 형상은 `renders/review/render_36_dimensioned_plan.png`를 본다.
 - Blender는 m 단위, x=동쪽, y=북쪽, z=높이. 웹은 (x,y,z) → (x,z,-y).
 - 냉장고장 순서: 남쪽 거실 → 냉장고 → 김치냉장고 → 밥솥장 → 북쪽 부엌.
   장 전체는 y5.64~8.05이며 북쪽 문 공간을 침범하지 않는다.

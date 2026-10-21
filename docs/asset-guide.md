@@ -7,6 +7,10 @@
 
 ## 먼저 볼 파일
 
+- **현재 치수는 Q12**: [도면 치수 교정 기록](dimension-correction-q12.md),
+  [교정된 전체 평면](../renders/review/render_36_dimensioned_plan.png)을 먼저 본다.
+  아래 Q4~Q11의 배치 선택은 유지했지만 옛 좌표·미갱신 렌더는 현행 치수 근거가 아니다.
+
 - 현재 모델: [apt_84a_photoreal_tour.blend](../apt_84a_photoreal_tour.blend).
   작업과 익스포트의 기준이며, 루트 위치를 유지한다.
 - 현재 냉장고장 배치: [냉장고 POV](../renders/review/render_11_fridge_pov.png),

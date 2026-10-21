@@ -322,6 +322,20 @@ Q10b 교정: 사용자 기본 옵션은 방문 옆 장이다. 기존 30·31번 �
 | [render_11_fridge_pov.png](<../renders/review/render_11_fridge_pov.png>) | `render_11_fridge_pov.png` | 1482900 | 2026-10-20 09:41:35 |
 | [render_12_sink_door_pov.png](<../renders/review/render_12_sink_door_pov.png>) | `render_12_sink_door_pov.png` | 1450808 | 2026-10-20 09:45:07 |
 
+## Q12 치수 교정 추가 자료 (2026-10-21)
+
+| 경로 | 목적·상태 |
+| --- | --- |
+| `references/drawings/original/84a 평면도.pdf` | A02-102 확장형 치수 원본, Q12 기준 |
+| `assets/analysis/dimensioned_plan_1.png` 및 `dimension_*.png` | 원본 PDF에서 추출·확대한 판독용 파생 이미지, 렌더 아님 |
+| `assets/analysis/calibration_objects.json` | 교정 전 Q11b 객체 경계 기록, 현행 치수 아님 |
+| `assets/analysis/q12_dimensions.json` | Q12 축·실내 범위·창 치수 결과, 해석 한계는 Q12 기록 참조 |
+| `models/backups/apt_84a_photoreal_tour_before_dimensions.blend` | 치수 교정 전 복원본, 현행 원본 아님 |
+| `renders/review/render_36_dimensioned_plan.png` | Q12 전체 형상 확인용 평면 렌더, 웹 갤러리 전체 뷰 |
+| `scripts/render_calibrated_gallery.py` 출력 | 기존 갤러리 입력 및 18/19/31/34번을 Q12로 갱신, 기존 파일 경로 유지 |
+| `docs/dimension-correction-q12.md` | 직접 표기 치수·추정·검증·미해결 높이의 현행 기록 |
+| `docs/dimension-audit-84a.md` | 교정 전 조사 이력, 현행 치수로 사용하지 않음 |
+
 ## renders/verification/crops
 
 | 파일 (현재 경로 링크) | 이전 상대 경로 | 바이트 | 원래 수정 시각 |

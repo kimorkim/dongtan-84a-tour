@@ -26,7 +26,7 @@ test('actual tour preserves desk sizes, workstation equipment and both mesh chai
       box.union(new Box3(new Vector3(...a.min),new Vector3(...a.max)).applyMatrix4(matrix));
     }
     assert.ok(Math.abs(box.max.x-box.min.x-d)<.002 && Math.abs(box.max.z-box.min.z-w)<.002);
-    assert.ok(box.max.x<11.87 && box.min.z> -4.22 && box.max.z<-.88,'Desk outside room');
+    assert.ok(box.max.x<11.775 && box.min.z> -4.33 && box.max.z<-.92,'Desk outside room');
   }
   for(const color of ['Black','Grey']) {
     for(const part of ['BackFrame','BackMesh','SeatFrame','SeatMesh','Spoke0','Caster00']) {

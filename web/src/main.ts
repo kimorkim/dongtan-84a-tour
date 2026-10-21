@@ -15,7 +15,7 @@ import { loadWorld } from './world';
 type Mode = 'walk' | 'overview';
 
 // Just inside the front door, looking straight through the middle door into the corridor.
-const SPAWN = { x: 12.33, z: -7.40 };
+const SPAWN = { x: 12.33, z: -7.15 };
 const SPAWN_TARGET = { x: 12.33, z: -5.0 };
 const SPAWN_YAW = Math.atan2(-(SPAWN_TARGET.x - SPAWN.x), -(SPAWN_TARGET.z - SPAWN.z));
 const OVER_TARGET = new THREE.Vector3(7.15, 0, -4.95);

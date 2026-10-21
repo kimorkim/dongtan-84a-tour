@@ -147,7 +147,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     id: 'topdown',
     room: '전체',
     title: '84A 입체 평면도',
-    description: '전체 공간 구조 및 가구 배치도',
+    description: '도면 평면 치수 교정 후 공간 구조 및 가구 배치도',
     src: './gallery/topdown.webp',
     thumb: './gallery/thumbs/topdown.webp',
     worldPos: [7.15, 4.5, -5.0],

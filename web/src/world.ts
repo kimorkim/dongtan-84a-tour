@@ -76,7 +76,7 @@ export async function loadWorld(
     { pos: [2.4, 3.7, 2.25], color: 0xffebd4, intensity: 12, dist: 6 },
     { pos: [3.45, 6.9, 2.15], color: 0xfff0e4, intensity: 8, dist: 4 },
     // Alpha Room & Bedrooms
-    { pos: [10.3, 6.9, 2.25], color: 0xffebd4, intensity: 9, dist: 5 },
+    { pos: [9.1, 6.9, 2.25], color: 0xffebd4, intensity: 9, dist: 5 },
     { pos: [10.5, 2.5, 2.25], color: 0xffebd4, intensity: 9, dist: 5 },
     { pos: [13.6, 2.5, 2.25], color: 0xffebd4, intensity: 9, dist: 5 },
     { pos: [1.6, 7.8, 2.25], color: 0xffebd4, intensity: 7, dist: 4 }, // Dress room
