@@ -5,6 +5,7 @@ im=Image.open(root/'assets/analysis/dimensioned_plan_1.png')
 w,h=im.size
 print('FULL IMAGE',w,h)
 im.crop((1150,1350,1710,1770)).resize((1120,840)).save(root/'assets/analysis/dimension_small_rooms_detail.png')
+im.crop((1130,1050,1790,1460)).resize((1320,820)).save(root/'assets/analysis/dimension_foyer_detail.png')
 gray=im.convert('L')
 for x in (1200,1250,1330,1400,1460,1550,1650):
     lines=[y for y in range(1650,1750) if gray.getpixel((x,y))<150]
