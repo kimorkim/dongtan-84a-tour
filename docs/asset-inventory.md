@@ -384,3 +384,19 @@ Q10b 교정: 사용자 기본 옵션은 방문 옆 장이다. 기존 30·31번 �
 | `assets/analysis/q15_living_objects.json` | 수정 전 거실 객체 범위 조사, 현행 배치로 해석하지 않음 |
 | `scripts/detail_living_finish.py`, `scripts/verify_living_finish.py`, `scripts/render_living_finish.py` | 현행 거실 마감·검사·렌더 |
 
+
+# Q16 주방 복구 자료
+
+| 경로 | 목적 / 상태 |
+|---|---|
+| `models/backups/apt_84a_photoreal_tour_before_kitchen_finish.blend` | Q15 복원용 백업, 현행 원본 아님 |
+| `assets/analysis/q16_kitchen_before.json`, `probe_kitchen_q16.py` | 수정 전 주방 부품 범위와 재현 렌더 스크립트 |
+| `renders/review/q16_kitchen_before.png` | 수정 전 생성 렌더, 모델하우스 사진 아님 |
+| `renders/review/render_42_kitchen_sink.png` | Q16 싱크대·식기세척기·수전 정렬 확인 렌더 |
+| `renders/review/render_43_kitchen_corner.png` | Q16 싱크-오븐-반도형 조리대 연결, 웹 주방 상세 원본 |
+| `renders/review/render_44_kitchen_plan.png` | Q16 주방 ㄷ자 평면과 통로 확인 |
+| `renders/review/render_45_kitchen_dining.png` | 식당에서 본 Q16 주방, 웹 주방 전체 원본 |
+| `assets/textures_export/q16_stone_diff.jpg` | 밝게 보정한 주방 전용 웹 석재 표현, 실제 제조사 스캔 아님 |
+| `scripts/detail_kitchen_finish.py`, `verify_kitchen_finish.py`, `render_kitchen_finish.py` | 현행 모델에만 주방 복구·회귀 검사·확인 렌더 |
+
+기존 12/36번 및 발표용 주방 3/9번 경로도 Q16으로 갱신했다. 신규 도면·사진 원본은 추가하지 않았다.

@@ -98,6 +98,7 @@ def bake():
     data['dimensions_version'] = bpy.context.scene.get('Q12_dimensions_version', 0)
     data['sofa_version'] = 14 if bpy.context.scene.get('Q14_sofa') else 0
     data['living_finish_version'] = bpy.context.scene.get('Q15_living_finish', 0)
+    data['kitchen_finish_version'] = bpy.context.scene.get('Q16_kitchen_finish', 0)
 
     here = os.path.dirname(os.path.abspath(__file__)) if '__file__' in locals() else os.getcwd()
     root = os.path.dirname(here) if os.path.basename(here) == "scripts" else here

@@ -22,7 +22,7 @@ IMAGES = [
     ("foyer", "renders/review/render_23_foyer_open.png", "현관", "현관 및 복도", "중문과 현관 팬트리가 마주보는 진입 복도", (12.33, 7.0, 1.35)),
     ("foyer-pantry", "renders/review/render_22_entry_pantry.png", "현관", "현관 워크인 팬트리", "ㄷ자 시스템 선반이 설치된 대용량 수납공간", (11.15, 6.7, 1.35)),
     ("living", "renders/review/render_29_oak_living.png", "거실", "거실과 브레스트 소파", "밝은 오크 바닥·우물천장과 아이보리 리클라이너 소파", (6.5, 3.8, 1.35)),
-    ("kitchen-island", "renders/presentation/render_3_kitchen_dining_pov.png", "주방", "대면형 주방 및 식당", "11자형 아일랜드 조리대와 6인용 식탁", (6.8, 6.8, 1.35)),
+    ("kitchen-island", "renders/presentation/render_3_kitchen_dining_pov.png", "주방", "대면형 주방 및 식당", "ㄷ자 조리대와 6인용 식탁", (6.8, 6.8, 1.35)),
     ("fridge-wall", "renders/review/render_11_fridge_pov.png", "주방", "냉장고장 및 빌트인 수납", "빌트인 냉장고·김치냉장고·밥솥장 라인", (6.0, 7.0, 1.35)),
     ("kitchen-prep", "renders/presentation/render_9_kitchen_prep_pov.png", "주방", "싱크대 및 조리 공간", "와이드 사각 싱크볼과 주방 환기창", (7.4, 7.2, 1.35)),
     ("master-bed", "renders/presentation/render_4_master_bedroom_pov.png", "안방", "안방 (침실 1)", "아늑한 마스터 베드룸 및 발코니 출입문", (2.5, 3.8, 1.35)),

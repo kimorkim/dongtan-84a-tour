@@ -56,6 +56,9 @@ if data.get('sofa_version') == 14:
     goals.extend([('Brest sofa front aisle',7.3,3.0),('Brest sofa north passage',7.8,5.1)])
 if data.get('living_finish_version') == 15 or data.get('living_finish_version') == 1:
     goals.extend([('Living cleared centre',6.4,3.2),('Living window approach',6.4,1.4)])
+if data.get('kitchen_finish_version') == 1:
+    goals.extend([('Kitchen sink approach',6.05,9.10),('Kitchen cooktop approach',6.65,9.03),
+                  ('Kitchen dishwasher approach',5.4,9.10)])
 for name,x,y in goals:
     distance = min(math.hypot(i * STEP - x, j * STEP - 0.6 - y) for i, j in visited)
     print(f'{name}: nearest reachable point {distance:.3f}m')

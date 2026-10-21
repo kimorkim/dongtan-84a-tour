@@ -101,7 +101,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     id: 'kitchen-island',
     room: '주방',
     title: '대면형 주방 및 식당',
-    description: '11자형 아일랜드 조리대와 6인용 식탁',
+    description: 'ㄷ자 조리대와 6인용 식탁',
     src: './gallery/kitchen-island.webp',
     thumb: './gallery/thumbs/kitchen-island.webp',
     worldPos: [6.8, 1.35, -6.8],

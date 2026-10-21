@@ -197,3 +197,12 @@ PDF 추출본과 CAD 확대는 실제 도면 계열이고, `84A.jpg`의 가구�
 샤시 분할·커튼 주름은 사진 기반 제안이며 제작 치수가 아니다. 창밖 배경은 복구한 생성 이미지다.
 거실 외 다른 방의 기존 렌더는 이 배경 복구 전 촬영본일 수 있다.
 
+
+# Q16 주방 싱크대 복구
+
+현재 주방은 `scripts/detail_kitchen_finish.py` 결과다. Q12 치수 교정 후 부품마다 달라진
+변형으로 벌어진 상판·하부장·식기세척기·수전 연결을 복구했다.
+`renders/review/`의 42번 싱크 정면·43번 코너·44번 평면·45번 식당 시점을 본다.
+모델하우스 원본은 `references/modelhouse/original/display84a_03.jpg`, 도면은
+`references/drawings/crops/crop_cad_kitchen_full.png`다. 창·구조 치수는 Q12를 유지한다.
+사진에 따른 장 깊이·문 분할·자재 표현은 가정이며 품질 보고서 Q16에 기록했다.

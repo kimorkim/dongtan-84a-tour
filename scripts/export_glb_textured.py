@@ -150,6 +150,10 @@ P["curtain_diff"] = save_pixels(
 
 A, _, _ = src_pixels("marble_01", "diff")
 P["marble_diff"] = save_pixels(adjust_diff(A, 0.15, 1.30), "marble_diff.jpg")
+if bpy.data.materials.get('Mat_Q16_Stone'):
+    pale = adjust_diff(A, 0.15, 1.0)
+    pale[..., :3] = .85 + .15 * pale[..., :3]
+    P['q16_stone_diff'] = save_pixels(pale, 'q16_stone_diff.jpg')
 P["artwall_diff"] = save_pixels(
     add_grid(adjust_diff(A, 0.5, 1.28)), "artwall_diff.jpg")
 A, _, _ = src_pixels("marble_01", "nor")
@@ -187,6 +191,9 @@ SPEC = {
     "Mat_Q2_CreamFabric": (0.8, None, (0.790, 0.723, 0.616), "fab_nor", "fab_rough", 0.5),
 }
 TARGETS = set(SPEC)
+if bpy.data.materials.get('Mat_Q16_Stone'):
+    SPEC['Mat_Q16_Stone'] = (2.0, 'q16_stone_diff', None, 'marble_nor', 'marble_rough', .025)
+    TARGETS.add('Mat_Q16_Stone')
 
 # ---------------- cube-projection UVs ----------------
 import bmesh
