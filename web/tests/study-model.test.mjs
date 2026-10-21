@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { Box3, Matrix4, Quaternion, Vector3 } from 'three';
 
-test('actual tour preserves desk sizes, workstation equipment and both mesh chairs', () => {
+test('actual tour preserves workstations and joined Poeta bookcases', () => {
   const bytes=readFileSync(new URL('../public/house.glb',import.meta.url));
   const gltf=JSON.parse(bytes.subarray(20,20+bytes.readUInt32LE(12)).toString());
   const nodes=gltf.nodes;
@@ -15,6 +15,25 @@ test('actual tour preserves desk sizes, workstation equipment and both mesh chai
     assert.ok(node && node.mesh!==undefined,`${name} missing from actual tour`);
   }
   assert.ok(!nodes.some(n=>n.name?.startsWith('Bed2_')),'Old bed remains');
+  const cases=[];
+  for(const [size,width] of [['800',.8],['600',.6]]) {
+    const parts=nodes.filter(n=>n.name?.startsWith('Q13_Poeta'+size+'_') && n.mesh!==undefined);
+    assert.ok(parts.length>15,'Poeta case missing from actual export');
+    const box=new Box3();
+    for(const n of parts) {
+      const m=n.matrix ? new Matrix4().fromArray(n.matrix) : new Matrix4().compose(
+        new Vector3(...(n.translation??[0,0,0])),new Quaternion(...(n.rotation??[0,0,0,1])),
+        new Vector3(...(n.scale??[1,1,1])));
+      for(const p of gltf.meshes[n.mesh].primitives) {
+        const a=gltf.accessors[p.attributes.POSITION];
+        box.union(new Box3(new Vector3(...a.min),new Vector3(...a.max)).applyMatrix4(m));
+      }
+    }
+    assert.ok(Math.abs(box.max.x-box.min.x-.3)<.001 && Math.abs(box.max.z-box.min.z-width)<.001);
+    assert.ok(Math.abs(box.max.y-box.min.y-2.014)<.001 && box.max.x<9.40 && box.min.x>9.09);
+    cases.push(box);
+  }
+  assert.ok(Math.abs(cases[0].min.z-cases[1].max.z)<.001,'Poeta pair separated');
   for (const [size,w,d] of [['1800',1.8,.8],['1400',1.4,.7]]) {
     const n=nodes.find(n=>n.name==='Q11_Desk'+size+'_Top');
     assert.ok(n,'Desk missing');
@@ -34,7 +53,7 @@ test('actual tour preserves desk sizes, workstation equipment and both mesh chai
       assert.ok(n && n.mesh!==undefined,`${color} ${part} lost during export`);
     }
   }
-  for(const id of ['study-room','study-desks']) {
+  for(const id of ['study-room','study-desks','study-bookcases']) {
     for(const dir of ['gallery','gallery/thumbs']) {
       assert.ok(readFileSync(new URL(`../public/${dir}/${id}.webp`,import.meta.url)).length>1000);
     }

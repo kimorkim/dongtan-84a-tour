@@ -13,6 +13,17 @@ def face(objname,origin,direction):
     return obj.matrix_world @ p
 
 checks=[]
+
+def nearest_wall(origin,direction):
+    hits=[]
+    for o in bpy.data.objects:
+        if not o.name.startswith('ExactWall_'): continue
+        inv=o.matrix_world.inverted()
+        hit,p,_,_=o.ray_cast(inv@Vector(origin),inv.to_3x3()@Vector(direction))
+        if hit:
+            p=o.matrix_world@p; hits.append(((p-Vector(origin)).length,p))
+    assert hits,('No structural boundary',origin,direction)
+    return min(hits,key=lambda v:v[0])[1]
 def measure(label,value,expected,tol=.001):
     checks.append((label,value,expected))
     assert abs(value-expected)<=tol,(label,round(value*1000,2),round(expected*1000,2),'mm')
@@ -33,6 +44,9 @@ for y in (2.5,3.5,4.5):
     a=face('ExactWall_13',(2.5,y,1.5),(-1,0,0)).x
     b=face('ExactWall_4',(2.5,y,1.5),(1,0,0)).x
     measure(f'Master width at y{y}',b-a,3.600)
+south=nearest_wall((3.95,3.5,1.5),(0,-1,0)).y
+north=nearest_wall((3.95,3.5,1.5),(0,1,0)).y
+measure('Master clear depth',north-south,3.600)
 for tag,x,y,west,east,width in [
     ('alpha',9.0,6.5,'ExactWall_8','ExactWall_7',2.400),
     ('pantry',11.0,7.5,'ExactWall_7','ExactWall_7',1.190),
@@ -87,9 +101,20 @@ lo,hi=bounds(bpy.data.objects['Q4_BalconyDoor_Threshold'])
 measure('Balcony sliding nominal width',hi[0]-lo[0],1.500)
 lo,hi=bounds(bpy.data.objects['Q4_RefugeDoor_Header'])
 measure('Refuge nominal width',hi[1]-lo[1],.750)
+measure('General ceiling height',face('Ceiling_Slab',(12,2.5,1.5),(0,0,1)).z,2.3)
+measure('Living coffer height',face('Ceiling_Coffer',(6.5,3,1.5),(0,0,1)).z,2.4)
+for tag in ('Bed2','Bed3','Master'):
+    lo,hi=bounds(bpy.data.objects['Q12_'+tag+'_DoorHeader'])
+    measure(tag+' nominal door height',lo[2],2.2)
+railparts=[o for o in bpy.data.objects if o.name.startswith('Q2_Rail_Living_')]
+measure('Living rail top above main FL',max(bounds(o)[1][2] for o in railparts),.830)
+railparts=[o for o in bpy.data.objects if o.name.startswith('Q4_BalconyRail_')]
+measure('Balcony rail top above main FL',max(bounds(o)[1][2] for o in railparts),.830)
 assert len([o for o in bpy.data.objects if o.name.startswith('Q11_Equipment_')])==223
 assert bpy.data.objects.get('Q10_Wardrobe_Back') and bpy.data.objects.get('Q10_Mattress')
 assert bpy.data.objects.get('Q7_MiddleDoor_Glass') and bpy.data.objects.get('ProDoorLeaf_MasterBalcony_Glass')
 assert not any(o.name.startswith(('Front_Door_','NewWall_North','NewWall_EastN')) for o in bpy.data.objects)
 assert bpy.context.scene.get('Q12_dimensions_version')==1
+for name in ('Cam_Living_POV','Cam_Kitchen_POV','Cam_MasterBed_POV','Cam_Dress_POV'):
+    assert bpy.data.objects[name].location.z>1,('Legacy camera at origin',name)
 print(f'PASS Q12: {len(checks)} real-mesh dimension checks, 223 equipment parts and approved options retained')

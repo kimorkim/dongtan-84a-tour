@@ -117,5 +117,9 @@ def verify_room(kind):
             assert abs(lo[2]-.74)<.001
         lo,hi=bounds(bpy.data.objects['Q11_Equipment_Desktop_Case'])
         assert lo[2]>=.02 and hi[2]<.60 and lo[0]>11.20 and hi[1]<4.00,'Tower blocks chair/desk leg'
+        if sc.get('Q13_study_bookcases'):
+            import runpy
+            from pathlib import Path
+            runpy.run_path(str(Path(__file__).with_name('verify_study_bookcases.py')))
     else: raise ValueError(kind)
     print('PASS Q12 room regression:',kind)

@@ -7,6 +7,10 @@
 
 ## 먼저 볼 파일
 
+- 현재 서재 책장(Q13): [포에타 800+600 6단 책장](../renders/review/render_37_study_bookcases.png).
+  거실 공유 벽에 검정 몸체·우드색 라인의 두 책장을 붙였다. 33/34/35번과 웹 서재 갤러리도 갱신한다.
+  제품 출처·가정은 [책장 참고](../references/furniture/casamia-poeta/README.md)를 본다.
+
 - **현재 치수는 Q12**: [도면 치수 교정 기록](dimension-correction-q12.md),
   [교정된 전체 평면](../renders/review/render_36_dimensioned_plan.png)을 먼저 본다.
   아래 Q4~Q11의 배치 선택은 유지했지만 옛 좌표·미갱신 렌더는 현행 치수 근거가 아니다.

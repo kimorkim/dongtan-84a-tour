@@ -322,6 +322,15 @@ Q10b 교정: 사용자 기본 옵션은 방문 옆 장이다. 기존 30·31번 �
 | [render_11_fridge_pov.png](<../renders/review/render_11_fridge_pov.png>) | `render_11_fridge_pov.png` | 1482900 | 2026-10-20 09:41:35 |
 | [render_12_sink_door_pov.png](<../renders/review/render_12_sink_door_pov.png>) | `render_12_sink_door_pov.png` | 1450808 | 2026-10-20 09:45:07 |
 
+## Q13 서재 책장 추가 자료 (2026-10-21)
+
+| 경로 | 목적·상태 |
+| --- | --- |
+| `references/furniture/casamia-poeta/poeta-800.jpg` 및 `README.md` | 상품 참고 사진/치수 출처·추정 구분, 렌더 아님 |
+| `models/backups/apt_84a_photoreal_tour_before_study_bookcases.blend` | Q13 전 현행 치수 교정본 복원용 |
+| `renders/review/render_37_study_bookcases.png` | 검정·우드색 800+600 6단 책장 확인 렌더, 웹 서재 갤러리 |
+| `renders/review/` 33/34/35/36번 | Q13 배치가 반영된 서재 및 전체 확인 렌더로 갱신 |
+
 ## Q12 치수 교정 추가 자료 (2026-10-21)
 
 | 경로 | 목적·상태 |

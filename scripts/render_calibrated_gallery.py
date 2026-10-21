@@ -14,6 +14,7 @@ prefs.compute_device_type='OPTIX'; prefs.get_devices()
 for device in prefs.devices: device.use=device.type=='OPTIX'
 assert any(d.use for d in prefs.devices),'OPTIX GPU unavailable'
 sc.cycles.device='GPU'
+sc.render.use_persistent_data=True
 sc.cycles.denoiser='OPENIMAGEDENOISE'; sc.cycles.use_adaptive_sampling=True
 sc.render.threads_mode='FIXED'; sc.render.threads=12
 sc.render.resolution_x=1100; sc.render.resolution_y=900; sc.render.resolution_percentage=100
@@ -54,8 +55,15 @@ for name,path in [
 ('Cam_MasterBed_POV','renders/presentation/render_4_master_bedroom_pov.png'),
 ('Cam_Dress_POV','renders/presentation/render_7_dress_pov.png')]:
     if batch is not None and Path(path).name not in batch: continue
+    fill=None
+    if name=='Cam_Dress_POV':
+        data=bpy.data.lights.new('Q12_ReviewDressFill','AREA'); data.energy=90; data.shape='DISK'; data.size=1.2
+        fill=bpy.data.objects.new(data.name,data); sc.collection.objects.link(fill)
+        fill.location=(*point(1.5,8.2),2.25)
     sc.camera=bpy.data.objects[name]; sc.render.filepath=str(ROOT/path)
     print('Q12 RENDER',path,flush=True); bpy.ops.render.render(write_still=True)
+    if fill:
+        bpy.data.objects.remove(fill,do_unlink=True); bpy.data.lights.remove(data)
 for o in bpy.data.objects:
     if o.name.startswith(('Ceiling_','Cove_','ProK_CeilStrip','Q10_Ceiling','Q11_Ceiling','Q2_Landscape')):
         o.hide_render=True

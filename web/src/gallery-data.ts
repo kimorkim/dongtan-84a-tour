@@ -11,6 +11,14 @@ export interface GalleryItem {
 
 export const GALLERY_ITEMS: GalleryItem[] = [
   {
+    id: 'study-bookcases',
+    room: '서재',
+    title: '포에타 책장 두 개',
+    description: '거실 공유 벽에 붙인 검정·우드 라인의 800+600mm 6단 책장',
+    src: './gallery/study-bookcases.webp',
+    thumb: './gallery/thumbs/study-bookcases.webp',
+  },
+  {
     id: 'study-room',
     room: '서재',
     title: '2인 서재 (침실2)',

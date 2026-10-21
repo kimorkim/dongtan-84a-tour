@@ -145,6 +145,8 @@
       1.15
     ]
   },
+  "general_ceiling": 2.3,
+  "living_coffer": 2.4,
   "source": "A02-102",
   "version": 1
 }

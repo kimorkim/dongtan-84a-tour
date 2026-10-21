@@ -22,6 +22,7 @@ import generate_high_detail_assets as A
 backup=ROOT/'models/backups/apt_84a_photoreal_tour_before_dimensions.blend'
 if not backup.exists(): shutil.copy2(bpy.data.filepath,backup)
 bpy.ops.wm.open_mainfile(filepath=str(backup))
+bpy.context.view_layer.update()
 sc=bpy.context.scene
 col=A.get_col('Apt_DimensionCorrection')
 
@@ -30,6 +31,9 @@ def bounds(o):
     return [min(v[i] for v in p) for i in range(3)],[max(v[i] for v in p) for i in range(3)]
 
 original={o.name:(o.matrix_world.copy(),bounds(o)) for o in bpy.data.objects}
+rail_z={prefix:(min(b[0][2] for n,(_,b) in original.items() if n.startswith(prefix)),
+                max(b[1][2] for n,(_,b) in original.items() if n.startswith(prefix)))
+        for prefix in ('Q2_Rail_Living_','Q4_BalconyRail_')}
 # Keep world transforms before detaching old leaf/handle parents.
 for o in bpy.data.objects:
     if o.parent:
@@ -115,7 +119,18 @@ for o in list(bpy.data.objects):
                                'Q7_PantryPull_','ProDoorLeaf_EntryPantry'))
     balcony_fit=name.startswith(('Q4_BalconyDoor_','Q4_BalconySidelight','ProDoorLeaf_MasterBalcony'))
     refuge_fit=name.startswith('Q4_RefugeDoor_')
-    if balcony_fit or refuge_fit:
+    rail_fit=name.startswith(('Q2_Rail_Living_','Q4_BalconyRail_'))
+    if rail_fit:
+        living=name.startswith('Q2_Rail_Living_')
+        zlo,zhi=rail_z['Q2_Rail_Living_' if living else 'Q4_BalconyRail_']
+        for v in o.data.vertices:
+            p=matrix@v.co
+            z=.270+(p.z-zlo)*.560/(zhi-zlo)
+            if living:
+                v.co=(4.755+(p.x-4.800)*3.600/3.700,.575+(p.y-.140),z)
+            else:
+                v.co=(2.285+(p.x-2.400),.325+(p.y-.220),z)
+    elif balcony_fit or refuge_fit:
         for v in o.data.vertices:
             p=matrix @ v.co; nx,ny=P.point(p.x,p.y)
             if balcony_fit: nx=2.285+(p.x-2.240)*1.500/1.670
@@ -198,6 +213,26 @@ floor=bpy.data.objects['Exact_Floor']
 base=floor.data.materials[0]; oak=bpy.data.materials['Mat_Q9_LightOak']
 slab('Exact_Floor',-.15,0,[base,oak])
 slab('Ceiling_Slab',2.30,2.38,[bpy.data.materials['Mat_Ceiling_Plaster']])
+# User measured: general ceiling 2300mm, recessed living-room ceiling 2400mm.
+bpy.context.view_layer.update()
+cx1=bounds(bpy.data.objects['Cove_Living_TrimW'])[1][0]
+cx2=bounds(bpy.data.objects['Cove_Living_TrimE'])[0][0]
+cy1=bounds(bpy.data.objects['Cove_Living_TrimS'])[1][1]
+cy2=bounds(bpy.data.objects['Cove_Living_TrimN'])[0][1]
+ceiling=bpy.data.objects['Ceiling_Slab']
+cutter=box('Q12_CofferCut',cx1,cx2,cy1,cy2,2.28,2.50,wall,0)
+mod=ceiling.modifiers.new('Q12_Recess','BOOLEAN'); mod.operation='DIFFERENCE'; mod.solver='EXACT'; mod.object=cutter
+bpy.context.view_layer.objects.active=ceiling
+bpy.ops.object.modifier_apply(modifier=mod.name)
+bpy.data.objects.remove(cutter,do_unlink=True)
+ceilmat=bpy.data.materials['Mat_Ceiling_Plaster']
+box('Ceiling_Coffer',cx1,cx2,cy1,cy2,2.40,2.48,ceilmat,0)
+for side,a,b,c,d in [('W',cx1-.015,cx1,cy1,cy2),('E',cx2,cx2+.015,cy1,cy2),
+                      ('S',cx1,cx2,cy1-.015,cy1),('N',cx1,cx2,cy2,cy2+.015)]:
+    box('Ceiling_CofferReturn'+side,a,b,c,d,2.30,2.40,ceilmat,0)
+for o in bpy.data.objects:
+    if o.name.startswith('Cove_Living_Trim'): o.location.z+=.055
+    if o.name.startswith('Cove_Living_LED'): o.location.z+=.035
 # Narrow traced openings to the drawing's nominal plan widths; keep the sliding pose.
 box('Q12_BalconyDoor_WestFill',2.115,2.285,1.920,2.150,0,2.15,wall)
 box('Q12_RefugeDoor_NorthFill',2.115,2.255,1.400,1.715,0,2.10,wall)
@@ -233,22 +268,40 @@ box('Q12_Entry_Lever',12.53,12.64,7.740,7.775,.96,1.00,metal,.005)
 
 # Nominal 900mm bedroom openings, with the existing 85-degree open leaves retained.
 for tag,a,b in [('Bed2',9.075,9.975),('Bed3',11.905,12.805)]:
-    box('Q12_'+tag+'_DoorHeader',a,b,4.330,4.550,2.10,2.30,wall)
+    box('Q12_'+tag+'_DoorHeader',a,b,4.330,4.550,2.20,2.30,wall)
     for side,u in [('W',a),('E',b)]:
-        box('ProDoorTrim_'+tag+'_'+side,u-.024,u+.024,4.315,4.565,0,2.13,cashmere)
-    box('ProDoorTrim_'+tag+'_Head',a-.024,b+.024,4.315,4.565,2.09,2.14,cashmere)
+        box('ProDoorTrim_'+tag+'_'+side,u-.024,u+.024,4.315,4.565,0,2.23,cashmere)
+    box('ProDoorTrim_'+tag+'_Head',a-.024,b+.024,4.315,4.565,2.19,2.24,cashmere)
 
 # Master bedroom entrance is in the east wall, not its dressing-room opening.
-box('Q12_Master_DoorHeader',4.085,4.305,4.750,5.750,2.10,2.30,wall)
+box('Q12_Master_DoorHeader',4.085,4.305,4.750,5.750,2.20,2.30,wall)
 for tag,y in [('S',4.750),('N',5.750)]:
-    box('Q12_Master_DoorJamb'+tag,4.070,4.320,y-.025,y+.025,0,2.13,cashmere)
-box('Q12_Master_DoorLeaf',3.105,4.075,5.675,5.715,.015,2.085,cashmere,.005)
+    box('Q12_Master_DoorJamb'+tag,4.070,4.320,y-.025,y+.025,0,2.23,cashmere)
+box('Q12_Master_DoorLeaf',3.105,4.075,5.675,5.715,.015,2.185,cashmere,.005)
 box('Q12_Master_DoorHandle',3.19,3.30,5.72,5.75,.96,.99,metal,.008)
 
 # Repair the remaining old double-transformed handle without changing the bathroom leaf.
 for o in list(bpy.data.objects):
     if o.name.startswith('ProDoorHandle_MasterBath_'): bpy.data.objects.remove(o,do_unlink=True)
 box('ProDoorHandle_MasterBath_A',2.39,2.50,6.22,6.25,.97,1.0,metal,.008)
+
+# Raise existing bedroom leaf tops and structural lintels to the 2200 nominal opening.
+for name,axis,lo,hi in [('ExactWall_2','x',9.075,9.975),('ExactWall_5','x',11.905,12.805),
+                        ('ExactWall_4','y',4.750,5.750)]:
+    o=bpy.data.objects[name]
+    for v in o.data.vertices:
+        p=o.matrix_world@v.co
+        transverse=p.y if axis=='x' else p.x
+        inwall=4.32<=transverse<=4.56 if axis=='x' else 4.07<=transverse<=4.32
+        if lo-.001<=getattr(p,axis)<=hi+.001 and inwall and 2.0<p.z<2.2:
+            p.z=2.2; v.co=o.matrix_world.inverted()@p
+    clean(o)
+for tag in ('Bed2','Bed3'):
+    o=bpy.data.objects['ProDoorLeaf_'+tag]
+    for v in o.data.vertices:
+        p=o.matrix_world@v.co
+        p.z=.015+(p.z-.015)*2.170/2.070
+        v.co=o.matrix_world.inverted()@p
 
 bpy.context.view_layer.update()
 # Clear outliners of render-only hidden state for the corrected spaces.
@@ -259,10 +312,29 @@ visible(bpy.context.view_layer.layer_collection)
 sc['Q12_dimensions_version']=1
 sc['Q12_source']='84a 평면도.pdf / A02-102 / 2025.10'
 sc['Q12_main_finished_floor_SL_offset_m']=.12
+sc['Q12_general_ceiling_m']=2.3
+sc['Q12_living_coffer_m']=2.4
+sc['Q12_lower_floor_levels']='Drawing relative main FL: foyer/baths -0.08m; balconies/utility -0.05m. Tour floor remains flat; vertical installation details unresolved.'
+# Several legacy camera placeholders were already at the origin in the baseline.
+for name,loc,target,lens in [
+    ('Cam_Living_POV',(8.1,4.7,1.55),(6.3,2.15,.85),22),
+    ('Cam_Kitchen_POV',(7.5,5.2,1.6),(6.0,8.0,1.0),22),
+    ('Cam_MasterBed_POV',(3.6,5.25,1.55),(1.8,3.3,.9),22),
+    ('Cam_Dress_POV',(1.95,6.1,1.5),(1.15,8.2,1.),22),
+    ('Cam_Foyer_POV',(12.33,7.15,1.6),(12.33,5.,1.25),22),
+    ('Cam_Photoreal_Topdown',(7.7,5.3,24),(7.7,5.3,0),22)]:
+    o=bpy.data.objects[name]; o.location=(*P.point(*loc[:2]),loc[2])
+    target=Vector((*P.point(*target[:2]),target[2]))
+    o.rotation_euler=(target-o.location).to_track_quat('-Z','Y').to_euler(); o.data.lens=lens
+    o.data.type='PERSP'
+    o.data.clip_start=.05
+    if name=='Cam_Photoreal_Topdown': o.data.type='ORTHO'; o.data.ortho_scale=17.5
+sc.camera=bpy.data.objects['Cam_Photoreal_Topdown']
 bpy.context.view_layer.update()
 runpy.run_path(str(ROOT/'scripts/verify_dimensions.py'),run_name='__main__')
 bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'apt_84a_photoreal_tour.blend'))
 (ROOT/'assets/analysis/q12_dimensions.json').write_text(json.dumps(dict(
     x_axes=P.X_AXES,north_x_axes=P.NORTH_X_AXES,y_axes=P.Y_AXES,rooms=P.ROOMS,windows=P.WINDOWS,
+    general_ceiling=2.3,living_coffer=2.4,
     source='A02-102',version=1),indent=2),encoding='utf-8')
 print('Q12 CALIBRATED MASTER SAVED',flush=True)
