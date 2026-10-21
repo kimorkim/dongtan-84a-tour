@@ -96,6 +96,8 @@ def bake():
     data = {"cell": CELL, "x0": X0, "y0": Y0, "nx": nx, "ny": ny,
             "boxes": [to_world(b) for b in boxes]}
     data['dimensions_version'] = bpy.context.scene.get('Q12_dimensions_version', 0)
+    data['sofa_version'] = 14 if bpy.context.scene.get('Q14_sofa') else 0
+    data['living_finish_version'] = bpy.context.scene.get('Q15_living_finish', 0)
 
     here = os.path.dirname(os.path.abspath(__file__)) if '__file__' in locals() else os.getcwd()
     root = os.path.dirname(here) if os.path.basename(here) == "scripts" else here

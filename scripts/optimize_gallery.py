@@ -10,6 +10,9 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 THUMB_DIR.mkdir(parents=True, exist_ok=True)
 
 IMAGES = [
+    ("living-window", "renders/review/render_40_living_window.png", "거실", "거실 샤시와 커튼", "양쪽으로 모은 커튼과 창밖 철제 난간", None),
+    ("living-artwall", "renders/review/render_41_living_artwall.png", "거실", "거실 아트월", "안방 출입구를 살리고 벽 끝까지 이어지는 마감", None),
+    ("brest-sofa", "renders/review/render_38_brest_sofa.png", "거실", "브레스트 리클라이너 소파", "아이보리 2850mm 4인 소파 · 접힌 리클라이너와 중앙 홈바", None),
     ("study-bookcases", "renders/review/render_37_study_bookcases.png", "서재", "포에타 책장 두 개", "거실 공유 벽에 붙인 검정·우드 라인의 800+600mm 6단 책장", None),
     ("study-room", "renders/review/render_33_study_pov.png", "서재", "2인 서재 (침실2)", "동쪽 벽의 1800·1400 모션데스크와 검정·그레이 에어론 형태 의자", (9.85, 2.7, 1.35)),
     ("study-desks", "renders/review/render_35_study_desks.png", "서재", "모션데스크 두 자리", "27인치 델 듀얼·클램쉘 맥북·A2 스피커 / 32인치 게이밍·하부 데스크톱", None),
@@ -18,7 +21,7 @@ IMAGES = [
     # (id, src_rel, room, title, desc, world_pos: (blender_x, blender_y, blender_z))
     ("foyer", "renders/review/render_23_foyer_open.png", "현관", "현관 및 복도", "중문과 현관 팬트리가 마주보는 진입 복도", (12.33, 7.0, 1.35)),
     ("foyer-pantry", "renders/review/render_22_entry_pantry.png", "현관", "현관 워크인 팬트리", "ㄷ자 시스템 선반이 설치된 대용량 수납공간", (11.15, 6.7, 1.35)),
-    ("living", "renders/review/render_29_oak_living.png", "거실", "거실 아트월 및 우물천장", "밝은 오크 바닥과 아트월·우물천장", (6.5, 3.8, 1.35)),
+    ("living", "renders/review/render_29_oak_living.png", "거실", "거실과 브레스트 소파", "밝은 오크 바닥·우물천장과 아이보리 리클라이너 소파", (6.5, 3.8, 1.35)),
     ("kitchen-island", "renders/presentation/render_3_kitchen_dining_pov.png", "주방", "대면형 주방 및 식당", "11자형 아일랜드 조리대와 6인용 식탁", (6.8, 6.8, 1.35)),
     ("fridge-wall", "renders/review/render_11_fridge_pov.png", "주방", "냉장고장 및 빌트인 수납", "빌트인 냉장고·김치냉장고·밥솥장 라인", (6.0, 7.0, 1.35)),
     ("kitchen-prep", "renders/presentation/render_9_kitchen_prep_pov.png", "주방", "싱크대 및 조리 공간", "와이드 사각 싱크볼과 주방 환기창", (7.4, 7.2, 1.35)),

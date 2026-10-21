@@ -322,6 +322,16 @@ Q10b 교정: 사용자 기본 옵션은 방문 옆 장이다. 기존 30·31번 �
 | [render_11_fridge_pov.png](<../renders/review/render_11_fridge_pov.png>) | `render_11_fridge_pov.png` | 1482900 | 2026-10-20 09:41:35 |
 | [render_12_sink_door_pov.png](<../renders/review/render_12_sink_door_pov.png>) | `render_12_sink_door_pov.png` | 1450808 | 2026-10-20 09:45:07 |
 
+## Q14 거실 소파 교체 자료 (2026-10-21)
+
+| 경로 | 목적·상태 |
+| --- | --- |
+| `references/furniture/seatandmore-brest/` | 공식 제품 페이지 사본·대표/상세 사진·출처/가정 README, 렌더 아님 |
+| `models/backups/apt_84a_photoreal_tour_before_brest_sofa.blend` | 교체 전 Q13 포함 복원본 |
+| `renders/review/render_38_brest_sofa.png` | 새 브레스트 소파 확인 렌더, 웹 갤러리 |
+| `renders/review/render_39_brest_living_plan.png` | 닫힌 소파/기존 거실 가구의 정지 배치 평면 |
+| `renders/review/` 29/36번 | 새 소파가 반영된 거실 및 전체 평면으로 갱신 |
+
 ## Q13 서재 책장 추가 자료 (2026-10-21)
 
 | 경로 | 목적·상태 |
@@ -362,4 +372,15 @@ Q10b 교정: 사용자 기본 옵션은 방문 옆 장이다. 기존 30·31번 �
 | [verification_living_pov.png](<../renders/verification/structure/verification_living_pov.png>) | `verification_living_pov.png` | 1071293 | 2026-10-16 12:39:04 |
 | [verification_topdown.png](<../renders/verification/structure/verification_topdown.png>) | `verification_topdown.png` | 1025130 | 2026-10-16 12:39:03 |
 
+
+# Q15 추가 자료
+
+| 경로 | 목적 / 상태 |
+|---|---|
+| `models/backups/apt_84a_photoreal_tour_before_living_finish.blend` | Q14 상태 복원용, 현행 원본 아님 |
+| `renders/review/render_40_living_window.png` | Q15 창틀·양끝 커튼·외부 철제 난간 확인 |
+| `renders/review/render_41_living_artwall.png` | Q15 벽 끝·문 상부 마감과 열린 안방 출입구 확인 |
+| `assets/textures_export/q2_landscape.jpg` | 픽셀 복구 및 UV 방향 교정한 생성 배경, 실제 현장 조망 아님 |
+| `assets/analysis/q15_living_objects.json` | 수정 전 거실 객체 범위 조사, 현행 배치로 해석하지 않음 |
+| `scripts/detail_living_finish.py`, `scripts/verify_living_finish.py`, `scripts/render_living_finish.py` | 현행 거실 마감·검사·렌더 |
 

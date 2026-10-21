@@ -11,6 +11,24 @@ export interface GalleryItem {
 
 export const GALLERY_ITEMS: GalleryItem[] = [
   {
+    id: 'living-window', room: '거실', title: '거실 샤시와 커튼',
+    description: '양쪽으로 모은 커튼과 창밖 철제 난간',
+    src: './gallery/living-window.webp', thumb: './gallery/thumbs/living-window.webp',
+  },
+  {
+    id: 'living-artwall', room: '거실', title: '거실 아트월',
+    description: '안방 출입구를 살리고 벽 끝까지 이어지는 마감',
+    src: './gallery/living-artwall.webp', thumb: './gallery/thumbs/living-artwall.webp',
+  },
+  {
+    id: 'brest-sofa',
+    room: '거실',
+    title: '브레스트 리클라이너 소파',
+    description: '아이보리 2850mm 4인 소파 · 접힌 리클라이너와 중앙 홈바',
+    src: './gallery/brest-sofa.webp',
+    thumb: './gallery/thumbs/brest-sofa.webp',
+  },
+  {
     id: 'study-bookcases',
     room: '서재',
     title: '포에타 책장 두 개',
@@ -73,8 +91,8 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   {
     id: 'living',
     room: '거실',
-    title: '거실 아트월 및 우물천장',
-    description: '밝은 오크 바닥과 아트월·우물천장',
+    title: '거실과 브레스트 소파',
+    description: '밝은 오크 바닥·우물천장과 아이보리 리클라이너 소파',
     src: './gallery/living.webp',
     thumb: './gallery/thumbs/living.webp',
     worldPos: [6.5, 1.35, -3.8],

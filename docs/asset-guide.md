@@ -7,6 +7,11 @@
 
 ## 먼저 볼 파일
 
+- 현재 거실 소파(Q14): [브레스트 소파](../renders/review/render_38_brest_sofa.png),
+  [거실](../renders/review/render_29_oak_living.png), [거실 배치 평면](../renders/review/render_39_brest_living_plan.png).
+  사용자 지정 아이보리 2850mm 리클라이너로 교체했다. 닫힌 상태의 배치이며
+  공식 출처·가정은 [소파 참고](../references/furniture/seatandmore-brest/README.md)를 본다.
+
 - 현재 서재 책장(Q13): [포에타 800+600 6단 책장](../renders/review/render_37_study_bookcases.png).
   거실 공유 벽에 검정 몸체·우드색 라인의 두 책장을 붙였다. 33/34/35번과 웹 서재 갤러리도 갱신한다.
   제품 출처·가정은 [책장 참고](../references/furniture/casamia-poeta/README.md)를 본다.
@@ -183,4 +188,12 @@ PDF 추출본과 CAD 확대는 실제 도면 계열이고, `84A.jpg`의 가구�
 수정 전 모델은 `models/backups/`에 설명 가능한 이름으로 보관한다.
 파일을 이동하면 생산·소비 스크립트, 이 안내와 [파일 목록](asset-inventory.md)의 경로를 함께 수정한다.
 목록은 2026-10-20 정리 시점의 스냅샷이며 자동 갱신되지 않는다.
+
+# Q15 거실 마감
+
+현재 거실은 `scripts/detail_living_finish.py` 결과다. 원본 모델하우스 사진은
+`references/modelhouse/original/display84a_01.jpg`, 확인 렌더는 `renders/review/render_40_living_window.png`와
+`render_41_living_artwall.png`다. 중앙 러그·테이블·스툴은 제거했다.
+샤시 분할·커튼 주름은 사진 기반 제안이며 제작 치수가 아니다. 창밖 배경은 복구한 생성 이미지다.
+거실 외 다른 방의 기존 렌더는 이 배경 복구 전 촬영본일 수 있다.
 
