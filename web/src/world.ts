@@ -7,7 +7,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 const b2t = (x: number, y: number, z: number): [number, number, number] => [x, z, -y];
 
 const CEILING_NAMES = ['Ceiling_Slab'];
-const CEILING_PREFIXES = ['Cove_', 'ProK_CeilStrip', 'Q10_Ceiling'];
+const CEILING_PREFIXES = ['Cove_', 'ProK_CeilStrip', 'Q10_Ceiling', 'Q11_Ceiling'];
 
 export interface World {
   model: THREE.Group;

@@ -10,6 +10,8 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 THUMB_DIR.mkdir(parents=True, exist_ok=True)
 
 IMAGES = [
+    ("study-room", "renders/review/render_33_study_pov.png", "서재", "2인 서재 (침실2)", "동쪽 벽의 1800·1400 모션데스크와 검정·그레이 에어론 형태 의자", (9.85, 2.7, 1.35)),
+    ("study-desks", "renders/review/render_35_study_desks.png", "서재", "모션데스크 두 자리", "27인치 델 듀얼·클램쉘 맥북·A2 스피커 / 32인치 게이밍·하부 데스크톱", None),
     ("yuna-room", "renders/review/render_30_yuna_pov.png", "아이방", "유나방 (침실3)", "방문 옆 기본 붙박이장을 고려한 낮은 침대·그림책 수납·놀이 공간", (13.4, 2.6, 1.35)),
     ("yuna-builtin", "renders/review/render_32_yuna_basic_builtin.png", "아이방", "유나방 기본 붙박이장", "방문 옆 천장 맞춤 기본형 장과 비워 둔 도어 앞 공간 — 규격은 가정값", None),
     # (id, src_rel, room, title, desc, world_pos: (blender_x, blender_y, blender_z))

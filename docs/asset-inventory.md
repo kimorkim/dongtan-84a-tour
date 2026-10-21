@@ -277,6 +277,26 @@ Q7 현관 보강에서 참고 JPG 8장·백업 1개·렌더 4개를 추가했다
 
 ## renders/review
 
+### 84A 치수 대조 자료 (2026-10-21)
+
+- `references/drawings/original/84a 평면도.pdf`: 사용자가 지정한 수치가 있는 확장형 평면도 원본, A02-102.
+- `assets/analysis/dimensioned_plan_1.png`, `dimensioned_bedrooms.png`: 위 PDF를 회전/확대 추출한 도면 파생본. Blender 렌더가 아니다.
+- `assets/analysis/audit_plan_dimensions.py`: 저장된 실제 벽 메시의 대표 치수 읽기 전용 검사.
+- `docs/dimension-audit-84a.md`: 도면 표기와 메시 차이, 기준선/깊이 미검증 범위. 현행은 치수 완전 일치 모델이 아니다.
+
+### Q11 침실2 서재 추가 자료 (2026-10-21)
+
+- Q11b: 33·34·35번과 서재 WebP를 장비 추가 상태로 갱신했다.
+  `references/furniture/workstation.md`는 장비 출처/가정이며,
+  `models/backups/apt_84a_photoreal_tour_before_study_equipment.blend`는 장비 추가 전 복원본이다.
+- `references/furniture/erectus/product_136.html`·`product_136.jpg`·`README.md`: 공식 제품 페이지/대표 사진/출처 및 가정 기록.
+- `models/backups/apt_84a_photoreal_tour_before_study_room.blend`: 침실2 변경 전 Q10b 복원본.
+- `assets/analysis/probe_bed2.py`: 변경 전 창 벽 단차·가구/손잡이 위치를 확인한 Blender 탐색 스크립트.
+- `renders/review/render_33_study_pov.png`, `render_34_study_plan.png`, `render_35_study_desks.png`:
+  Q11의 벽 마감·동쪽 화이트 책상 두 자리·검정/그레이 의자 확인용 생성 렌더.
+- `web/public/gallery/study-room.webp`, `study-desks.webp`와 각 `thumbs/` 파생본:
+  위 33·35번을 사용하는 웹 갤러리 '서재'. 생산 목록은 `scripts/optimize_gallery.py`다.
+
 ### Q10 유나방 추가 자료 (2026-10-20)
 
 Q10b 교정: 사용자 기본 옵션은 방문 옆 장이다. 기존 30·31번 렌더와 `web_yuna_after.jpg`,

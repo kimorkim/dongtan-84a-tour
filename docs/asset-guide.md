@@ -28,6 +28,11 @@
 - 현재 유나방(침실3): Q10b의 갱신된 30번 POV·31번 평면·32번 기본장과 `web_yuna_after.jpg`.
   사용자 옵션은 방문 옆 기본 붙박이장이다. 공식 VR 013의 창 옆 장은 다른 옵션이며 재현 대상이 아니다.
   기본장 규격은 가정값이고, 창 쪽 실내 마감선을 일자로 보완했다.
+- 현재 침실2 서재: Q11의 33번 POV·34번 평면·35번 책상 뷰 및 웹 갤러리 '서재'.
+  창 벽 마감선을 맞추고 동쪽 벽에 화이트 1800/1400 모션테이블과 검정/그레이 에어론 형태 의자를 배치했다.
+  공식 제품 페이지·사진은 `references/furniture/erectus/`에 있으며 제조사 CAD와 구분한다.
+  Q11b에서 델 듀얼 모니터·클램쉘 맥북·A2 및 작은 책상 게이밍/본체 장비를 추가했고,
+  같은 33~35번을 갱신했다. 제품 지정/치수 가정은 `references/furniture/workstation.md`를 본다.
 - 현재 거실 욕실: `renders/review/` 24번 평면·25번 건식 세면대·26번 변기·27번 샤워실.
   Q8 근거 사진은 공식 VR 015/016이며 기존 발표용 욕실 렌더보다 최신이다.
 - 실제 웹 투어: `web/public/house.glb`와 `web/public/colliders.json`.
@@ -132,6 +137,7 @@ PDF 추출본과 CAD 확대는 실제 도면 계열이고, `84A.jpg`의 가구�
 | 우드 바닥 개선·검증 | `scripts/improve_flooring.py`, `verify_flooring.py` | Q8 뒤 Q9 적용. 덧판 제거·공통 UV·2K PBR·타일 보존 검사 |
 | 우드 바닥 렌더 | `scripts/render_flooring.py` | `renders/review/` 28·29번. 원본 저장 안 함 |
 | 유나방 보강·검증·렌더 | `scripts/detail_yuna_room.py`, `verify_yuna_room.py`, `render_yuna_room.py` | Q9 뒤 Q10b. 방문 옆 기본장·도어 여유·일자 창 벽·통로 검사, 30~32번 렌더 |
+| 침실2 서재·검증·렌더 | `scripts/detail_study_room.py`, `verify_study_room.py`, `render_study_room.py` | Q10b 뒤 Q11. 창 벽 마감·모션테이블 두 자리·검정/그레이 의자, 33~35번 렌더 |
 | 발코니·대피실 렌더/보행 검증 | `scripts/render_master_balcony.py`, `verify_master_balcony.py` | `renders/review/` 13~15번 / 현행 충돌 JSON 검사 |
 | 품질 v2 렌더 | `scripts/render_quality_v2.py` | `renders/presentation/` |
 | 기존 10뷰 렌더 | `scripts/render_present_views.py` | `renders/presentation/`. 과거 조명 재설정 로직이 있어 품질 보고서를 먼저 확인 |

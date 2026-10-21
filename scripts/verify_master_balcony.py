@@ -41,7 +41,11 @@ for name, x, y in [('master aisle', 3.42, 2.30), ('balcony', 3.42, 1.05),
                     ('dry vanity approach', 14.00, 5.00), ('common bathroom aisle', 13.98, 6.20),
                     ('common shower interior', 13.98, 7.15),
                     ('Yuna room entry', 12.55, 4.32), ('Yuna play area', 13.40, 2.75),
-                    ('Yuna window approach', 13.50, 1.20), ('Yuna built-in approach',13.55,3.25)]:
+                    ('Yuna window approach', 13.50, 1.20), ('Yuna built-in approach',13.55,3.25),
+                    ('Study entry',9.75,4.30), ('Study aisle',9.85,2.70),
+                    ('Study window approach',9.90,1.20),
+                    ('Study black chair approach',9.90,1.81),
+                    ('Study grey chair approach',9.90,3.47)]:
     distance = min(math.hypot(i * STEP - x, j * STEP - 0.6 - y) for i, j in visited)
     print(f'{name}: nearest reachable point {distance:.3f}m')
     assert distance < 0.12, f'{name} is not reachable with player radius {radius}'

@@ -1,6 +1,6 @@
 export interface GalleryItem {
   id: string;
-  room: '전체' | '거실' | '주방' | '안방' | '욕실' | '현관' | '발코니' | '아이방';
+  room: '전체' | '거실' | '주방' | '안방' | '욕실' | '현관' | '발코니' | '아이방' | '서재';
   title: string;
   description: string;
   src: string;
@@ -10,6 +10,23 @@ export interface GalleryItem {
 }
 
 export const GALLERY_ITEMS: GalleryItem[] = [
+  {
+    id: 'study-room',
+    room: '서재',
+    title: '2인 서재 (침실2)',
+    description: '동쪽 벽의 1800·1400 모션데스크와 검정·그레이 에어론 형태 의자',
+    src: './gallery/study-room.webp',
+    thumb: './gallery/thumbs/study-room.webp',
+    worldPos: [9.85, 1.35, -2.7],
+  },
+  {
+    id: 'study-desks',
+    room: '서재',
+    title: '모션데스크 두 자리',
+    description: '27인치 델 듀얼·클램쉘 맥북·A2 스피커 / 32인치 게이밍·하부 데스크톱',
+    src: './gallery/study-desks.webp',
+    thumb: './gallery/thumbs/study-desks.webp',
+  },
   {
     id: 'yuna-room',
     room: '아이방',
