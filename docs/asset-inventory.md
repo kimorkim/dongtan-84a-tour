@@ -400,3 +400,55 @@ Q10b 교정: 사용자 기본 옵션은 방문 옆 장이다. 기존 30·31번 �
 | `scripts/detail_kitchen_finish.py`, `verify_kitchen_finish.py`, `render_kitchen_finish.py` | 현행 모델에만 주방 복구·회귀 검사·확인 렌더 |
 
 기존 12/36번 및 발표용 주방 3/9번 경로도 Q16으로 갱신했다. 신규 도면·사진 원본은 추가하지 않았다.
+
+
+# Q17 거실 TV장 및 스탠드형 TV 교체 자료 (2026-10-22)
+
+| 경로 | 목적 / 상태 |
+|---|---|
+| `references/furniture/living-tv-stand/model.glb` | 사용자 지정 거실 TV장 원본 GLB (2000×450×513mm) |
+| `references/furniture/living-tv/tv.glb` | 사용자 지정 거실 스탠드형 TV 원본 GLB (1225×270×765mm) |
+| `models/backups/apt_84a_photoreal_tour_before_tv_stand.blend` | Q16 상태 복원용 백업, 현행 원본 아님 |
+| `scripts/replace_living_tv_stand.py`, `scripts/verify_living_tv_stand.py` | 거실 TV장 및 스탠드 TV 교체·치수·정렬·방향 검증 스크립트 |
+| `renders/review/` 41/39/40/38/29/36번 | Q17 TV장 및 스탠드 TV가 반영된 거실 및 전체 확인 렌더로 갱신 |
+
+
+# Q18 냉장고장 LG 광파오븐 추가 자료 (2026-10-23)
+
+| 경로 | 목적 / 상태 |
+|---|---|
+| `references/furniture/lg-lightwave-oven/mlj32ewso.png`, `README.md` | LG 디오스 오브제컬렉션 광파오븐 `MLJ32EWSO` 정면 참고 이미지 및 공식 규격(527×480×394mm)/출처 |
+| `assets/textures_export/q18_lg_lightwave_front.jpg` | `mlj32ewso.png`에서 추출한 전면 도어 텍스처 파생본 |
+| `models/backups/apt_84a_photoreal_tour_before_lightwave_oven.blend` | Q17 상태 복원용 백업, 현행 원본 아님 |
+| `scripts/add_lg_lightwave_oven.py`, `scripts/verify_lg_lightwave_oven.py` | 밥솥장 상부 오픈칸 추가 및 광파오븐 모델링·검증 스크립트 |
+| `renders/review/render_11_fridge_pov.png`, `render_12_sink_door_pov.png` | 광파오븐이 반영된 냉장고장 확인 렌더 |
+
+
+# Q19 거실 사운드바 및 무선 서브우퍼 추가 자료 (2026-10-23)
+
+| 경로 | 목적 / 상태 |
+|---|---|
+| `references/furniture/living-soundbar/soundbar_angled.png`, `soundbar_front.png`, `README.md` | 삼성 2.1채널 사운드바 및 무선 서브우퍼 참고 이미지·공식 규격(858.8×75×59mm / 184×295×343mm) |
+| `models/backups/apt_84a_photoreal_tour_before_soundbar.blend` | Q18 상태 복원용 백업, 현행 원본 아님 |
+| `scripts/add_living_soundbar.py`, `scripts/verify_living_soundbar.py` | 거실 사운드바·서브우퍼 모델링 및 치수·배치·간섭 검증 스크립트 |
+| `renders/review/render_41_living_artwall.png`, `render_38_brest_sofa.png`, `render_39_brest_living_plan.png` | 사운드바와 서브우퍼가 반영된 거실 확인 렌더 |
+
+
+# Q20 다용도실 가벽 틈새 및 터닝도어 교체 자료 (2026-10-23)
+
+| 경로 | 목적 / 상태 |
+|---|---|
+| `models/backups/apt_84a_photoreal_tour_before_turning_door.blend` | Q19 상태 복원용 백업, 현행 원본 아님 |
+| `scripts/fix_utility_turning_door.py`, `scripts/verify_utility_turning_door.py` | 냉장고장-다용도실 가벽 틈새 교정, 상부 인방벽 및 유리 터닝도어 교체·검증 스크립트 |
+| `renders/review/render_12_sink_door_pov.png`, `render_11_fridge_pov.png` | 가벽 밀착 및 터닝도어가 반영된 다용도실 입구·냉장고장 확인 렌더 |
+
+
+
+# Q21 다용도실 LG 워시타워 및 타일 바닥 자료 (2026-10-23)
+
+| 경로 | 목적 / 상태 |
+|---|---|
+| `references/furniture/lg-washtower/wl21egzu_front.png`, `modelhouse_utility_washtower.png`, `README.md` | 워시타워 정면 제품 사진, 모델하우스 다용도실 VR 캡처, 공식 규격(700×1890×830mm)·가정 |
+| `models/backups/apt_84a_photoreal_tour_before_washtower.blend` | Q20 상태 복원용 백업, 현행 원본 아님 |
+| `scripts/add_lg_washtower.py`, `verify_lg_washtower.py`, `render_lg_washtower.py` | 워시타워·타일 바닥 모델링, 검증, 확인 렌더 |
+| `renders/review/render_46_utility_washtower.png`, `render_47_utility_washtower_side.png` | 다용도실 워시타워·타일 바닥 확인 렌더 |

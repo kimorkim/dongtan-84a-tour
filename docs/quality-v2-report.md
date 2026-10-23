@@ -579,9 +579,9 @@ Q12의 일반 가구 변환은 부품별 중심과 바운딩 박스를 각각 �
 `renders/review/q16_kitchen_before.png`는 Q15 저장본의 재현 렌더다.
 
 - `detail_kitchen_finish.py`는 현행 모델에서만 주방 장·상판을 교체한다. 전체 Q12 마이그레이션은 재실행하지 않는다.
-- 벽·창·문·냉장고장·타 방 가구를 유지하고 북쪽 벽면 y10.145/동쪽 x7.735에 맞춰 ㄷ자 조리대를 연결했다.
-- 북쪽 상판은 싱크 개구부가 실제로 뚫린 단일 메시다. 식기세척기와 하부장 문 전면을 맞추고,
-  싱크볼 840×440mm 및 수전/오븐/후드/인덕션은 Q12 전 부품을 조립체 단위 강체 이동으로 복구했다.
+- 벽·창·문·냉장고장·타 방 가구를 유지하고 서쪽 가벽(`ExactWall_10`, 마감면 `x=5.075`)·북쪽 벽면 `y=10.145`·동쪽 `x=7.735`에 맞춰 ㄷ자 조리대를 연결했다(북측 상판·상부장·타일 서쪽 시작점 `x=5.080`, 식기세척기 `x=5.095~5.685`, 싱크볼 `x=5.715~6.555`).
+- 북쪽 상판은 싱크 개구부가 실제로 뚫린 단일 메시다. 식기세척기와 하부장 문 전면을 맞추고, 서쪽 가벽(`x=5.075`) 관통 없이 정렬했으며,
+  싱크볼 840×440mm 및 수전/후드/인덕션/냄비(`KitchenProp_Pot_*`)는 Q12 전 부품을 조립체 단위 강체 이동으로 복구했다(중복 `Q2_Pot*` 제거, 미선택 옵션인 하부 빌트인 오븐 `ProK_Oven_*`은 싱크 하부장과 동일한 일반 양개 하부장 `Kitchen_Base_East`·`ProK_DoorE_L/R`로 교체).
 - 창 외곽 1200×1150mm/하부1120mm를 유지했다. 양옆 상부장은 창틀을 가리지 않으며 천장 아래로 마감했다.
 - 주방 전용 `Mat_Q16_Stone`으로 기존의 강한 회색 얼룩을 줄였다. 웹 익스포터에도 전용 밝은 석재를 연결했다.
   석재 무늬는 사진의 밝기/인상에 맞춘 근사이며 실제 제조사 자재 스캔이 아니다.
@@ -605,3 +605,50 @@ Q12 치수 72개, Q5~Q15의 기존 방/바닥/가구 회귀 검사도 실행했�
 실제 GLB 기반 주방 검사 포함 웹 테스트8개, 타입 검사, 프로덕션 빌드 통과.
 빌드의 GLB/충돌/주방·전체평면 갤러리 해시는 public 원본과 동일하다.
 빌드는 기존 500KB 초과 청크 안내를 출력한다. 브라우저 수동 조작은 이번 검증에 포함하지 않았다.
+
+
+# Q17 거실 TV장 및 스탠드형 TV 교체 (2026-10-22)
+
+- 사용자 지정 `references/furniture/living-tv-stand/model.glb`(외곽 2000×450×513mm, `Leg_FL/FR/BL/BR`, `Carcass`, `Shelf`, `Door_Left/Centre/Right` 9개 메시)로 기존 거실 TV장(`MediaUnit_Living`, `ProK_MediaTop`)과 상부 소품(`Q2_Console*`)을 교체했다.
+- 기존 벽걸이 TV(`Living_TV_OLED_Frame`, `Living_TV_OLED_Screen`)를 제거하고, 사용자 지정 스탠드형 TV `references/furniture/living-tv/tv.glb`(외곽 1225×270×765mm, `Chassis`, `Screen`, `Left_foot`, `Right_foot`, `Rear_shell` 등 11개 메시, `Q17_TV_*`)를 TV장 상판(`z=0.513`) 정중앙(`x=4.420~4.690`, `y=2.6735~3.8985`, `z=0.513~1.278`)에 배치했다.
+- 전면 도어와 TV 화면이 동쪽 소파(`+X`)를 향하도록 회전하고, TV장 뒷면은 서쪽 아트월 마감면(`x=4.330`)에 밀착(`x=4.330~4.780`, `y=2.286~4.286`, `z=0.000~0.513`)했다.
+- 백업은 `models/backups/apt_84a_photoreal_tour_before_tv_stand.blend`다.
+- `scripts/verify_living_tv_stand.py` 및 `web/tests/living-finish.test.mjs`로 구 콘솔/소품/벽걸이 TV 제거, TV장 9개 부품 및 스탠드 TV 11개 부품 치수·위치·정렬·방향, 재질 및 충돌 메타데이터(`tv_stand_version: 17`)를 검증했다.
+- Q12 치수 72개, 기존 방별 회귀 검사, 현관부터 TV장 앞(`(5.15, 3.286)`)을 포함한 32개 목표 보행 검사, 웹 테스트 8개·타입 검사·프로덕션 빌드를 모두 통과했다.
+
+
+# Q18 냉장고장 상부 오픈칸 및 LG 광파오븐 추가·높이/도어 틈새 교정 (2026-10-23)
+
+- 냉장고장 가장 북쪽 칸(밥솥·오븐 키큰장, `y=7.5033~8.1359`)을 실사용 높이에 맞춰 하부 2단 서랍(`z=0.040~0.560`), 밥솥 오픈칸(`z=0.582~0.940`, 선반 `Q3_Niche_Shelf` `z=0.562~0.582`), 광파오븐 오픈칸(`z=0.960~1.400`, 하판 `Q3_Niche_Top` `z=0.940~0.960`, 상판 `Q3_OvenNiche_Top` `z=1.400~1.420`), 중상부 수납문(`Q3_OvenUpper_Door` `z=1.422~1.8095`)으로 재구성하고, 밥솥(`Q3_Cooker_*`)도 낮춘 선반 위로 이동했다.
+- 기존 냉장고장 상부장 도어(`Q3_TopDoor1..3, 0`) 사이에 벌어져 있던 30~81.5mm 빈틈과 밥솥장 하부 2단 서랍(`Q3_Drawer_Front1/2`) 좌우·상하 틈새(최대 38.8mm), 공중에 떠 있던 서랍 손잡이(`Q3_Drawer_Handle0/1`), 냉장고 우측 필러(`Q3_FillerN`) 유격 및 칸막이(`Q3_Divider2`/`Q3_Drawer_SideS`) 틈새를 교정해 2mm 줄눈과 내부 몸통 백업(`Q3_TopFiller`, `Q3_OvenUpper_Core`, `Q3_Drawer_Core`)이 있는 빌트인 가구 형태로 빈틈없이 맞췄다.
+- 사용자 지정 LG 디오스 오브제컬렉션 광파오븐 `MLJ32EWSO`(공식 규격 527×480×394mm, `references/furniture/lg-lightwave-oven/mlj32ewso.png` 및 `README.md`)를 `Q18_LightwaveOven_Body`, `DoorLower`, `DoorUpper`, `Window`, `Display`, `Dial` 6개 메시로 모델링해 밥솥 위 오픈칸 중앙(`x=4.420~4.900`, `y=7.5715~8.0985`, `z=0.960~1.354`, 전면 `+X`)에 배치했다.
+- 백업은 `models/backups/apt_84a_photoreal_tour_before_lightwave_oven.blend`다.
+- `scripts/verify_lg_lightwave_oven.py` 및 `web/tests/kitchen-model.test.mjs`로 중문 제거, 오픈칸 선반·후면 패널, 상부장 도어 및 하부 서랍 2mm 이내 줄눈 정렬, 손잡이 부착, 광파오븐 외곽 규격(527×480×394mm)·실사용 높이(`z=0.960~1.354`)·다이얼 돌출을 검증했다.
+- 확인 렌더는 `renders/review/render_11_fridge_pov.png`, `render_12_sink_door_pov.png` 및 웹 갤러리 `fridge-wall.webp`다.
+
+
+# Q19 거실 사운드바 및 무선 서브우퍼 추가 (2026-10-23)
+
+- 사용자 지정 삼성 2.1채널 사운드바 및 무선 서브우퍼(`HW-C450/B450` 계열, `references/furniture/living-soundbar/README.md`)를 모델링해 거실에 추가했다.
+- 사운드바 본체(`Q19_Soundbar_Body`, `Grille`, `Buttons`, `Logo`, 공식 외형 858.8×75.0×59.0mm)는 거실 TV장(`Q17_TVStand_*`, 상판 `z=0.513`) 위 TV 스탠드 다리 사이 전면 정중앙(`x=4.680~4.755`, `y=2.8566~3.7154`, `z=0.513~0.572`, 전면 `+X`)에 배치했다.
+- 무선 서브우퍼(`Q19_Subwoofer_Body`, `Grille`, `Logo`, `Feet`, 공식 외형 184.0×295.0×343.0mm)는 브레스트 4인 소파(`Q14_Brest_*`)의 남쪽(창가 쪽) 팔걸이 옆 바닥(`x=8.360~8.655`, `y=1.373~1.557`, `z=0.000~0.343`, 전면 `-X`)에 배치했다.
+- 백업은 `models/backups/apt_84a_photoreal_tour_before_soundbar.blend`다.
+- `scripts/verify_living_soundbar.py` 및 `web/tests/living-finish.test.mjs`로 사운드바·서브우퍼 외곽 규격, 위치, 방향, TV 다리 및 소파/커튼과의 간섭 없음을 검증했다.
+
+
+# Q20 냉장고장-다용도실 가벽 틈새 마감 및 다용도실 터닝도어 교체
+
+- `scripts/fix_utility_turning_door.py`로 현행 모델을 수정했다(백업 `models/backups/apt_84a_photoreal_tour_before_turning_door.blend`).
+- 냉장고장 우측 마감판(`Q3_SideN`, `y=8.176`) 옆에 사선으로 파여 있던 `ExactWall_11` 남단(`y=8.185~8.280`)과 바닥의 돌출 걸레받이 조각(`ProBaseboards`)을 교정하여 `y=8.176~8.360` 구간을 빈틈없는 일자 가벽(`x=4.330~5.075`)으로 마감했다.
+- 다용도실 출입구(`y=8.360~9.015`) 상부 인방벽(`Q20_UtilityDoor_Header`, `x=4.975~5.075`, `z=2.150~2.300`)을 복구하고, 벽에서 떠 있던 옛 목문 틀(`Q3_SinkTrimK/R_*`)과 불투명 방문짝(`ProDoorLeaf_UtilitySink`)을 제거한 뒤 4면 일체형 화이트 uPVC 프레임(`Q20_TurningDoor_Frame_S/N/Top/Bot/Gasket`)과 유리창이 들어간 다용도실 터닝도어(`ProDoorLeaf_UtilitySink_Frame/Glass/Gasket/Handle`, 다용도실 내부 90° 개방)로 교체했다.
+- `scripts/verify_utility_turning_door.py` 및 `web/tests/kitchen-model.test.mjs`로 가벽 밀착, 상부 인방벽, 터닝도어 프레임·유리창·손잡이 및 보행 가능 여부를 검증했다.
+
+
+# Q21 다용도실 LG 워시타워 WL21EGZU 및 타일 바닥
+
+- `scripts/add_lg_washtower.py`로 현행 모델을 수정했다(백업 `models/backups/apt_84a_photoreal_tour_before_washtower.blend`).
+- LG 트롬 오브제컬렉션 워시타워 `WL21EGZU`(공식 700×1890×830mm)를 세탁기·조작부·건조기 몸체, 네이처 그린/베이지 전면 패널, 원형 블랙 도어 테두리·유리·드럼, 세제 자동투입함·필터 커버·디스플레이·로고·다리로 모델링했다(`Q21_WashTower_*`). 정면 비례는 제품 사진 픽셀 비율 기반 근사다.
+- 다용도실 서쪽 벽(x=3.775)과 40mm를 띄워 x3.815~4.645/y9.030~9.730에 두었고, 정면은 터닝도어를 향한다. 문틀까지 앞 통로는 약 318mm다.
+- 우드 바닥이 그대로 보이던 다용도실에 300×300 회색 타일·2mm 줄눈·사각 배수구를 깔았다(상면 z=0.014). 워시타워는 이 타일 위에 서 있다.
+- 검증: `scripts/verify_lg_washtower.py`(규격·벽 간격·방 내부·터닝도어 비간섭·전면 구성·타일 범위), Q20/Q16/Q18/바닥/Q12 치수 회귀, `web/tests/kitchen-model.test.mjs`(GLB 규격·타일·충돌 박스), `verify_master_balcony.py` 보행 검사.
+- 미검증: 실제 급배수 위치, 도어 열림 1410mm와 터닝도어/통로 간섭, 진동 여유, 바닥 물매·단차.

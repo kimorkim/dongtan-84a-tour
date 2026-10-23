@@ -1,4 +1,6 @@
 """Q15 checks the saved living-room finish and retained furnishings."""
+from pathlib import Path
+import runpy
 import bpy
 from mathutils import Vector
 bpy.context.view_layer.update()
@@ -26,4 +28,8 @@ for o in bpy.data.objects:
         samples=[((o.matrix_world@o.data.vertices[l.vertex_index].co).z,o.data.uv_layers.active.data[l.index].uv.y) for l in o.data.loops]
         assert max(samples)[1]>.99 and min(samples)[1]<.01,'Landscape sky must be above ground'
 assert bpy.data.objects.get('Q14_Brest_Seat0') and bpy.data.objects.get('Q13_Poeta800_Back')
+if bpy.context.scene.get('Q17_tv_stand'):
+    runpy.run_path(str(Path(__file__).with_name('verify_living_tv_stand.py')),run_name='__main__')
+if bpy.context.scene.get('Q19_living_soundbar'):
+    runpy.run_path(str(Path(__file__).with_name('verify_living_soundbar.py')),run_name='__main__')
 print('PASS Q15: clear centre, full artwall, gathered curtains, wide centre sash, exterior rail, packed daylight backdrop')

@@ -1,4 +1,4 @@
-﻿"""Q16 repair of current kitchen; never reruns the Q12 whole-unit migration.
+"""Q16 repair of current kitchen; never reruns the Q12 whole-unit migration.
 
 Structure/window dimensions stay Q12. Cabinet depths and divisions are photo-based.
 Fine sink/appliance parts are recovered from pre-Q12 geometry as rigid assemblies.
@@ -30,10 +30,12 @@ def box(name,x1,x2,y1,y2,z1,z2,mat='Mat_Cabinet_Cashmere',bevel=.001):
     return o
 
 # Only the damaged kitchen assemblies are replaced; structural meshes are untouched.
+# Also remove duplicate Q2_Pot* and excluded built-in oven option (ProK_Oven_*).
 prefixes=('Kitchen_Base_','Kitchen_Kick_','Kitchen_Top_','Kitchen_Upper_North',
-          'ProK_DoorN','ProK_DoorE','ProK_DoorP','ProK_EndPanel','ProK_Splash','ProK_UpperEast','Q16_')
+          'ProK_DoorN','ProK_DoorE','ProK_DoorP','ProK_EndPanel','ProK_Splash','ProK_UpperEast','Q16_',
+          'ProK_Oven_','Q2_Pot')
 fine=('Kitchen_Sink_','Kitchen_Faucet_','Kitchen_Induction_','KitchenProp_Pot_',
-      'ProK_Oven_','ProK_Hood_','ProK_Dishwasher_')
+      'ProK_Hood_','ProK_Dishwasher_')
 for o in list(bpy.data.objects):
     if o.name.startswith(prefixes+fine):remove(o)
 
@@ -59,11 +61,13 @@ def align_group(prefix,anchor,axis,target,centre=False):
     delta=[0,0,0];delta[axis]=target-((lo[axis]+hi[axis])/2 if centre else lo[axis])
     shift_group(prefix,delta)
 
-shift_group(('Kitchen_Sink_','Kitchen_Faucet_'),(-.095,.10,0))
+# Align clear of west partition wall ExactWall_10 (east finished face x=5.075):
+# - Left end panel: x=5.080..5.095
+# - Dishwasher (590mm): x=5.095..5.685 (center x=5.390)
+# - Sink bowl (840mm): x=5.715..6.555 (within 1200mm kitchen window x=5.455..6.655)
+shift_group(('Kitchen_Sink_','Kitchen_Faucet_'),(-.015,.10,0))
 align_group('ProK_Dishwasher_','ProK_Dishwasher_Door',1,9.482)
-align_group('ProK_Dishwasher_','ProK_Dishwasher_Door',0,5.235,True)
-align_group('ProK_Oven_','ProK_Oven_DoorGlass',0,7.065)
-align_group('ProK_Oven_','ProK_Oven_DoorGlass',1,9.03,True)
+align_group('ProK_Dishwasher_','ProK_Dishwasher_Door',0,5.390,True)
 align_group(('Kitchen_Induction_','KitchenProp_Pot_'),'Kitchen_Induction_Glass',0,7.40,True)
 align_group(('Kitchen_Induction_','KitchenProp_Pot_'),'Kitchen_Induction_Glass',1,9.03,True)
 align_group('ProK_Hood_','ProK_Hood_Body',1,9.03,True)
@@ -85,44 +89,42 @@ for element in ramp.elements:
 nodes['Mapping'].inputs['Scale'].default_value=(.65,3.5,1)
 nodes['Bump'].inputs['Strength'].default_value=.025
 nodes['Bump'].inputs['Distance'].default_value=.001
-# Shared finished faces: north y10.145, east x7.735; 10mm clearance for stone.
-top=box('Kitchen_Top_North',4.925,7.725,9.485,10.135,.86,.89,stone,0)
+# Shared finished faces: west x5.075, north y10.145, east x7.735; 5-10mm clearance for stone.
+top=box('Kitchen_Top_North',5.080,7.725,9.485,10.135,.86,.89,stone,0)
 # One closed ring avoids four independently calibrated rim segments and their gaps.
-cutter=box('Q16_SinkCutter',5.65,6.46,9.605,10.015,.60,1.05,bevel=0)
+cutter=box('Q16_SinkCutter',5.730,6.540,9.605,10.015,.60,1.05,bevel=0)
 mod=top.modifiers.new('Undermount opening','BOOLEAN');mod.operation='DIFFERENCE';mod.solver='EXACT';mod.object=cutter
 bpy.context.view_layer.objects.active=top
 bpy.ops.object.modifier_apply(modifier=mod.name);remove(cutter)
 bev=top.modifiers.new('Stone edge','BEVEL');bev.width=.0008;bev.segments=2
 box('Kitchen_Top_East',7.075,7.725,8.595,9.485,.86,.89,stone,0)
 box('Kitchen_Top_Peninsula',6.44,7.725,7.945,8.595,.86,.89,stone,0)
-# Carcasses are hollow around the sink and oven.
-box('Kitchen_Base_North_EndL',4.925,4.945,9.505,10.125,.07,.86)
-box('Kitchen_Base_Sink_Floor',5.555,6.555,9.505,10.125,.07,.09)
-for name,x in [('DivL',5.555),('DivR',6.535)]:
+# Carcasses are hollow around the sink; east lower cabinet is a full storage cabinet (no oven).
+box('Kitchen_Base_North_EndL',5.080,5.095,9.505,10.125,.07,.86)
+box('Kitchen_Base_Sink_Floor',5.690,6.590,9.505,10.125,.07,.09)
+for name,x in [('DivL',5.690),('DivR',6.570)]:
     box('Kitchen_Base_Sink_'+name,x,x+.02,9.505,10.125,.09,.86)
-box('Kitchen_Base_North_R',6.555,7.725,9.505,10.125,.07,.86)
-for i,(a,b) in enumerate([(5.555,6.053),(6.056,6.554),(6.557,7.073)]):
+box('Kitchen_Base_North_R',6.590,7.725,9.505,10.125,.07,.86)
+for i,(a,b) in enumerate([(5.690,6.138),(6.141,6.589),(6.592,7.073)]):
     name=['ProK_DoorN_SinkL','ProK_DoorN_SinkR','ProK_DoorN_R1'][i]
     box(name,a,b,9.482,9.500,.10,.845)
-# Corner unit stops at oven aperture; no solid block behind oven glass.
-box('Kitchen_Base_East',7.095,7.725,9.335,9.505,.07,.86)
-box('ProK_DoorE_Corner',7.072,7.090,9.337,9.500,.10,.845)
-box('Q16_OvenFloor',7.095,7.725,8.725,9.335,.07,.13)
-box('Q16_OvenRail',7.072,7.725,8.725,9.335,.735,.86)
-box('Q16_OvenFiller',7.072,7.725,8.595,8.725,.07,.86)
+# East lower cabinet under cooktop: matching cashmere cabinet carcass and two storage doors.
+box('Kitchen_Base_East',7.095,7.725,8.595,9.505,.07,.86)
+for tag,(a,b) in [('L',(8.597,9.037)),('R',(9.040,9.480))]:
+    box('ProK_DoorE_'+tag,7.072,7.090,a,b,.10,.845)
 box('Kitchen_Base_Pen',6.46,7.725,7.965,8.595,.07,.86)
 for i in range(2):
     a=6.46+i*.6325
     box('ProK_DoorP'+str(i+1),a+.002,a+.6305,7.947,7.965,.10,.845)
 box('ProK_EndPanelW',6.44,6.46,7.965,8.595,.07,.86)
-for name,coords in [('North',(4.945,7.725,9.54,9.56)),('East',(7.13,7.15,8.595,9.54)),('Pen',(6.49,7.725,8.00,8.02))]:
+for name,coords in [('North',(5.095,7.725,9.54,9.56)),('East',(7.13,7.15,8.595,9.54)),('Pen',(6.49,7.725,8.00,8.02))]:
     box('Kitchen_Kick_'+name,*coords,0,.07,'Mat_AC_Grill',0)
 
-# Window remains the Q12 1200x1150 opening; stone and uppers stop at its jambs.
-for tag,a,b,h in [('L',4.925,5.455,1.55),('Mid',5.455,6.655,1.12),('R',6.655,7.725,1.55)]:
+# Window remains the Q12 1200x1150 opening; stone and uppers stop at its jambs and west wall x5.080.
+for tag,a,b,h in [('L',5.080,5.455,1.55),('Mid',5.455,6.655,1.12),('R',6.655,7.725,1.55)]:
     box('ProK_SplashNorth_'+tag,a,b,10.115,10.145,.89,h,stone,0)
 box('ProK_SplashEast',7.705,7.735,8.595,10.115,.89,1.55,stone,0)
-for tag,a,b in [('L',4.925,5.445),('R',6.665,7.405)]:
+for tag,a,b in [('L',5.080,5.445),('R',6.665,7.405)]:
     box('Kitchen_Upper_North'+tag+'_Box',a,b,9.805,10.145,1.55,2.29)
     box('Kitchen_Upper_North'+tag+'_LED_Strip',a+.02,b-.02,9.825,10.10,1.535,1.549,'Mat_Light_Warm_Strip')
     if tag=='R':
@@ -138,6 +140,7 @@ for o in bpy.data.objects:
     if o.name.startswith(('KitchenProp_Board','KitchenProp_Rack_','Q2_SinkPlant')) and o.type=='MESH':
         lo,hi=bounds(o)
         if hi.y>10.105:o.location.y-=hi.y-10.105
+bpy.ops.outliner.orphans_purge(do_local_ids=True, do_linked_ids=True, do_recursive=True)
 bpy.context.scene['Q16_kitchen_finish']=1
 bpy.context.view_layer.update()
 runpy.run_path(str(ROOT/'scripts/verify_kitchen_finish.py'))

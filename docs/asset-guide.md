@@ -206,3 +206,43 @@ PDF 추출본과 CAD 확대는 실제 도면 계열이고, `84A.jpg`의 가구�
 모델하우스 원본은 `references/modelhouse/original/display84a_03.jpg`, 도면은
 `references/drawings/crops/crop_cad_kitchen_full.png`다. 창·구조 치수는 Q12를 유지한다.
 사진에 따른 장 깊이·문 분할·자재 표현은 가정이며 품질 보고서 Q16에 기록했다.
+
+
+# Q17 거실 TV장 및 스탠드형 TV 교체
+
+현재 거실 TV장과 TV는 `scripts/replace_living_tv_stand.py` 결과다. 사용자 지정 원본 GLB는
+`references/furniture/living-tv-stand/model.glb`(2000×450×513mm)와
+`references/furniture/living-tv/tv.glb`(1225×270×765mm)에 보관했다.
+기존 `MediaUnit_Living`, `ProK_MediaTop`, 상부 소품(`Q2_Console*`), 벽걸이 TV(`Living_TV_OLED_*`)는 제거하고 거실장 위에 스탠드형 TV를 배치했다.
+확인 렌더는 `renders/review/render_41_living_artwall.png`, `render_39_brest_living_plan.png`,
+`render_29_oak_living.png`, `render_36_dimensioned_plan.png`다.
+
+
+# Q18 냉장고장 밥솥칸 상부 LG 광파오븐 추가 및 높이·틈새 교정
+
+현재 냉장고장 북쪽 밥솥칸 상부는 `scripts/add_lg_lightwave_oven.py` 결과다.
+기존 중문(`Q3_Drawer_TopDoor`)을 제거해 실사용 높이의 밥솥 오픈칸(`z=0.582~0.940`)과 광파오븐 오픈칸(`z=0.960~1.400`), 중상부 도어(`Q3_OvenUpper_Door`, `z=1.422~1.8095`)를 만들고,
+LG 오브제컬렉션 광파오븐 `MLJ32EWSO`(527×480×394mm, 참고 이미지·출처 `references/furniture/lg-lightwave-oven/`)를 모델링해 배치했다.
+확인 렌더는 `renders/review/render_11_fridge_pov.png`, `render_12_sink_door_pov.png`다.
+
+
+# Q19 거실 사운드바 및 무선 서브우퍼 추가
+
+현재 거실 사운드바와 서브우퍼는 `scripts/add_living_soundbar.py` 결과다.
+참고 이미지·출처는 `references/furniture/living-soundbar/`에 보관했다.
+사운드바 본체(`Q19_Soundbar_*`, 858.8×75.0×59.0mm)는 거실 TV장 위 TV 앞에, 무선 서브우퍼(`Q19_Subwoofer_*`, 184.0×295.0×343.0mm)는 브레스트 소파 남쪽(창가 쪽) 팔걸이 옆 바닥에 배치했다.
+확인 렌더는 `renders/review/render_41_living_artwall.png`, `render_38_brest_sofa.png`, `render_39_brest_living_plan.png`다.
+
+
+# Q20 냉장고장-다용도실 가벽 틈새 마감 및 다용도실 터닝도어 교체
+
+현재 냉장고장 우측 가벽과 다용도실 출입문은 `scripts/fix_utility_turning_door.py` 결과다.
+기존 사선 틈새와 공중에 떠 있던 목문 틀(`Q3_SinkTrim*`)·불투명 방문짝을 제거하고, 냉장고장 측판(`y=8.176`)에 밀착된 가벽, 상부 인방벽(`Q20_UtilityDoor_Header`), 일체형 화이트 uPVC 터닝도어 프레임(`Q20_TurningDoor_Frame_*`) 및 복층유리 터닝도어(`ProDoorLeaf_UtilitySink_*`)로 교체했다.
+확인 렌더는 `renders/review/render_12_sink_door_pov.png`, `render_11_fridge_pov.png`다.
+
+
+# Q21 다용도실 LG 워시타워 및 타일 바닥
+
+현재 다용도실 워시타워와 타일 바닥은 `scripts/add_lg_washtower.py` 결과다.
+제품 정면 사진·모델하우스 캡처·규격과 가정은 `references/furniture/lg-washtower/`에 있다.
+확인 렌더는 `renders/review/render_46_utility_washtower.png`, `render_47_utility_washtower_side.png`다(검토용 임시 보조광, 원본 미저장).

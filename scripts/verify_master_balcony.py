@@ -59,6 +59,8 @@ if data.get('living_finish_version') == 15 or data.get('living_finish_version') 
 if data.get('kitchen_finish_version') == 1:
     goals.extend([('Kitchen sink approach',6.05,9.10),('Kitchen cooktop approach',6.65,9.03),
                   ('Kitchen dishwasher approach',5.4,9.10)])
+if data.get('tv_stand_version') == 17:
+    goals.append(('Living TV stand approach',5.15,3.286))
 for name,x,y in goals:
     distance = min(math.hypot(i * STEP - x, j * STEP - 0.6 - y) for i, j in visited)
     print(f'{name}: nearest reachable point {distance:.3f}m')

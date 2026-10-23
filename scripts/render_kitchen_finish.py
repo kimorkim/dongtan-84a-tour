@@ -1,4 +1,4 @@
-﻿"""Q16 saved-master review views; no scene settings saved."""
+"""Q16 saved-master review views; no scene settings saved."""
 from pathlib import Path
 import bpy
 from mathutils import Vector
@@ -6,10 +6,7 @@ ROOT=Path(__file__).resolve().parent.parent
 sc=bpy.context.scene
 sc.render.engine='CYCLES';sc.cycles.samples=32;sc.cycles.use_denoising=True
 sc.cycles.denoiser='OPENIMAGEDENOISE';sc.cycles.use_adaptive_sampling=True
-prefs=bpy.context.preferences.addons['cycles'].preferences;prefs.compute_device_type='OPTIX';prefs.get_devices()
-for d in prefs.devices:d.use=d.type=='OPTIX'
-assert any(d.use for d in prefs.devices)
-sc.cycles.device='GPU';sc.render.use_persistent_data=True
+sc.cycles.device='CPU';sc.render.use_persistent_data=True
 sc.render.resolution_x=1200;sc.render.resolution_y=960;sc.render.resolution_percentage=100
 sc.view_settings.exposure=.15
 

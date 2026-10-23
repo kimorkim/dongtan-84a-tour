@@ -1,4 +1,4 @@
-﻿"""Q14 living-room views; review-only cameras do not change the saved master."""
+"""Q14/Q15/Q17 living-room views; review-only cameras do not change the saved master."""
 from pathlib import Path
 import bpy
 from mathutils import Vector
@@ -6,11 +6,7 @@ ROOT=Path(__file__).resolve().parent.parent
 sc=bpy.context.scene
 sc.render.engine='CYCLES'; sc.cycles.samples=24; sc.cycles.use_denoising=True
 sc.cycles.denoiser='OPENIMAGEDENOISE'; sc.cycles.use_adaptive_sampling=True
-prefs=bpy.context.preferences.addons['cycles'].preferences
-prefs.compute_device_type='OPTIX'; prefs.get_devices()
-for d in prefs.devices: d.use=d.type=='OPTIX'
-assert any(d.use for d in prefs.devices)
-sc.cycles.device='GPU'; sc.render.use_persistent_data=True
+sc.cycles.device='CPU'; sc.render.use_persistent_data=True
 sc.render.resolution_x=1100; sc.render.resolution_y=900; sc.render.resolution_percentage=100
 sc.view_settings.exposure=.15
 cy=sc['Q14_sofa_centre_y']

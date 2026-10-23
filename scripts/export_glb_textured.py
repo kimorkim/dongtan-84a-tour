@@ -12,8 +12,9 @@ import bpy
 import os
 import numpy as np
 
-TEX_SRC = r"C:\Users\tamarand\orca\projects\apt\assets\textures"
-TEX_EXP = r"C:\Users\tamarand\orca\projects\apt\assets\textures_export"
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) if '__file__' in locals() else os.getcwd()
+TEX_SRC = os.path.join(_ROOT, "assets", "textures")
+TEX_EXP = os.path.join(_ROOT, "assets", "textures_export")
 os.makedirs(TEX_EXP, exist_ok=True)
 LUM = np.array([0.2126, 0.7152, 0.0722], np.float32)
 
@@ -293,14 +294,16 @@ if _land is not None:
 saved = bpy.data.filepath
 assert saved and os.path.exists(saved)
 out_path = os.path.join(os.path.dirname(saved), "web", "public", "house.glb")
+tmp_path = os.path.join(os.path.dirname(saved), "web", "public", "house.tmp.glb")
 hidden = []
 for o in bpy.data.objects:
     if o.type in ('LIGHT', 'CAMERA'):
         hidden.append(o)
         o.hide_viewport = True
         o.hide_render = True
-bpy.ops.export_scene.gltf(filepath=out_path, export_format='GLB',
+bpy.ops.export_scene.gltf(filepath=tmp_path, export_format='GLB',
                           use_selection=False, export_apply=True)
+os.replace(tmp_path, out_path)
 print(f"[GLBTEX] exported {os.path.getsize(out_path) / 1024 / 1024:.2f} MB")
 bpy.ops.wm.open_mainfile(filepath=saved)
 print("[GLBTEX] reloaded saved blend (PBR restored)")

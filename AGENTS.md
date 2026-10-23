@@ -146,8 +146,48 @@
 ## Q16 주방 싱크대 복구
 
 - 현행 Q15 이후 `scripts/detail_kitchen_finish.py`를 적용했다. 부품별 Q12 변형으로 어긋난 상판/하부장/식기세척기와 수전을 복구했다.
+- 서쪽 발코니2(다용도실) 가벽 `ExactWall_10`의 주방 쪽 마감면(`x=5.075`)을 침범하지 않도록 북측 상판·좌측 상부장·좌측 타일·마감판 시작점을 `x=5.080`으로 맞추고, 식기세척기(`x=5.095~5.685`)와 싱크볼(`x=5.715~6.555`, 창 구간 `x=5.455~6.655` 내)을 도면에 맞춰 정렬했다.
+- 인덕션 위 중복 냄비(`Q2_Pot*`)를 제거해 단일 냄비(`KitchenProp_Pot_*`)만 남기고, 사용자 옵션에서 제외된 인덕션 하부 빌트인 오븐(`ProK_Oven_*`, `Q16_Oven*`)을 제거해 싱크대 하부장과 동일한 캐시미어 마감 양개 수납장(`Kitchen_Base_East`, `ProK_DoorE_L/R`)으로 교체했다.
 - Q12 창 1200×1150/하부1120mm 및 구조벽·냉장고장 순서를 유지한다. 옛 전체 주방 생성/Q12 마이그레이션을 재실행하지 않는다.
 - 싱크볼·가전 세부는 Q12 전 백업에서 해당 조립체만 복원해 강체 이동한다. 백업 파일 전체를 현행 원본으로 되돌리지 않는다.
 - `verify_kitchen_finish.py`, 기존 치수/방/보행 검사 뒤 충돌·GLB·웹 주방 갤러리를 갱신한다.
 - 현재 확인 렌더는 42~45번이다. 12/36번 및 갤러리용 주방 3/9번도 갱신했다.
 - 장 깊이/문 분할·밝은 석재는 사진 기반 제안값이다. 가전 문 개폐·실제 배관·제작 치수는 미검증이다.
+
+
+## Q17 거실 TV장 및 스탠드형 TV 교체
+
+- 현행 Q16 이후 `scripts/replace_living_tv_stand.py`를 적용했다. 사용자 지정 `references/furniture/living-tv-stand/model.glb`(2000×450×513mm)로 기존 거실 TV장(`MediaUnit_Living`, `ProK_MediaTop`)과 상부 소품(`Q2_Console*`)을 교체하고, 기존 벽걸이 TV(`Living_TV_OLED_*`)를 제거한 뒤 사용자 지정 스탠드형 TV `references/furniture/living-tv/tv.glb`(1225×270×765mm, `Q17_TV_*`)를 TV장 상판 중앙(`x=4.420~4.690`, `y=2.6735~3.8985`, `z=0.513~1.278`)에 올려놓았다.
+- TV장은 서쪽 아트월 마감면(`x=4.330`)에 뒷면을 밀착(`x=4.330~4.780`, `y=2.286~4.286`, `z=0.000~0.513`)했고, TV장 도어와 TV 화면 모두 동쪽 소파(`+X`)를 향한다.
+- `verify_living_tv_stand.py`, `verify_living_finish.py`, 기존 치수/방/보행 검사 뒤 충돌·GLB·거실 확인 렌더(41·39·40·38·29·36번)와 웹 갤러리를 갱신한다.
+
+
+## Q18 냉장고장 밥솥칸 상부 LG 광파오븐 추가 및 실사용 높이·도어 틈새 마감 교정
+
+- 현행 Q17 이후 `scripts/add_lg_lightwave_oven.py`를 적용했다. 냉장고장 가장 북쪽 칸(밥솥장, `y=7.5033~8.1359`)을 실사용 인체공학 높이에 맞춰 하부 2단 서랍(`z=0.040~0.560`), 밥솥 오픈칸(`z=0.582~0.940`, 선반 `Q3_Niche_Shelf` `z=0.562~0.582`), 광파오븐 오픈칸(`z=0.960~1.400`, 하판 `Q3_Niche_Top` `z=0.940~0.960`, 상판 `Q3_OvenNiche_Top` `z=1.400~1.420`), 중상부 수납문(`Q3_OvenUpper_Door` `z=1.422~1.8095`)으로 재구성했다.
+- 냉장고장 상부장 4도어(`Q3_TopDoor1..3, 0`, `z=1.812~2.260`)와 중상부 도어(`Q3_OvenUpper_Door`), 하부 서랍 2단(`Q3_Drawer_Front1/2`, 손잡이 `Q3_Drawer_Handle0/1`), 가전 좌우 필러(`Q3_FillerS/N`)·수직 칸막이(`Q3_Divider`, `Q3_Divider2`, `Q3_Drawer_SideS/N`)·상부 몰딩(`Q3_TopPanel` `z=2.262~2.300`)을 빈틈없이 2mm 줄눈(내부 몸통 백업 포함)으로 정밀 정렬했다.
+- 사용자 지정 LG 디오스 오브제컬렉션 광파오븐 `MLJ32EWSO`(공식 외형 527×480×394mm, `Q18_LightwaveOven_*`)를 모델링하여 밥솥 위 상부 오픈칸 중앙(`x=4.420~4.900`, `y=7.5715~8.0985`, `z=0.960~1.354`, 전면 `+X`)에 배치했다. 공식 규격·출처는 `references/furniture/lg-lightwave-oven/README.md`를 본다.
+- `verify_lg_lightwave_oven.py`, `verify_kitchen_finish.py`, 기존 치수/방/보행 검사 뒤 충돌·GLB·냉장고장 확인 렌더(11·12번)와 웹 갤러리를 갱신한다.
+
+
+## Q19 거실 사운드바 및 무선 서브우퍼 추가
+
+- 현행 Q18 이후 `scripts/add_living_soundbar.py`를 적용했다. 사용자 지정 삼성 2.1채널 사운드바(`HW-C450/B450` 계열, `references/furniture/living-soundbar/README.md`)를 모델링해 추가했다.
+- 사운드바 본체(공식 외형 858.8×75.0×59.0mm, `Q19_Soundbar_*`)는 거실 TV장 상판(`z=0.513`) 위 TV 스탠드 다리 사이 전면 중앙(`x=4.680~4.755`, `y=2.8566~3.7154`, `z=0.513~0.572`, 전면 `+X`)에 배치했고, 무선 서브우퍼(공식 외형 184.0×295.0×343.0mm, `Q19_Subwoofer_*`)는 브레스트 소파의 남쪽(창가 쪽) 팔걸이 옆 바닥(`x=8.360~8.655`, `y=1.373~1.557`, `z=0.000~0.343`, 전면 `-X`)에 배치했다.
+- `verify_living_soundbar.py`, `verify_living_finish.py`, 기존 치수/방/보행 검사 뒤 충돌·GLB·거실 확인 렌더(41·40·39·38·29·36번)와 웹 갤러리를 갱신한다.
+
+
+## Q20 냉장고장-다용도실 가벽 틈새 마감 및 다용도실 터닝도어 교체
+
+- 현행 Q19 이후 `scripts/fix_utility_turning_door.py`를 적용했다. 냉장고장 우측 마감판(`Q3_SideN`, `y=8.176`)과 다용도실 가벽(`ExactWall_11`) 사이의 사선 단차(`y=8.185~8.280`) 및 돌출 걸레받이(`ProBaseboards`)를 제거하고 가벽 남단(`y=8.176`)을 냉장고장 측판에 0mm로 밀착했다.
+- 다용도실 출입구(`y=8.360~9.015`) 상부 인방벽(`Q20_UtilityDoor_Header`, `x=4.975~5.075`, `z=2.150~2.300`)을 채우고, 벽면에서 떠 있던 기존 목문 틀(`Q3_SinkTrim*`)과 불투명 방문짝(`ProDoorLeaf_UtilitySink`)을 제거한 뒤 벽 두께 전체를 감싸는 일체형 화이트 uPVC 터닝도어 프레임(`Q20_TurningDoor_Frame_S/N/Top/Bot/Gasket`, `x=4.963~5.087`)과 투명 복층유리 터닝도어 문짝(`ProDoorLeaf_UtilitySink_Frame/Glass/Gasket/Handle`, 다용도실 안쪽 90° 개방)으로 교체했다.
+- `verify_utility_turning_door.py`, `verify_kitchen_finish.py`, 기존 치수/방/보행 검사 뒤 충돌·GLB·다용도실 문 확인 렌더(11·12번)와 웹 갤러리를 갱신한다.
+
+
+
+## Q21 다용도실 LG 워시타워 및 타일 바닥
+
+- 현행 Q20 이후 `scripts/add_lg_washtower.py`를 적용했다. 사용자 지정 LG 트롬 오브제컬렉션 워시타워 `WL21EGZU`(공식 700×1890×830mm, 상단 네이처 그린 건조기/하단 네이처 베이지 세탁기, `Q21_WashTower_*`)를 모델하우스처럼 다용도실 서쪽 벽에 뒷면을 두고(호스 여유 40mm) 정면이 터닝도어(+X)를 향하게 배치했다(`x=3.815~4.645`, `y=9.030~9.730`, `z=0.014~1.904`).
+- 다용도실 바닥은 우드 위에 300×300 회색 타일·2mm 줄눈(`Q21_UtilityTile_Floor/Grout`, 상면 z=0.014)과 사각 배수구(`Q21_UtilityTile_Drain`)로 마감했다. 범위는 남쪽 x3.175~4.975/y8.360~9.015, 북쪽 x3.775~4.975/y9.015~10.145다.
+- 정면 비례는 `references/furniture/lg-washtower/wl21egzu_front.png` 기반 근사다. 급배수 위치, 도어 열림(1410mm) 간섭, 바닥 물매는 미검증이다.
+- `verify_lg_washtower.py`, `verify_utility_turning_door.py`, `verify_kitchen_finish.py`, 기존 치수/방/보행 검사 뒤 충돌·GLB·확인 렌더(46·47번, 11·12번)를 갱신한다.
