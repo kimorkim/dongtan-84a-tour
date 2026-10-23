@@ -1,4 +1,4 @@
-"""Q21 review renders of the LG WashTower in the utility room (master is not saved)."""
+"""Q21 review renders of the LG WashTower in the south-west utility room alcove (master is not saved)."""
 from pathlib import Path
 import bpy
 from mathutils import Vector
@@ -11,10 +11,10 @@ sc.cycles.device = 'CPU'; sc.render.use_persistent_data = True
 sc.render.resolution_x = 1080; sc.render.resolution_y = 1350; sc.render.resolution_percentage = 100
 sc.view_settings.exposure = 0.35
 
-# Temporary review fill light inside the small utility room (not saved).
+# Temporary review fill light inside the utility room (not saved).
 ld = bpy.data.lights.new('Q21_ReviewFill', 'AREA'); ld.energy = 60; ld.size = 0.8
 lo = bpy.data.objects.new('Q21_ReviewFill', ld); sc.collection.objects.link(lo)
-lo.location = (4.45, 9.40, 2.20)
+lo.location = (4.45, 9.20, 2.20)
 
 
 def shot(loc, target, name, lens):
@@ -27,9 +27,9 @@ def shot(loc, target, name, lens):
     print('Saved', name, flush=True)
 
 
-# Standing in the doorway / south pocket, looking north-west at the WashTower front.
-shot((4.93, 8.50, 1.50), (4.05, 9.45, 1.05), 'render_46_utility_washtower.png', 15)
-# From the north window corner, looking back south-west (side + front, tile floor and drain).
-shot((4.90, 10.08, 1.55), (4.10, 9.10, 0.75), 'render_47_utility_washtower_side.png', 15)
+# 1. From the doorway looking straight into the south-west alcove & north window bay (matches user POV).
+shot((5.18, 8.78, 1.50), (3.65, 9.00, 1.00), 'render_46_utility_washtower.png', 18)
+# 2. From inside the north window bay looking south-west at the WashTower front + PS wall step + floor drain.
+shot((4.85, 9.85, 1.55), (3.65, 8.85, 0.90), 'render_47_utility_washtower_side.png', 16)
 bpy.data.objects.remove(lo, do_unlink=True); bpy.data.lights.remove(ld)
 print('Q21 REVIEW RENDERS DONE; master not saved')

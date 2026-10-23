@@ -55,7 +55,7 @@ test('exported kitchen has connected tops, flush dishwasher and undistorted sink
   assert.ok(Math.abs((wt.max.x-wt.min.x)-.830)<.003,'WashTower depth != 830mm');
   assert.ok(Math.abs((wt.max.y-wt.min.y)-1.890)<.003,'WashTower height != 1890mm');
   assert.ok(Math.abs((wt.max.z-wt.min.z)-.700)<.003,'WashTower width != 700mm');
-  assert.ok(wt.min.x>=3.80 && wt.max.x<=4.66 && -wt.max.z>=9.015 && -wt.min.z<=10.145,'WashTower outside utility room');
+  assert.ok(wt.min.x>=3.20 && wt.max.x<=4.06 && -wt.max.z>=8.360 && -wt.min.z<=9.270,'WashTower not inside south-west utility alcove');
   for(const p of ['Dryer_Glass','Washer_Glass','Control_Panel','Dryer_Front','Washer_Front']) assert.ok(bounds(`Q21_WashTower_${p}`),`Missing WashTower ${p}`);
   const tile=bounds('Q21_UtilityTile_Floor');
   assert.ok(tile.min.x<=3.18 && tile.max.x>=4.97 && -tile.max.z<=8.365 && -tile.min.z>=10.14,'Utility tile floor does not cover the room');
@@ -72,5 +72,5 @@ test('exported kitchen has connected tops, flush dishwasher and undistorted sink
   assert.equal(c.kitchen_finish_version,1);
   for(const [x,y] of [[6.05,9.10],[6.65,9.03],[5.4,9.10]])
     assert.ok(!c.boxes.some(([a,b,d,e])=>(x-Math.max(a,Math.min(d,x)))**2+(y-Math.max(b,Math.min(e,y)))**2<.28**2),'Blocked kitchen approach');
-  assert.ok(c.boxes.some(([a,b,d,e])=>a<=4.23&&d>=4.23&&b<=9.38&&e>=9.38),'WashTower footprint is not a collider');
+  assert.ok(c.boxes.some(([a,b,d,e])=>a<=3.63&&d>=3.63&&b<=8.85&&e>=8.85),'WashTower footprint in alcove is not a collider');
 });

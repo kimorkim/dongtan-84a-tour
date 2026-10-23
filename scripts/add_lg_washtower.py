@@ -1,9 +1,8 @@
-"""Q21: Model the LG TROMM Objet Collection WashTower WL21EGZU (official 700W x 1890H x 830D mm,
-Nature Green 21kg dryer on top / Nature Beige 25kg washer below, centre control band) and place it in the
-utility room (kitchen balcony) with its back to the west wall (x=3.775, 40mm hose gap) and its front (+X)
-towards the Q20 turning door, following the model-house VR photo.
-
-Front proportions are traced from references/furniture/lg-washtower/wl21egzu_front.png (photo-based approximation).
+"""Q21: Correct the utility room (kitchen balcony) washing machine alcove width to the A02-102 drawing
+(y = 8.360..9.270, 910mm clear width x 600mm step depth; PS shaft y = 9.270..10.385 = 1115mm),
+lay the 300x300 grey porcelain tile floor + drain, and place the LG TROMM Objet Collection WashTower WL21EGZU
+(official 700W x 1890H x 830D mm, Nature Green 21kg dryer on top / Nature Beige 25kg washer below) inside the
+south-west alcove (x = 3.215..4.045, y = 8.500..9.200, z = 0.014..1.904, front +X) matching the modelhouse VR.
 """
 from pathlib import Path
 import math
@@ -25,6 +24,45 @@ col = A.get_col('Apt_KitchenFinish')
 for o in list(bpy.data.objects):
     if o.name.startswith(('Q21_WashTower_', 'Q21_UtilityTile_')):
         bpy.data.objects.remove(o, do_unlink=True)
+
+# 1. Calibrate the PS shaft south face in ExactWall_11, ExactWall_12, and ProBaseboards to y = 9.270
+#    (A02-102: 8.260 axis + 1.010m alcove = 9.270; 9.270 + 1.115m PS shaft = 10.385 north axis).
+w11 = bpy.data.objects['ExactWall_11']
+inv11 = w11.matrix_world.inverted()
+for v in w11.data.vertices:
+    wp = w11.matrix_world @ v.co
+    if 3.15 < wp.x < 3.80 and 8.95 < wp.y < 9.35:
+        wp.y = 9.2700
+        v.co = inv11 @ wp
+bm = bmesh.new(); bm.from_mesh(w11.data)
+bmesh.ops.recalc_face_normals(bm, faces=list(bm.faces))
+bm.to_mesh(w11.data); bm.free(); w11.data.update()
+
+w12 = bpy.data.objects.get('ExactWall_12')
+if w12 and w12.type == 'MESH':
+    inv12 = w12.matrix_world.inverted()
+    for v in w12.data.vertices:
+        wp = w12.matrix_world @ v.co
+        if 3.05 < wp.x < 3.70 and 9.20 < wp.y < 9.45:
+            wp.y = 9.3700
+            v.co = inv12 @ wp
+    bm = bmesh.new(); bm.from_mesh(w12.data)
+    bmesh.ops.recalc_face_normals(bm, faces=list(bm.faces))
+    bm.to_mesh(w12.data); bm.free(); w12.data.update()
+
+bb = bpy.data.objects.get('ProBaseboards')
+if bb and bb.type == 'MESH':
+    bm = bmesh.new(); bm.from_mesh(bb.data)
+    # Remove wooden baseboards inside the tiled utility room (2.58 <= x <= 4.99, 8.35 <= y <= 10.38),
+    # which were coplanar with ExactWall_11 at x = 3.775 and caused Z-fighting.
+    del_faces = [
+        f for f in bm.faces
+        if all(2.58 <= (bb.matrix_world @ v.co).x <= 4.99 and 8.35 <= (bb.matrix_world @ v.co).y <= 10.38 for v in f.verts)
+    ]
+    if del_faces:
+        bmesh.ops.delete(bm, geom=del_faces, context='FACES')
+    bmesh.ops.recalc_face_normals(bm, faces=list(bm.faces))
+    bm.to_mesh(bb.data); bm.free(); bb.data.update()
 
 
 def srgb(c):
@@ -51,15 +89,15 @@ def make_pbr_mat(name, rgb255, metallic=0.0, roughness=0.35, emission=0.0):
 
 
 mat_green = make_pbr_mat('Mat_Q21_NatureGreen', (50, 68, 62), roughness=0.32)
-mat_beige = make_pbr_mat('Mat_Q21_NatureBeige', (230, 226, 221), roughness=0.3)
+mat_beige = make_pbr_mat('Mat_Q21_NatureBeige', (230, 226, 221), roughness=0.30)
 mat_beige_dk = make_pbr_mat('Mat_Q21_BeigeTrim', (205, 200, 192), roughness=0.35)
-mat_side = make_pbr_mat('Mat_Q21_SideSteel', (214, 214, 212), metallic=0.15, roughness=0.4)
-mat_black = make_pbr_mat('Mat_Q21_DoorBlack', (8, 8, 9), roughness=0.5)
+mat_side = make_pbr_mat('Mat_Q21_SideSteel', (214, 214, 212), metallic=0.15, roughness=0.40)
+mat_black = make_pbr_mat('Mat_Q21_DoorBlack', (8, 8, 9), roughness=0.50)
 mat_black.node_tree.nodes['Principled BSDF'].inputs['Specular IOR Level'].default_value = 0.25
-mat_champ = make_pbr_mat('Mat_Q21_ChampagneRim', (196, 172, 140), metallic=0.8, roughness=0.3)
-mat_disp = make_pbr_mat('Mat_Q21_Display', (235, 238, 240), roughness=0.4, emission=0.6)
-mat_logo = make_pbr_mat('Mat_Q21_Logo', (150, 156, 156), metallic=0.6, roughness=0.3)
-mat_slot = make_pbr_mat('Mat_Q21_Slot', (70, 68, 64), roughness=0.5)
+mat_champ = make_pbr_mat('Mat_Q21_ChampagneRim', (196, 172, 140), metallic=0.80, roughness=0.30)
+mat_disp = make_pbr_mat('Mat_Q21_Display', (235, 238, 240), roughness=0.40, emission=0.60)
+mat_logo = make_pbr_mat('Mat_Q21_Logo', (150, 156, 156), metallic=0.60, roughness=0.30)
+mat_slot = make_pbr_mat('Mat_Q21_Slot', (70, 68, 64), roughness=0.50)
 mat_glass = bpy.data.materials.get('Mat_Q10_Glass')
 mat_drum = make_pbr_mat('Mat_Q21_Drum', (88, 92, 98), metallic=0.85, roughness=0.38)
 assert mat_glass is not None, 'Mat_Q10_Glass missing'
@@ -122,20 +160,13 @@ def ring(name, cy, cz, r_in, r_out, x0, x1, mat, seg=96):
     return o
 
 
-# Envelope: x 3.815..4.645 (830 incl. doors), y 9.030..9.730 (700), z ZB..ZB+1.890 standing on the Q21 tile floor
-ZB = 0.014
-X0, XB, XP = 3.815, 4.595, 4.603          # back, cabinet front, front-panel face
-Y0, Y1 = 9.030, 9.730
-YC = (Y0 + Y1) / 2
-ZF, ZW, ZC, ZT = ZB + 0.016, ZB + 0.974, ZB + 1.073, ZB + 1.890  # feet top, washer top, control top, overall top
-
 # --- Utility-room grey porcelain tile floor (300x300, 2mm grout) + square stainless drain ---------------------
-# Room = south strip x3.175..4.975 / y8.360..9.015 and north bay x3.775..4.975 / y9.015..10.145 (wall faces).
-# Grid origin at the doorway corner (x4.975, y8.360) so whole tiles meet the turning-door threshold.
+# Room = south-west alcove + doorway strip (x3.175..4.975 / y8.360..9.270) and north window bay (x3.775..4.975 / y9.270..10.145).
+ZB = 0.014
 mat_tile = make_pbr_mat('Mat_Q21_UtilityTile', (138, 135, 130), roughness=0.62)
-mat_grout = bpy.data.materials.get('Mat_Q8_Grout') or make_pbr_mat('Mat_Q21_Grout', (120, 118, 114), roughness=0.9)
+mat_grout = bpy.data.materials.get('Mat_Q8_Grout') or make_pbr_mat('Mat_Q21_Grout', (120, 118, 114), roughness=0.90)
 mat_steel = bpy.data.materials.get('Mat_Steel_Brushed') or mat_drum
-ROOMS = [(3.175, 4.975, 8.360, 9.015), (3.775, 4.975, 9.015, 10.145)]
+ROOMS = [(3.175, 4.975, 8.360, 9.270), (3.775, 4.975, 9.270, 10.145)]
 OX, OY, T, G = 4.975, 8.360, 0.300, 0.002
 grout, tiles = [], []
 for k, (rx0, rx1, ry0, ry1) in enumerate(ROOMS):
@@ -152,9 +183,16 @@ for k, (rx0, rx1, ry0, ry1) in enumerate(ROOMS):
         i += 1
 join('Q21_UtilityTile_Grout', grout)
 join('Q21_UtilityTile_Floor', tiles)
-join('Q21_UtilityTile_Drain', [box('Q21_dr0', 4.760, 4.880, 9.840, 9.960, ZB - 0.001, ZB + 0.002, mat_steel, 0.001)] +
-     [box(f'Q21_dr{i + 1}', 4.775, 4.865, 9.856 + i * 0.016, 9.864 + i * 0.016, ZB + 0.002, ZB + 0.0025, mat_slot, 0)
+# Floor drain right in front of the right corner of the WashTower (as seen in modelhouse_utility_washtower.png)
+join('Q21_UtilityTile_Drain', [box('Q21_dr0', 4.060, 4.180, 9.110, 9.230, ZB - 0.001, ZB + 0.002, mat_steel, 0.001)] +
+     [box(f'Q21_dr{i + 1}', 4.075, 4.165, 9.126 + i * 0.016, 9.134 + i * 0.016, ZB + 0.002, ZB + 0.0025, mat_slot, 0)
       for i in range(6)])
+
+# --- LG WashTower WL21EGZU in south-west alcove: x 3.215..4.045 (830D), y 8.500..9.200 (700W), z 0.014..1.904 (1890H) ---
+X0, XB, XP = 3.215, 3.995, 4.003          # back (40mm off x=3.175), cabinet front, front-panel face
+Y0, Y1 = 8.500, 9.200                     # 700mm wide inside y=8.360..9.270 alcove (140mm south faucet gap, 70mm north PS gap)
+YC = (Y0 + Y1) / 2
+ZF, ZW, ZC, ZT = ZB + 0.016, ZB + 0.974, ZB + 1.073, ZB + 1.890  # feet top, washer top, control top, overall top
 
 join('Q21_WashTower_Feet', [box(f'Q21_ft{i}', fx - .02, fx + .02, fy - .02, fy + .02, ZB, ZF, mat_slot, .002)
                             for i, (fx, fy) in enumerate([(X0 + .06, Y0 + .05), (X0 + .06, Y1 - .05),
@@ -165,30 +203,30 @@ box('Q21_WashTower_Washer_Front', XB, XP, Y0, Y1, ZF, ZW, mat_beige, .002)
 box('Q21_WashTower_Control_Panel', XB, XP, Y0, Y1, ZW, ZC, mat_black, .002)
 box('Q21_WashTower_Dryer_Front', XB, XP, Y0, Y1, ZC, ZT, mat_green, .002)
 
-# Dryer door (Nature Green cabinet): centre z 1.485, black bezel r .300, smoked glass r .203
-DZ = 1.485
-ring('Q21_WashTower_Dryer_Ring', YC, DZ, 0.203, 0.300, XP, 4.645, mat_black)
-ring('Q21_WashTower_Dryer_Glass', YC, DZ, 0.0, 0.203, 4.630, 4.636, mat_glass)
+# Dryer door (Nature Green cabinet): centre z ZB+1.485, black bezel r .300, smoked glass r .203, tip x = 4.045
+DZ = ZB + 1.485
+ring('Q21_WashTower_Dryer_Ring', YC, DZ, 0.203, 0.300, XP, X0 + 0.830, mat_black)
+ring('Q21_WashTower_Dryer_Glass', YC, DZ, 0.0, 0.203, X0 + 0.815, X0 + 0.821, mat_glass)
 join('Q21_WashTower_Dryer_Drum', [ring('Q21_dd0', YC, DZ, 0.0, 0.200, XP, XP + .003, mat_drum),
                                    ring('Q21_dd1', YC, DZ, 0.0, 0.045, XP, XP + .012, mat_drum)])
 
-# Washer door (Nature Beige cabinet): centre z .538, champagne trim + black bezel r .300, glass r .219
-WZ = 0.538
-ring('Q21_WashTower_Washer_Rim', YC, WZ, 0.300, 0.306, XP, 4.640, mat_champ)
-ring('Q21_WashTower_Washer_Ring', YC, WZ, 0.219, 0.300, XP, 4.645, mat_black)
-ring('Q21_WashTower_Washer_Glass', YC, WZ, 0.0, 0.219, 4.630, 4.636, mat_glass)
+# Washer door (Nature Beige cabinet): centre z ZB+.538, champagne trim + black bezel r .300, glass r .219
+WZ = ZB + 0.538
+ring('Q21_WashTower_Washer_Rim', YC, WZ, 0.300, 0.306, XP, X0 + 0.825, mat_champ)
+ring('Q21_WashTower_Washer_Ring', YC, WZ, 0.219, 0.300, XP, X0 + 0.830, mat_black)
+ring('Q21_WashTower_Washer_Glass', YC, WZ, 0.0, 0.219, X0 + 0.815, X0 + 0.821, mat_glass)
 join('Q21_WashTower_Washer_Drum', [ring('Q21_wd0', YC, WZ, 0.0, 0.216, XP, XP + .003, mat_drum),
                                     ring('Q21_wd1', YC, WZ, 0.0, 0.050, XP, XP + .014, mat_drum)])
 
 # Image-left = south (-Y) when facing the +X front: auto-dose dispenser, filter cover, LG logo
-join('Q21_WashTower_Dispenser', [box('Q21_dp0', XP, XP + .004, Y0 + .016, Y0 + .216, 0.848, 0.945, mat_beige_dk, .001),
-                                  box('Q21_dp1', XP + .004, XP + .0055, Y0 + .032, Y0 + .154, 0.872, 0.906, mat_slot, .0005)])
-box('Q21_WashTower_Filter_Cover', XP, XP + .002, Y0 + .062, Y0 + .225, 0.022, 0.135, mat_beige_dk, .0008)
-box('Q21_WashTower_Logo', XP, XP + .0006, Y0 + .022, Y0 + .062, 1.855, 1.868, mat_logo, .0002)
+join('Q21_WashTower_Dispenser', [box('Q21_dp0', XP, XP + .004, Y0 + .016, Y0 + .216, ZB + 0.848, ZB + 0.945, mat_beige_dk, .001),
+                                  box('Q21_dp1', XP + .004, XP + .0055, Y0 + .032, Y0 + .154, ZB + 0.872, ZB + 0.906, mat_slot, .0005)])
+box('Q21_WashTower_Filter_Cover', XP, XP + .002, Y0 + .062, Y0 + .225, ZB + 0.022, ZB + 0.135, mat_beige_dk, .0008)
+box('Q21_WashTower_Logo', XP, XP + .0006, Y0 + .022, Y0 + .062, ZB + 1.855, ZB + 1.868, mat_logo, .0002)
 
-disp = [box('Q21_ds0', XP, XP + .0008, YC - .05, YC + .05, 1.012, 1.036, mat_disp, .0002)]
-for i, (yy, zz) in enumerate([(YC - .125, 1.040), (YC - .125, 1.005), (YC + .12, 1.040), (YC + .12, 1.005),
-                              (YC - .03, 1.002), (YC, 1.002), (YC + .03, 1.002), (YC + .07, 1.022)]):
+disp = [box('Q21_ds0', XP, XP + .0008, YC - .05, YC + .05, ZB + 1.012, ZB + 1.036, mat_disp, .0002)]
+for i, (yy, zz) in enumerate([(YC - .125, ZB + 1.040), (YC - .125, ZB + 1.005), (YC + .12, ZB + 1.040), (YC + .12, ZB + 1.005),
+                              (YC - .03, ZB + 1.002), (YC, ZB + 1.002), (YC + .03, ZB + 1.002), (YC + .07, ZB + 1.022)]):
     disp.append(box(f'Q21_ds{i + 1}', XP, XP + .0008, yy - .004, yy + .004, zz - .004, zz + .004, mat_disp, .0002))
 join('Q21_WashTower_Display', disp)
 
@@ -197,4 +235,4 @@ bpy.context.scene['Q21_lg_washtower'] = 1
 bpy.context.view_layer.update()
 runpy.run_path(str(ROOT / 'scripts/verify_lg_washtower.py'), run_name='__main__')
 bpy.ops.wm.save_as_mainfile(filepath=str(ROOT / 'apt_84a_photoreal_tour.blend'))
-print('Q21 LG WASHTOWER SAVED', flush=True)
+print('Q21 LG WASHTOWER SAVED IN ALCOVE', flush=True)
