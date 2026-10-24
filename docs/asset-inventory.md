@@ -452,3 +452,25 @@ Q10b 교정: 사용자 기본 옵션은 방문 옆 장이다. 기존 30·31번 �
 | `models/backups/apt_84a_photoreal_tour_before_washtower.blend` | Q20 상태 복원용 백업, 현행 원본 아님 |
 | `scripts/add_lg_washtower.py`, `verify_lg_washtower.py`, `render_lg_washtower.py` | 워시타워·타일 바닥 모델링, 검증, 확인 렌더 |
 | `renders/review/render_46_utility_washtower.png`, `render_47_utility_washtower_side.png` | 다용도실 워시타워·타일 바닥 확인 렌더 |
+# Q22 안방 리스탠다드 킹 자료 (2026-10-24)
+
+후속 Q22b: `scripts/fix_master_bed_wall.py`는 연출용 벽패널/띠조명 제거와 실제벽 밀착을 재현한다.
+`models/backups/apt_84a_photoreal_tour_before_master_wall_cleanup.blend`는 이 수정 직전 복원본이다.
+아래 Q22 확인 렌더와 파생 갤러리는 Q22b 배치로 갱신한다.
+Q22c에서는 `scripts/clear_master_bedside.py`로 러그·협탁/조명을 제거하고 마루에 침대를 놓았다.
+백업은 `models/backups/apt_84a_photoreal_tour_before_master_bedside_cleanup.blend`이며,
+같은 48~50번/발표4번/전체평면36번과 갤러리가 최신 Q22c 상태를 보여 준다.
+
+| 경로 | 목적·상태 |
+| --- | --- |
+| `references/furniture/60s-restandard/README.md` | 사용자 옵션·공식 규격·출처 및 사진 기반 가정 |
+| 같은 폴더 `product-1968.html`, `removebg-01.jpg`~`04.jpg`, `size-RBA-GR02-2.jpg` | 공식 페이지/제품 형태/115mm 다리 치수 원본 참고자료, 생성 렌더 아님 |
+| `models/backups/apt_84a_photoreal_tour_before_restandard_bed.blend` | Q22 직전 복원용; 현행 원본 아님 |
+| `assets/textures_export/q22_grey.png`, `q22_white.png`, `q22_wood.png` | 코드 생성 원단/목재 표현, blend에 패킹/GLB 포함; 제품 스캔 아님 |
+| `renders/review/render_48_restandard_master.png` | 현행 안방 POV |
+| `renders/review/render_49_restandard_detail.png` | 현행 침대 퀼팅/다리 확인 |
+| `renders/review/render_50_restandard_plan.png` | 현행 안방 배치 평면 |
+| `renders/presentation/render_4_master_bedroom_pov.png`, `renders/review/render_36_dimensioned_plan.png` | Q22 반영 안방·전체 평면 갱신 |
+| `web/public/gallery/master-bed.webp`, `topdown.webp`, 각 `thumbs/` | 갱신 렌더의 웹 파생본 |
+| `assets/analysis/inspect_master_bed.py`, `q22_validation_runner.py` | 기존 배치 읽기/저장모델18개 회귀검사 도구 |
+| `docs/superpowers/specs/2026-10-24-restandard-master-bed-design.md`, `docs/superpowers/plans/2026-10-24-restandard-master-bed.md` | Q22 설계·실행 기록. 다른 방의 현행 교정을 대체하지 않음 |

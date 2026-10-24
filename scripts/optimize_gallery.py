@@ -25,7 +25,7 @@ IMAGES = [
     ("kitchen-island", "renders/presentation/render_3_kitchen_dining_pov.png", "주방", "대면형 주방 및 식당", "ㄷ자 조리대와 6인용 식탁", (6.8, 6.8, 1.35)),
     ("fridge-wall", "renders/review/render_11_fridge_pov.png", "주방", "냉장고장 및 빌트인 수납", "빌트인 냉장고·김치냉장고·밥솥장 라인", (6.0, 7.0, 1.35)),
     ("kitchen-prep", "renders/presentation/render_9_kitchen_prep_pov.png", "주방", "싱크대 및 조리 공간", "와이드 사각 싱크볼과 주방 환기창", (7.4, 7.2, 1.35)),
-    ("master-bed", "renders/presentation/render_4_master_bedroom_pov.png", "안방", "안방 (침실 1)", "아늑한 마스터 베드룸 및 발코니 출입문", (2.5, 3.8, 1.35)),
+    ("master-bed", "renders/presentation/render_4_master_bedroom_pov.png", "안방", "안방 (침실 1)", "리스탠다드 그레이 킹 1600mm · 헤드 없음 · 115mm 원목다리", (2.5, 3.8, 1.35)),
     ("master-balcony", "renders/review/render_14_master_balcony_pov.png", "발코니", "안방 발코니", "세탁 공간과 연결되는 전면 발코니", (2.5, 1.6, 1.35)),
     ("dry-vanity", "renders/review/render_25_dry_vanity_detail.png", "욕실", "호텔식 건식 세면대", "언더마운트 세면볼·양개 하부장·직사각 간접조명 거울", (14.0, 5.0, 1.35)),
     ("bath", "renders/review/render_26_common_toilet_detail.png", "욕실", "공용 욕실 (습식)", "곡면 도기 변기·거울 수납장·모델하우스 사진 기반 타일", (13.98, 6.45, 1.35)),

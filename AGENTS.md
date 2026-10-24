@@ -1,5 +1,15 @@
 # 에이전트 공통 작업 안내
 
+## Q22 안방 리스탠다드 그레이 킹 침대
+
+- 현행 Q21 이후 `scripts/replace_master_bed.py`를 적용했다. 사용자 지정 식스티세컨즈 세트1968의 K1600×2000mm, **헤드 없음·115mm 원목다리**다. 하단800mm 두 개/몸체150mm와 지름65mm 다리8개, 기본 상단 독립 매트리스290mm를 구현했다. 상단 종류는 세트 기본 선택 가정이다.
+- Q22b에서 사용자 요청으로 `scripts/fix_master_bed_wall.py`를 적용했다. 연출용 벽패널 `Q2_Master_Panel`과 띠조명 `Q2_Master_CoveTop/Low`를 제거하고 침대 전체를 서쪽320mm 강체 이동해 실제 서쪽 구조벽 `ExactWall_13` 실내면x=.485에 머리 쪽을 밀착했다. 현재 중심x1.485/y3.2222, 외곽x.485~2.485/y2.4222~4.0222다. Q22c에서 러그를 제거하여 다리바닥z=0, 하단몸체z.115~.265/매트리스z.265~.555로 마루에 직접 놓았다.
+- Q22c 사용자 요청으로 `scripts/clear_master_bedside.py`를 적용해 러그 `Q2_Master_Rug`, 협탁/탁상조명 `Nightstand_Master_*`, 대리석 상판 등 `Q2_Night*`, 협탁 위 펜던트와 광원 `Q2_Pendant*`을 제거했다. 옛 침대/쿠션·장식 벽패널/띠조명·러그/협탁을 되살리지 않는다. 구조벽·문·창과 일반 조명은 보존한다. `replace_master_bed.py`도 현재 정리된 벽밀착 배치를 재현한다. 제품 규격/가정은 `references/furniture/60s-restandard/README.md`를 본다.
+- `verify_restandard_bed.py`, 기존 치수/방별 검사 뒤 충돌·GLB·보행 검사(안방 발치/북쪽 포함)를 갱신한다. 남쪽 미닫이문 벽 옆은 보행 통로로 검증하지 않는다. 확인 렌더48·49·50번, 발표4번/전체평면36번, 웹 갤러리 '안방'을 갱신한다.
+- 백업은 `models/backups/apt_84a_photoreal_tour_before_restandard_bed.blend`. 원단·봉제·퀼팅·다리 배치는 사진 기반 근사이며 구조·탄성·제작치수 검증용 모델이 아니다.
+- Q22b 직전 백업은 `models/backups/apt_84a_photoreal_tour_before_master_wall_cleanup.blend`다.
+- Q22c 직전 백업은 `models/backups/apt_84a_photoreal_tour_before_master_bedside_cleanup.blend`다.
+
 - 거실은 Q15 마감본이다. Q14 소파 뒤 `scripts/detail_living_finish.py`를 적용했다.
   중앙 `Q2_Coffee*`/`Q2_Pouf*`/거실 러그와 도형 덧판은 사용자 요청으로 제거했다.
   아트월은 y.92~4.75 전체 높이와 북쪽 안방 문 상부만 마감한다. 출입구를 막지 않는다.

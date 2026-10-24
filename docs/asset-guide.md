@@ -7,6 +7,15 @@
 
 ## 먼저 볼 파일
 
+- 현재 안방 침대(Q22): `renders/review/render_48_restandard_master.png`(안방),
+  `render_49_restandard_detail.png`(제품 디테일), `render_50_restandard_plan.png`(방 평면).
+  리스탠다드 그레이 K1600×2000mm, 사용자 선택 헤드 없음·115mm 원목다리다.
+  상단은 기본 독립 매트리스290mm 가정이다. 발표4번/전체평면36번과 웹 안방 갤러리를 갱신했다.
+  원본 제품 사진·규격·근사 범위는 `references/furniture/60s-restandard/README.md`를 본다.
+  후속 Q22b에서 연출용 벽패널/띠조명을 제거하고 실제 서쪽 벽x=.485에 침대를 밀착했다.
+  48~50번·발표4번·전체평면36번과 갤러리는 이 배치를 사용한다.
+  Q22c에서는 러그·협탁·탁상조명·협탁 위 펜던트를 제거하고 침대를22mm 내려 마루에 놓았다.
+
 - 현재 거실 소파(Q14): [브레스트 소파](../renders/review/render_38_brest_sofa.png),
   [거실](../renders/review/render_29_oak_living.png), [거실 배치 평면](../renders/review/render_39_brest_living_plan.png).
   사용자 지정 아이보리 2850mm 리클라이너로 교체했다. 닫힌 상태의 배치이며

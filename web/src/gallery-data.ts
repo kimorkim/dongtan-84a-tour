@@ -128,7 +128,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     id: 'master-bed',
     room: '안방',
     title: '안방 (침실 1)',
-    description: '아늑한 마스터 베드룸 및 발코니 출입문',
+    description: '리스탠다드 그레이 킹 1600mm · 헤드 없음 · 115mm 원목다리',
     src: './gallery/master-bed.webp',
     thumb: './gallery/thumbs/master-bed.webp',
     worldPos: [2.5, 1.35, -3.8],
