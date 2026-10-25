@@ -46,7 +46,7 @@ if not os.environ.get('RENDER_DIR'):
 else:
     import shutil
     shutil.copy2(sc.render.filepath,Path(os.environ['RENDER_DIR'])/'render_48_restandard_master.png')
-shot((3.98,3.00,.62),(1.75,3.22,.30),'renders/review/render_49_restandard_detail.png',22)
+shot((.75,2.55,.75),(3.2,3.55,.30),'renders/review/render_49_restandard_detail.png',22)
 for obj in bpy.data.objects:
     if obj.name.startswith(('Ceiling_','Cove_','Q10_Ceiling','Q11_Ceiling','Q2_Landscape')):
         obj.hide_render=True

@@ -7,6 +7,7 @@
 - Q22c 사용자 요청으로 `scripts/clear_master_bedside.py`를 적용해 러그 `Q2_Master_Rug`, 협탁/탁상조명 `Nightstand_Master_*`, 대리석 상판 등 `Q2_Night*`, 협탁 위 펜던트와 광원 `Q2_Pendant*`을 제거했다. 옛 침대/쿠션·장식 벽패널/띠조명·러그/협탁을 되살리지 않는다. 구조벽·문·창과 일반 조명은 보존한다. `replace_master_bed.py`도 현재 정리된 벽밀착 배치를 재현한다. 제품 규격/가정은 `references/furniture/60s-restandard/README.md`를 본다.
 - `verify_restandard_bed.py`, 기존 치수/방별 검사 뒤 충돌·GLB·보행 검사(안방 발치/북쪽 포함)를 갱신한다. 남쪽 미닫이문 벽 옆은 보행 통로로 검증하지 않는다. 확인 렌더48·49·50번, 발표4번/전체평면36번, 웹 갤러리 '안방'을 갱신한다.
 - 백업은 `models/backups/apt_84a_photoreal_tour_before_restandard_bed.blend`. 원단·봉제·퀼팅·다리 배치는 사진 기반 근사이며 구조·탄성·제작치수 검증용 모델이 아니다.
+- **Q22d(최신, Q22b 서쪽 배치보다 우선):** 사용자 요청으로 `scripts/move_master_bed_door_wall.py`를 적용해 침대 머리를 안방 출입문이 있는 동쪽 벽 `ExactWall_4` 실내면x=4.085에 밀착했다. 외곽x2.085~4.085/y3.10~4.70(중심y3.90)로 발코니 미닫이문 앞 950mm 통로와 방문 문틀(y4.75) 50mm 여유를 둔다. 서쪽 x.485~2.085는 발치 통로다. 백업 `models/backups/apt_84a_photoreal_tour_before_bed_door_wall.blend`.
 - Q22b 직전 백업은 `models/backups/apt_84a_photoreal_tour_before_master_wall_cleanup.blend`다.
 - Q22c 직전 백업은 `models/backups/apt_84a_photoreal_tour_before_master_bedside_cleanup.blend`다.
 

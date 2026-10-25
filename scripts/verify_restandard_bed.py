@@ -20,14 +20,14 @@ for i, size in enumerate((2., 1.6, .290)):
     close(hi[i]-lo[i], size, f'mattress axis{i}')
 close(lo.z, .265, 'mattress rests on base')
 deps=bpy.context.evaluated_depsgraph_get()
-wall=bpy.data.objects['ExactWall_13'].evaluated_get(deps)
+wall=bpy.data.objects['ExactWall_4'].evaluated_get(deps)
 inv=wall.matrix_world.inverted()
-hit,point,_,_=wall.ray_cast(inv @ Vector((2.,3.2222,1.)),inv.to_3x3() @ Vector((-1,0,0)))
-assert hit, 'Master west wall missing'
+hit,point,_,_=wall.ray_cast(inv @ Vector((2.,3.2222,1.)),inv.to_3x3() @ Vector((1,0,0)))
+assert hit, 'Master east (door-side) wall missing'
 wall_x=(wall.matrix_world @ point).x
-close(lo.x, wall_x, 'head end flush to structural wall')
-close((lo.x+hi.x)/2, wall_x+1., 'bed centre x')
-close((lo.y+hi.y)/2, 3.2222, 'bed centre y')
+close(hi.x, wall_x, 'head end flush to east door-side wall')
+close((lo.x+hi.x)/2, wall_x-1., 'bed centre x')
+close((lo.y+hi.y)/2, 3.90, 'bed centre y')
 for side in ('S', 'N'):
     a, b = bounds('Q22_Restandard_Base'+side)
     for i, size in enumerate((2., .8, .150)):
@@ -45,4 +45,4 @@ for name in ('Q2_Master_Panel','Q2_Master_CoveTop','Q2_Master_CoveLow'):
 assert bpy.data.objects.get('Q2_Master_Rug') is None, 'Unwanted master rug remains'
 assert not any(o.name.startswith(('Nightstand_Master_', 'Q2_Night', 'Q2_Pendant')) for o in bpy.data.objects), 'Unwanted bedside furniture/light remains'
 assert bpy.context.scene.get('Q21_lg_washtower') == 1, 'Latest utility model lost'
-print('PASS Q22c: K1600x2000, legs on wood floor, top555mm, no rug/bedside decor, head end flush to west wall')
+print('PASS Q22c: K1600x2000, legs on wood floor, top555mm, no rug/bedside decor, head end flush to east door-side wall')
