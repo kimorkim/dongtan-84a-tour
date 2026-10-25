@@ -8,6 +8,7 @@
 - `verify_restandard_bed.py`, 기존 치수/방별 검사 뒤 충돌·GLB·보행 검사(안방 발치/북쪽 포함)를 갱신한다. 남쪽 미닫이문 벽 옆은 보행 통로로 검증하지 않는다. 확인 렌더48·49·50번, 발표4번/전체평면36번, 웹 갤러리 '안방'을 갱신한다.
 - 백업은 `models/backups/apt_84a_photoreal_tour_before_restandard_bed.blend`. 원단·봉제·퀼팅·다리 배치는 사진 기반 근사이며 구조·탄성·제작치수 검증용 모델이 아니다.
 - **Q22d(최신, Q22b 서쪽 배치보다 우선):** 사용자 요청으로 `scripts/move_master_bed_door_wall.py`를 적용해 침대 머리를 안방 출입문이 있는 동쪽 벽 `ExactWall_4` 실내면x=4.085에 밀착했다. 외곽x2.085~4.085/y3.10~4.70(중심y3.90)로 발코니 미닫이문 앞 950mm 통로와 방문 문틀(y4.75) 50mm 여유를 둔다. 서쪽 x.485~2.085는 발치 통로다. 백업 `models/backups/apt_84a_photoreal_tour_before_bed_door_wall.blend`.
+- 발코니문 우측 검은 세로 줄 아티팩트는 과거 Q12 박스 `Q12_BalconyDoor_WestFill`이 구조벽 `ExactWall_13`과 y2.15면에서 140mm 중복되어 발생한 Cycles 자가 차폐 버그로, `scripts/remove_balcony_west_fill.py`로 안전하게 제거했다. 백업 `models/backups/apt_84a_photoreal_tour_before_remove_balcony_fill.blend`.
 - Q22b 직전 백업은 `models/backups/apt_84a_photoreal_tour_before_master_wall_cleanup.blend`다.
 - Q22c 직전 백업은 `models/backups/apt_84a_photoreal_tour_before_master_bedside_cleanup.blend`다.
 

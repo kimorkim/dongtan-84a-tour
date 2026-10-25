@@ -38,6 +38,7 @@ test('master bedroom exports the approved Restandard K set without a headboard',
     const b = box('Q22_Restandard_Base'+side).getSize(new Vector3());
     close(b.x, 2); close(b.y, .15); close(b.z, .8);
   }
+  assert.ok(!g.nodes.some(n => n.name === 'Q12_BalconyDoor_WestFill'), 'Unwanted wall fill in GLB');
   assert.ok(!g.nodes.some(n => n.name === 'Q2_Master_Rug' || n.name?.startsWith('Nightstand_Master_') || n.name?.startsWith('Q2_Night') || n.name?.startsWith('Q2_Pendant')));
   assert.ok(selected('Q21_WashTower_').length);
   const collisions = JSON.parse(readFileSync(new URL('../public/colliders.json', import.meta.url)));

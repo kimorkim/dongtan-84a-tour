@@ -40,6 +40,7 @@ for leg in legs:
     close(a.z, .0, 'leg on wood floor'); close(b.z-a.z, .115, 'wood leg height')
     close(b.x-a.x, .065, 'wood leg diameter')
 assert not any('Headboard' in o.name for o in bpy.data.objects if o.name.startswith('Q22_'))
+assert bpy.data.objects.get('Q12_BalconyDoor_WestFill') is None, 'Duplicate wall fill Q12_BalconyDoor_WestFill remains'
 for name in ('Q2_Master_Panel','Q2_Master_CoveTop','Q2_Master_CoveLow'):
     assert bpy.data.objects.get(name) is None, f'Unwanted decorative wall/strip remains: {name}'
 assert bpy.data.objects.get('Q2_Master_Rug') is None, 'Unwanted master rug remains'
