@@ -63,8 +63,8 @@ if data.get('tv_stand_version') == 17:
     goals.append(('Living TV stand approach',5.15,3.286))
 if data.get('master_bed_version') == 22:
     # Q22d: head on east door-side wall; foot aisle is west, balcony reached around the foot.
-    goals.extend([('Restandard bed foot aisle',1.70,3.90),
-                  ('Restandard bed south aisle',3.00,2.55),('Restandard bed north aisle',3.00,5.10)])
+    goals.extend([('Restandard bed foot aisle',1.70,3.50),
+                  ('Restandard bed south aisle',3.00,2.45),('Restandard bed north aisle',3.00,5.10)])
 for name,x,y in goals:
     distance = min(math.hypot(i * STEP - x, j * STEP - 0.6 - y) for i, j in visited)
     print(f'{name}: nearest reachable point {distance:.3f}m')

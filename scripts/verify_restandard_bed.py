@@ -27,7 +27,7 @@ assert hit, 'Master east (door-side) wall missing'
 wall_x=(wall.matrix_world @ point).x
 close(hi.x, wall_x, 'head end flush to east door-side wall')
 close((lo.x+hi.x)/2, wall_x-1., 'bed centre x')
-close((lo.y+hi.y)/2, 3.90, 'bed centre y')
+close((lo.y+hi.y)/2, 3.50, 'bed centre y')
 for side in ('S', 'N'):
     a, b = bounds('Q22_Restandard_Base'+side)
     for i, size in enumerate((2., .8, .150)):

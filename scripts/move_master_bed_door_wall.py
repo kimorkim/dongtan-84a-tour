@@ -24,7 +24,7 @@ cx=(min(p.x for p in pts)+max(p.x for p in pts))/2; cy=(min(p.y for p in pts)+ma
 # rotate 180deg about bed centre (head end now faces east), then place head on east wall
 T=Matrix.Translation((wall_x-1.-cx+cx,0,0))
 R=Matrix.Translation((cx,cy,0))@Matrix.Rotation(math.pi,4,'Z')@Matrix.Translation((-cx,-cy,0))
-shift=Matrix.Translation((wall_x-1.-cx,3.90-cy,0))  # 950mm walk zone to balcony door (y2.15); 50mm short of bedroom door jamb (y4.75)
+shift=Matrix.Translation((wall_x-1.-cx,3.50-cy,0))  # 550mm walk zone to balcony door (y2.15); 450mm nightstand clearance to bedroom door jamb (y4.75)
 for o in roots: o.matrix_world=shift@R@o.matrix_world
 sc['Q22_master_bed_wall_x']=wall_x
 sc['Q22_master_bed_wall_side']='east_door'

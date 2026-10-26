@@ -26,7 +26,7 @@ test('master bedroom exports the approved Restandard K set without a headboard',
   const size = mattress.getSize(new Vector3());
   close(size.x, 2); close(size.y, .290); close(size.z, 1.6);
   close(mattress.min.y, .265); close(mattress.max.y, .555);
-  close(mattress.min.x, 2.085); close(mattress.max.x, 4.085); close(-mattress.max.z, 3.10); close(-mattress.min.z, 4.70);
+  close(mattress.min.x, 2.085); close(mattress.max.x, 4.085); close(-mattress.max.z, 2.70); close(-mattress.min.z, 4.30);
   for (const name of ['Q2_Master_Panel','Q2_Master_CoveTop','Q2_Master_CoveLow']) {
     assert.ok(!g.nodes.some(n => n.name === name), `Unwanted decorative wall/strip: ${name}`);
   }
