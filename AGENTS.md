@@ -1,5 +1,25 @@
 # 에이전트 공통 작업 안내
 
+## Q24 안방 욕실 e모델하우스 교정 (2026-10-27)
+
+- 현행 안방 욕실은 `scripts/detail_master_bath.py` 결과다. 공식84A VR `scene_011_sphere`의6면 및 `011_1/011_2` 수납장 열린 사진을 기준으로 북쪽 욕조·동쪽 벽걸이 세면대/그 남쪽 변기·넓은 거울 수납장·하부 선반·샤워 수전/슬라이드바/호스·수건봉/랙·휴지걸이를 교정했다. 과거 `Master_Toilet_*`, `Master_Bathtub_*`, `BathProp_Master*`를 되살리지 않는다.
+- Q12 구조 실내 x2.595~4.095/y5.970~8.170 및2300mm 천장을 유지한다. 새 부속은 `Q24_*`다. `Master_Vanity_Top`은 호환 이름을 유지하지만 실제 개구부가 있는 세면대 테두리다.
+- **욕실 문은 남쪽 힌지에서 욕실 안쪽(+X)으로85도 열린다.** `ProDoorPivot_MasterBath`가 문짝 `ProDoorLeaf_MasterBath`와 양쪽 손잡이를 함께 회전한다. 과거 파우더(-X) 방향 열린 문과 분리 손잡이를 되살리지 않는다. 90도 끝 손잡이의 벽 충돌을 피해85도로 제한했다.
+- 벽300×600mm 가로배치/바닥300×300mm·별도 줄눈을 구현했다. `prepare_master_bath_tile.py`는 공식011_r 깨끗한 부분의 질감을 남기고 촬영 조명/색 편차를 제거해 `assets/textures_export/q24_tile_albedo.png`를 생성한다. 실제 제조사 PBR 스캔이 아니다. 치수/기구 상세/타일SKU는 사진 근사와 도면을 구별해 기록한다.
+- 백업 `models/backups/apt_84a_photoreal_tour_before_master_bath_detail.blend`. 구조벽 SHA-256 불변, Q23c 화장대 보존. `verify_master_bath.py` 및 기존19개 검사, 충돌/GLB/웹 검사 후 보행(욕실 입구·세면대·욕조 앞 포함)을 갱신한다.
+- 확인 렌더54번 입구/55번 욕조/56번 평면, 전체평면36번·화장대51/53·웹 안방 욕실/파우더/전체평면 갤러리를 갱신한다. 실제 배관·물매·방수·제작규격/수납장 문 작동은 검증 범위 밖이다.
+
+## Q23 드레스룸 정리 및 욕실 앞 화장대 (2026-10-27)
+
+- **Q23c 최신 치수 우선:** 사용자 요청으로 좌우 틈을 없앴다. 기존폭1100mm가 아니라 실제 양쪽 구조벽 면에 따라 약1240mm(깊이에 따라 약1235~1249mm)로 맞춘다. `detail_dressroom_powder.py`가 각 메시 정점의x에서 남/북쪽 벽을 레이로 측정해 0.5mm 마감선만 남긴다. 깊이450/상판750/상부2299mm·형태·색상은 유지한다. 하부장/상판/상부장을 좁은1100mm로 되돌리지 않는다. 백업 `models/backups/apt_84a_photoreal_tour_before_powder_wall_fit.blend`.
+
+- `scripts/detail_dressroom_powder.py`로 벽을 관통하던 `Dress_Closet_*`/`Wardrobe_Dress_*`를 제거했다. 북쪽 드레스룸은 재설정을 위해 비워 둔다. 과거 행거 생성 스크립트를 재실행하지 않는다.
+- **Q23b 최신:** 사용자가 제공한 한국 아파트 파우더장 사진 3장을 기준으로 초안을 교체했다. 큰 거울+양옆 천장까지 상부 수납장, 무손잡이 가로2분할 서랍과 뒤로 물린 하부 양개 수납장이다. 초안의 중앙 무릎 공간·양옆 기둥서랍·골드 손잡이/거울틀·슬림 장식조명을 되살리지 않는다. 색상은 사진의 적갈색이 아닌 현행 집에 맞춘 밝은 그레이지/아이보리다. `references/furniture/powder-reference.md` 참조.
+- 욕실 맞은편 서쪽 벽(x=.485), `Q23_Powder_*` 외곽x.495~.945/y5.940~7.040, 폭1100/깊이450/상판높이750mm, 상부높이2299mm, 전면+X. 의자·세면볼·수전은 추가하지 않았다.
+- 사용자 승인한 일반적인 푸르지오 스타일 제안이며 실제 옵션 제작도 재현이 아니다. 치수/마감/분할은 가정값. 공식 `display84a_02.jpg`는 드레스룸 시스템장 참고이며 화장대 상세 근거로 오인하지 않는다.
+- 구조벽 형상/창/문/바닥과 욕실 내부 기존 세면대 `Master_Vanity_Top`은 보존한다. 백업 `models/backups/apt_84a_photoreal_tour_before_dressroom_powder.blend` 및 Q23b 직전 `apt_84a_photoreal_tour_before_powder_reference_fix.blend`.
+- 검사는 `verify_dressroom_powder.py`, 기존18개 검사, 충돌·GLB·`verify_master_balcony.py`(파우더/욕실 앞/드레스룸 포함), 웹 테스트. 렌더51~53·발표7·전체평면36 및 웹 드레스룸/전체평면 갤러리를 갱신한다.
+
 ## Q22 안방 리스탠다드 그레이 킹 침대
 
 - 현행 Q21 이후 `scripts/replace_master_bed.py`를 적용했다. 사용자 지정 식스티세컨즈 세트1968의 K1600×2000mm, **헤드 없음·115mm 원목다리**다. 하단800mm 두 개/몸체150mm와 지름65mm 다리8개, 기본 상단 독립 매트리스290mm를 구현했다. 상단 종류는 세트 기본 선택 가정이다.

@@ -452,6 +452,35 @@ Q10b 교정: 사용자 기본 옵션은 방문 옆 장이다. 기존 30·31번 �
 | `models/backups/apt_84a_photoreal_tour_before_washtower.blend` | Q20 상태 복원용 백업, 현행 원본 아님 |
 | `scripts/add_lg_washtower.py`, `verify_lg_washtower.py`, `render_lg_washtower.py` | 워시타워·타일 바닥 모델링, 검증, 확인 렌더 |
 | `renders/review/render_46_utility_washtower.png`, `render_47_utility_washtower_side.png` | 다용도실 워시타워·타일 바닥 확인 렌더 |
+# Q24 안방 욕실 자료 (2026-10-27)
+
+| 경로 | 목적·상태 |
+| --- | --- |
+| `references/modelhouse/vr84a/011_f/r/b/l/u/d.jpg`, `011_1_f/r.jpg`, `011_2_f/r.jpg` | 공식 욕실2 6면·거울장 열림4면. 실물 참고 원본 |
+| `models/backups/apt_84a_photoreal_tour_before_master_bath_detail.blend` | Q24 직전 복원용; 현행 원본 아님 |
+| `scripts/prepare_master_bath_tile.py`, `assets/textures_export/q24_tile_albedo.png` | 사진 조명색을 제거한 타일 질감 파생 자재. 제조사 PBR 아님 |
+| `scripts/detail_master_bath.py`, `verify_master_bath.py`, `render_master_bath.py` | 현행 원본 부분 수정·기하 검사·임시 촬영 |
+| `renders/review/render_54_master_bath_entry.png`, `render_55_master_bath_tub.png`, `render_56_master_bath_plan.png` | 입구/욕조/문 안쪽 열림 평면 확인 렌더 |
+| `web/public/gallery/master-bath.webp`, `thumbs/master-bath.webp` | 새 웹 안방 욕실 갤러리 파생본 |
+| `web/tests/master-bath-model.test.mjs` | 실제 GLB 변환 계층과 욕실문/기구/타일 형상 검사 |
+
+# Q23 드레스룸·파우더 자료 (2026-10-27)
+
+Q23c 좌우 밀착 직전 백업은 `models/backups/apt_84a_photoreal_tour_before_powder_wall_fit.blend`다. 현행 렌더51·53/발표7/전체평면36과 웹 파생본은 약1240mm 벽 맞춤 폭을 사용한다.
+
+Q23b에서는 사용자 제공 `references/furniture/powder-type-entry.png`, `powder-type-front.png`, `powder-type-bath.png` 3장을 실제 형태 참고로 우선한다. `powder-reference.md`에 색상 제외와 치수 근사를 기록했다. 수정 전 초안 백업은 `models/backups/apt_84a_photoreal_tour_before_powder_reference_fix.blend`다.
+공식 VR 연구용으로 `references/modelhouse/vr84a/007_{f,r,b,l}.jpg`, `010_{f,r,b,l}.jpg`, `010_1_{f,r,b,l}.jpg` 12장을 추가했다. 안방/드레스룸 및 열린 서랍을 관찰하는 공식 원본이며 사용자 지정 파우더장의 제작도는 아니다.
+
+| 경로 | 목적·상태 |
+| --- | --- |
+| `references/modelhouse/original/display84a_02.jpg` | 공식 드레스룸 전시 안내 원본. 시스템장 참고; 화장대 제작도 아님 |
+| `assets/analysis/84a-scenes.xml` | 공식 VR 장면 정의 사본. 드레스룸010/욕실2 011 구분용 |
+| `models/backups/apt_84a_photoreal_tour_before_dressroom_powder.blend` | Q23 수정 직전 복원용 원본 |
+| `scripts/detail_dressroom_powder.py`, `verify_dressroom_powder.py`, `render_dressroom_powder.py` | 행거 제거·화장대 제안 모델/형상검사/임시 확인 촬영 |
+| `renders/review/render_51_powder_vanity.png`, `render_52_dressroom_cleared.png`, `render_53_dressroom_powder_plan.png` | 화장대/빈 드레스룸/해당 구역 평면 최신 생성 렌더 |
+| `renders/presentation/render_7_dress_pov.png`, `renders/review/render_36_dimensioned_plan.png` | 웹 갤러리용 최신 파우더/전체 평면 |
+| `web/tests/dressroom-powder.test.mjs` | 실제 GLB의 행거 제거·무릎 공간·문 간격/충돌 검사 |
+
 # Q22 안방 리스탠다드 킹 자료 (2026-10-24)
 
 후속 Q22b: `scripts/fix_master_bed_wall.py`는 연출용 벽패널/띠조명 제거와 실제벽 밀착을 재현한다.

@@ -29,7 +29,8 @@ IMAGES = [
     ("master-balcony", "renders/review/render_14_master_balcony_pov.png", "발코니", "안방 발코니", "세탁 공간과 연결되는 전면 발코니", (2.5, 1.6, 1.35)),
     ("dry-vanity", "renders/review/render_25_dry_vanity_detail.png", "욕실", "호텔식 건식 세면대", "언더마운트 세면볼·양개 하부장·직사각 간접조명 거울", (14.0, 5.0, 1.35)),
     ("bath", "renders/review/render_26_common_toilet_detail.png", "욕실", "공용 욕실 (습식)", "곡면 도기 변기·거울 수납장·모델하우스 사진 기반 타일", (13.98, 6.45, 1.35)),
-    ("dressroom", "renders/presentation/render_7_dress_pov.png", "안방", "드레스룸 및 파우더장", "안방과 연결된 워크인 드레스룸 시스템", (2.2, 7.0, 1.35)),
+    ("dressroom", "renders/presentation/render_7_dress_pov.png", "안방", "욕실 앞 붙박이 파우더장", "큰 거울·양옆 상부 수납장·무손잡이 서랍 · 사용자 사진 기반", (1.45, 6.45, 1.35)),
+    ("master-bath", "renders/review/render_54_master_bath_entry.png", "욕실", "안방 욕실", "공식 e모델하우스 기반 욕조·벽걸이 세면대·거울 수납장 · 안으로 열리는 문", (2.90, 6.60, 1.35)),
     ("topdown", "renders/review/render_36_dimensioned_plan.png", "전체", "84A 입체 평면도", "도면 치수 교정 후 전체 공간 구조 및 가구 배치도", (7.15, 5.0, 8.0)),
 ]
 

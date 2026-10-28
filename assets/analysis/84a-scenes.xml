@@ -1,0 +1,705 @@
+﻿<krpano version="1.20.11" title="Virtual Tour">
+
+    
+
+	<include url="skin/vtourskin.xml" />
+	<include url="plugins/circle_hotspots.xml"/>    
+	<include url="popup/popup.xml" />
+	<include url="hdvr_minimap/hdvr_minimap.xml" /> 
+	
+	
+
+		<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
+	<skin_settings maps="false"
+	               maps_type="google"
+	               maps_bing_api_key=""
+	               maps_google_api_key=""
+	               maps_zoombuttons="false"
+	               maps_loadonfirstuse="true"
+	               gyro="true"
+	               gyro_keeplookingdirection="d"
+	               webvr="true"
+	               webvr_keeplookingdirection="true"
+	               webvr_prev_next_hotspots="true"
+	               autotour="false"
+	               littleplanetintro="false"
+	               followmousecontrol="false"
+	               title="false"
+	               thumbs="false"
+	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+	               thumbs_opened="true"
+	               thumbs_text="true"
+	               thumbs_dragging="true"
+	               thumbs_onhoverscrolling="false"
+	               thumbs_scrollbuttons="false"
+	               thumbs_scrollindicator="false"
+	               thumbs_loop="false"
+	               tooltips_buttons="false"
+	               tooltips_thumbs="false"
+	               tooltips_hotspots="false"
+	               tooltips_mapspots="false"
+	               deeplinking="false"
+	               loadscene_flags="MERGE"
+	               loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+	               loadingtext=""
+	               layout_width="100%"
+	               layout_maxwidth="814"
+	               controlbar_width="-24"
+	               controlbar_height="40"
+	               controlbar_offset="20"
+	               controlbar_offset_closed="-40"
+	               controlbar_overlap.no-fractionalscaling="10"
+	               controlbar_overlap.fractionalscaling="0"
+	               design_skin_images="vtourskin.png"
+	               design_bgcolor="0x000000"
+	               design_bgalpha="0.8"
+	               design_bgborder="0"
+	               design_bgroundedge="1"
+	               design_bgshadow="0 4 10 0x000000 0.3"
+	               design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+	               design_thumbborder_padding="2"
+	               design_thumbborder_bgroundedge="0"
+	               design_text_css="color:#FFFFFF; font-family:Arial;"
+	               design_text_shadow="1"
+	               />
+
+
+    <autorotate enabled="false" waittime="0.0" speed="5.0" horizon="0.0" />
+
+	<!--
+	    For an alternative skin design either change the <skin_settings> values 
+	    from above or optionally include one of the predefined designs from below.
+	-->
+	 <include url="skin/vtourskin_design_flat_light.xml"  /> 
+	<!-- <include url="skin/vtourskin_design_glass.xml"       /> -->
+	<!-- <include url="skin/vtourskin_design_ultra_light.xml" /> -->
+	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+	<!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
+
+    <action name="goto">
+		skin_loadscene(%1, OPENBLEND(0.8, 0.0, 0.6, 0.3, easeOutQuad), %2, %3);
+	</action>
+
+	<!-- startup action - load the first scene -->
+
+  <action name="startup" autorun="onstart">
+    set(loadscene_flags.blend, 1.0);   <!-- 씬 전환 블렌드 효과 활성화 -->
+    loadscene(scene_living);
+</action>
+
+  <style name="style_menu_outer"
+         keep="true"
+         width="100%"
+         height="43"
+         bgcolor="0x114e50"
+         bgalpha="1" 
+         />
+  <style name="style_menu_text"
+         type="text"
+         keep="true"
+         width="90"
+         css="margin: 13px 8px 8px 8px;font-size:12px; text-align:center; font-weight:400; color:#ffffff; font-family: 'Noto Sans KR'; "
+         vcenter="true"
+         bgcolor="0x114e50"
+         bgalpha="1"
+         onclick="layer[top_menus_scroller].scrolltocenter(calc(i*width),0); goto(get(linkedscene));"
+         />
+
+   <events name="event_scenes" keep="true" onnewscene="detect_scenes();"/>
+
+
+
+
+
+<layer name="top_menus_outer"
+         type="container"
+         style="style_menu_outer"
+         >
+    <layer name="top_menus_scroller"
+           url.flash="%VIEWER%/plugins/scrollarea.swf"
+           url.html5="%VIEWER%/plugins/scrollarea.js"
+           direction="h"
+           onhover_autoscrolling="true"
+           />
+  </layer>
+
+   	 <topmenu_contents name="menu1" html="거 실" linkedscene="scene_001_sphere" />
+   	 <topmenu_contents name="menu2" html="주방/식당" linkedscene="scene_005_sphere" /> 
+   	 <topmenu_contents name="menu3" html="침 실 1" linkedscene="scene_007_sphere" />
+   	 <topmenu_contents name="menu4" html="침 실 2" linkedscene="scene_012_sphere" />
+   	 <topmenu_contents name="menu5" html="침 실 3" linkedscene="scene_013_sphere" /> 
+   	 <topmenu_contents name="menu6" html="드레스룸" linkedscene="scene_010_sphere" />  
+   	 <topmenu_contents name="menu7" html="욕 실 1(1)" linkedscene="scene_015_sphere" /> 
+   	 <topmenu_contents name="menu8" html="욕 실 1(2)" linkedscene="scene_016_sphere" />
+   	 <topmenu_contents name="menu9" html="욕 실 2" linkedscene="scene_011_sphere" />    
+   	 <topmenu_contents name="menu10" html="팬 트 리" linkedscene="scene_003_sphere" />
+   	 <topmenu_contents name="menu11" html="현 관" linkedscene="scene_017_sphere" /> 
+   	 <topmenu_contents name="menu12" html="현관창고" linkedscene="scene_018_sphere" /> 
+   	 <topmenu_contents name="menu13" html="복 도" linkedscene="scene_014_sphere" /> 
+   	 <topmenu_contents name="menu14" html="발 코 니 1" linkedscene="scene_008_sphere" />
+   	 <topmenu_contents name="menu15" html="발 코 니 2" linkedscene="scene_006_sphere" />
+   	 <topmenu_contents name="menu16" html="실외기실" linkedscene="scene_004_sphere" />  
+   	 <topmenu_contents name="menu17" html="하향식피난구" linkedscene="scene_009_sphere" />   	  
+   	 
+   	 
+   	 
+
+     <action name="add_top_menus" autorun="onstart">
+    for(
+      <!-- startactions -->
+      set(i, 0);
+      ,
+      <!-- condition -->
+      i LT topmenu_contents.count
+      ,
+      <!-- nextactions -->
+      inc(i);
+      ,
+      <!-- loopactions -->
+      set(text_layer_name, calc('btn_'+i));
+      addlayer(get(text_layer_name));
+      layer[get(text_layer_name)].loadstyle(style_menu_text);
+      set(layer[get(text_layer_name)],
+        i           = get(i),
+        parent      = top_menus_scroller,
+        html        = get(topmenu_contents[get(i)].html),
+        x           = calc(i*get(layer[get(text_layer_name)].width)),
+        linkedscene = get(topmenu_contents[get(i)].linkedscene)
+              );
+    );
+    set(layer[top_menus_scroller].width, calc((topmenu_contents.count)*style[style_menu_text].width));
+    tween(easeoutbounce);
+  </action>
+
+<action name="detect_scenes">
+    for(
+      <!-- startactions -->
+      set(i, 0);
+      ,
+      <!-- condition -->
+      i LT topmenu_contents.count
+      ,
+      <!-- nextactions -->
+      inc(i);
+      ,
+      <!-- loopactions -->
+      set(text_layer_name, calc('btn_'+i)); 
+      if(
+        <!-- condition -->
+        xml.scene == layer[get(text_layer_name)].linkedscene
+        ,
+        <!-- then-actions -->
+        set(layer[get(text_layer_name)].bgshadow, '0 6 0 0xa1826d 1');
+                ,
+        <!-- else-actions -->
+        set(layer[get(text_layer_name)].bgshadow, '');
+      );
+    );
+  </action>
+
+   
+
+      <action name="startup" autorun="onstart"> if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); ); loadscene(get(startscene), null, MERGE); if(startactions !== null, startactions() ); skin_setup_littleplanetintro2(); tween(global.plugin[pp_blur].range, 40.0); addlayer(popup_bg); layer[popup_bg].loadstyle(popup_bg); set(layer[poster].parent, popup_bg); 
+   </action>
+
+<action name="close_poster"> tween(global.plugin[pp_blur].range, 0.0, 0.7); tween(layer[popup_bg].alpha, 0, 0.7,,removelayer(popup_bg, true); skin_setup_littleplanetintro3();); 
+</action>
+
+<action name="skin_setup_littleplanetintro2" scope="local">
+ skin_hideskin(instant); set(global.lpinfo, scene=get(xml.scene), hlookat=get(view.hlookat), vlookat=get(view.vlookat), fov=get(view.fov), fovmax=get(view.fovmax), limitview=get(view.limitview) ); set(view, fovmax=170, limitview=lookto, vlookatmin=90, vlookatmax=90); lookat(calc(global.lpinfo.hlookat - 0), 90, 150, 1, 0, 0); 
+</action>
+
+<action name="skin_setup_littleplanetintro3" scope="local"> 
+	delayedcall(0.1, if(lpinfo.scene === xml.scene, set(control.usercontrol, off); set(view, limitview=get(lpinfo.limitview), vlookatmin=null, view.vlookatmax=null); tween(view.hlookat|view.vlookat|view.fov|view.distortion, calc('' + lpinfo.hlookat + '|' + lpinfo.vlookat + '|' + lpinfo.fov + '|' + 0.0), 3.0, easeOutQuad); delayedcall(3.0, set(control.usercontrol, all); tween(view.fovmax, get(lpinfo.fovmax)); skin_deeplinking_update_url(); delete(global.lpinfo); skin_showskin(); if(skin_settings.thumbs AND skin_settings.thumbs_opened, skin_showthumbs() ); ); , delete(global.lpinfo); ); ); 
+</action>
+
+<plugin name="pp_blur" keep="true" url="plugins/pp_blur.js" enabled="true" range="0.0" linearrgb="false" order="1" phase="2"/>
+
+<contextmenu fullscreen="false" versioninfo="false"/>
+
+<style name="popup_bg" keep="true" type="container" width="100%" height="100%" visible="true" bgcolor="0x000000" bgalpha="0.7" bgcapture="true" autoalpha="true" handcursor="false" zorder="9999"/>
+
+<layer name="poster" url="skin/logo0.png" align="center" y="-20" y.mobile="0" width="prop" height="100%" keep="true" scalechildren="true" onclick="close_poster();">
+
+
+</layer>
+
+	
+	<scene name="scene_001_sphere" title="001_sphere" onstart="" map="map1.png" mx="106" my="157" mheading="-268.53" thumburl="panos/001_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="88.497" vlookat="0.000" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/001_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/001_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot007" style="hs_circle" ath="-168.526" atv="4.175" tag="침실1" onclick="goto (scene_007_sphere)" />
+		<hotspot name="spot005" style="hs_circle" ath="-94.543" atv="0.981" tag="주방/식당" onclick="goto (scene_005_sphere)" />
+		<hotspot name="spot003" style="hs_circle" ath="-47.676" atv="0.455" tag="팬트리" onclick="goto (scene_003_sphere)" />
+		<hotspot name="spot014" style="hs_circle" ath="-7.678" atv="1.510" tag="복도" onclick="goto (scene_014_sphere)" />
+
+	</scene>
+
+	
+
+	<scene name="scene_003_1_sphere" title="003_1_sphere" onstart="" map="map1.png" mx="143" my="99" mheading="181.55" thumburl="panos/003_1_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/003_1_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/003_1_sphere.tiles/pano_%s.jpg" />
+		</image>
+
+		<hotspot name="spot1" style="skin_onoff_style" ath="-106.344" crop="0|34|68|34" atv="37.126" linkedscene="scene_003_sphere" />
+		
+		
+
+	</scene>
+
+	<scene name="scene_003_sphere" title="003_sphere" onstart="" map="map1.png" mx="143" my="99" mheading="181.55" thumburl="panos/003_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="-93.138" vlookat="0.000" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/003_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/003_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot004" style="hs_circle" ath="-168.819" atv="2.837" tag="실외기실" onclick="goto (scene_004_sphere)" />
+		<hotspot name="spot001" style="hs_circle" ath="36.251" atv="2.581" tag="거실" onclick="goto (scene_001_sphere)" />
+		<hotspot name="spot007" style="hs_circle" ath="67.219" atv="0.061" tag="침실1" onclick="goto (scene_007_sphere)" />
+
+		<hotspot name="spot1" style="skin_onoff_style" ath="-106.344" crop="0|0|68|34" atv="37.126" linkedscene="scene_003_1_sphere" />
+
+	</scene>
+
+	<scene name="scene_004_sphere" title="004_sphere" onstart="" map="map1.png" mx="150" my="69" mheading="-91.32" thumburl="panos/004_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="91.500" vlookat="0.000" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/004_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/004_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot003" style="hs_circle" ath="-79.647" atv="1.995" tag="팬트리" onclick="goto (scene_003_sphere)" />
+
+	</scene>
+
+	<scene name="scene_005_1_sphere" title="005_1_sphere" onstart="" map="map1.png" mx="96" my="71" mheading="92.82" thumburl="panos/005_1_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/005_1_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/005_1_sphere.tiles/pano_%s.jpg" />
+		</image>
+
+		<hotspot name="spot1" style="skin_onoff_style" ath="-61.991" crop="0|34|68|34" atv="31.107" linkedscene="scene_005_sphere" />
+		<hotspot name="spot2" style="skin_onoff_style" ath="-29.209" crop="0|34|68|34" atv="-15.407" linkedscene="scene_005_sphere" />
+		<hotspot name="spot3" style="skin_onoff_style" ath="18.849" crop="0|34|68|34" atv="36.209" linkedscene="scene_005_sphere" />
+		<hotspot name="spot4" style="skin_onoff_style" ath="119.336" crop="0|34|68|34" atv="-26.181" linkedscene="scene_005_sphere" />
+		<hotspot name="spot5" style="skin_onoff_style" ath="-111.810" crop="0|34|68|34" atv="-12.422" linkedscene="scene_005_sphere" />
+
+	</scene>
+
+	<scene name="scene_005_sphere" title="005_sphere" onstart="" map="map1.png" mx="96" my="71" mheading="92.82" thumburl="panos/005_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="-92.933" vlookat="0.000" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/005_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/005_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot006" style="hs_circle" ath="-171.044" atv="4.885" tag="발코니2" onclick="goto (scene_006_sphere)" />
+		<hotspot name="spot001" style="hs_circle" ath="76.639" atv="2.014" tag="거실" onclick="goto (scene_001_sphere)" />
+		<hotspot name="spot003" style="hs_circle" ath="25.783" atv="0.996" tag="팬트리" onclick="goto (scene_003_sphere)" />
+
+		<hotspot name="spot1" style="skin_onoff_style" ath="-61.991" crop="0|0|68|34" atv="31.107" linkedscene="scene_005_1_sphere" />
+		<hotspot name="spot2" style="skin_onoff_style" ath="-29.209" crop="0|0|68|34" atv="-15.407" linkedscene="scene_005_1_sphere" />
+		<hotspot name="spot3" style="skin_onoff_style" ath="18.849" crop="0|0|68|34" atv="36.209" linkedscene="scene_005_1_sphere" />
+		<hotspot name="spot4" style="skin_onoff_style" ath="119.336" crop="0|0|68|34" atv="-26.181" linkedscene="scene_005_1_sphere" />
+		<hotspot name="spot5" style="skin_onoff_style" ath="-111.810" crop="0|0|68|34" atv="-12.422" linkedscene="scene_005_1_sphere" />
+
+	</scene>
+
+	<scene name="scene_006_sphere" title="006_sphere" onstart="" map="map1.png" mx="75" my="71" mheading="4.68" thumburl="panos/006_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="-94.363" vlookat="0.000" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/006_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/006_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot005" style="hs_circle" ath="88.318" atv="3.372" tag="주방/식당" onclick="goto (scene_005_sphere)" />
+
+	</scene>
+
+	<scene name="scene_007_sphere" title="007_sphere" onstart="" map="map1.png" mx="51" my="139" mheading="-90.01" thumburl="panos/007_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/007_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/007_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot010" style="hs_circle" ath="58.090" atv="-0.312" tag="드레스룸" onclick="goto (scene_010_sphere)" />
+		<hotspot name="spot008" style="hs_circle" ath="-92.546" atv="1.323" tag="발코니1" onclick="goto (scene_008_sphere)" />
+		<hotspot name="spot001" style="hs_circle" ath="-176.051" atv="16.749" tag="거실" onclick="goto (scene_001_sphere)" />
+		<hotspot name="spot014" style="hs_circle" ath="-179.406" atv="-1.019" tag="복도" onclick="goto (scene_014_sphere)" />
+
+	</scene>
+
+	<scene name="scene_008_sphere" title="008_sphere" onstart="" map="map1.png" mx="54" my="188" mheading="-88.71" thumburl="panos/008_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="-91.433" vlookat="0.000" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/008_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/008_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot009" style="hs_circle" ath="-16.138" atv="0.460" tag="하향식피난구" onclick="goto (scene_009_sphere)" />
+		<hotspot name="spot007" style="hs_circle" ath="91.084" atv="13.494" tag="침실1" onclick="goto (scene_007_sphere)" />
+		<hotspot name="spot010" style="hs_circle" ath="76.002" atv="0.996" tag="드레스룸" onclick="goto (scene_010_sphere)" />
+
+	</scene>
+
+	<scene name="scene_009_sphere" title="009_sphere" onstart="" map="map1.png" mx="25" my="187" mheading="-179.86" thumburl="panos/009_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="81.069" vlookat="0.000" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/009_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/009_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot008" style="hs_circle" ath="-90.350" atv="3.116" tag="발코니1" onclick="goto (scene_008_sphere)" />
+
+	</scene>
+
+	<scene name="scene_010_1_sphere" title="010_1_sphere" onstart="" map="map1.png" mx="28" my="88" mheading="-83.95" thumburl="panos/010_1_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/010_1_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/010_1_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_onoff_style" ath="81.556" crop="0|34|68|34" atv="22.746" linkedscene="scene_010_sphere" />
+		<hotspot name="spot2" style="skin_onoff_style" ath="14.339" crop="0|34|68|34" atv="39.498" linkedscene="scene_010_sphere" />
+		<hotspot name="spot3" style="skin_onoff_style" ath="-67.078" crop="0|34|68|34" atv="14.820" linkedscene="scene_010_sphere" />
+		<hotspot name="spot4" style="skin_onoff_style" ath="-106.687" crop="0|34|68|34" atv="8.838" linkedscene="scene_010_sphere" />
+
+	</scene>
+
+	<scene name="scene_010_sphere" title="010_sphere" onstart="" map="map1.png" mx="28" my="88" mheading="-83.95" thumburl="panos/010_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="83.933" vlookat="0.000" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/010_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/010_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot007" style="hs_circle" ath="-102.185" atv="1.529" tag="침실1" onclick="goto (scene_007_sphere)" />
+		<hotspot name="spot011" style="hs_circle" ath="-118.619" atv="0.687" tag="욕실2" onclick="goto (scene_011_sphere)" />
+
+		<hotspot name="spot1" style="skin_onoff_style" ath="81.556" crop="0|0|68|34" atv="22.746" linkedscene="scene_010_1_sphere" />
+		<hotspot name="spot2" style="skin_onoff_style" ath="14.339" crop="0|0|68|34" atv="39.498" linkedscene="scene_010_1_sphere" />
+		<hotspot name="spot3" style="skin_onoff_style" ath="-67.078" crop="0|0|68|34" atv="14.820" linkedscene="scene_010_1_sphere" />
+		<hotspot name="spot4" style="skin_onoff_style" ath="-106.687" crop="0|0|68|34" atv="8.838" linkedscene="scene_010_1_sphere" />
+
+	</scene>
+
+	<scene name="scene_011_1_sphere" title="011_1_sphere" onstart="" map="map1.png" mx="54" my="101" mheading="89.88" thumburl="panos/011_1_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/011_1_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/011_1_sphere.tiles/pano_%s.jpg" />
+		</image>
+
+		<hotspot name="spot1" style="skin_onoff_style" ath="-18.153" crop="0|34|68|34" atv="-12.628" linkedscene="scene_011_sphere" />
+
+	</scene>
+
+	<scene name="scene_011_2_sphere" title="011_2_sphere" onstart="" map="map1.png" mx="54" my="101" mheading="89.88" thumburl="panos/011_2_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/011_2_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/011_2_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot2" style="skin_onoff_style" ath="44.067" crop="0|34|68|34" atv="-11.155" linkedscene="scene_011_sphere" />
+
+	</scene>
+
+	<scene name="scene_011_sphere" title="011_sphere" onstart="" map="map1.png" mx="54" my="101" mheading="89.88" thumburl="panos/011_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/011_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/011_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot007" style="hs_circle" ath="131.212" atv="-7.596" tag="침실1" onclick="goto (scene_007_sphere)" />
+		<hotspot name="spot010" style="hs_circle" ath="149.099" atv="-2.798" tag="드레스룸" onclick="goto (scene_010_sphere)" />
+
+		<hotspot name="spot1" style="skin_onoff_style" ath="-18.153" crop="0|0|68|34" atv="-12.628" linkedscene="scene_011_1_sphere" />
+		<hotspot name="spot2" style="skin_onoff_style" ath="44.067" crop="0|0|68|34" atv="-11.155" linkedscene="scene_011_2_sphere" />
+
+	</scene>
+
+	<scene name="scene_012_1_sphere" title="012_1_sphere" onstart="" map="map1.png" mx="166" my="163" mheading="-179.88" thumburl="panos/012_1_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/012_1_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/012_1_sphere.tiles/pano_%s.jpg" />
+		</image>
+
+		<hotspot name="spot1" style="skin_onoff_style" ath="-110.832" crop="0|34|68|34" atv="7.489" linkedscene="scene_012_sphere" />
+
+	</scene>
+
+	<scene name="scene_012_sphere" title="012_sphere" onstart="" map="map1.png" mx="166" my="163" mheading="-179.88" thumburl="panos/012_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/012_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/012_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot014" style="hs_circle" ath="149.071" atv="1.021" tag="복도" onclick="goto (scene_014_sphere)" />
+
+		<hotspot name="spot1" style="skin_onoff_style" ath="-110.832" crop="0|0|68|34" atv="7.489" linkedscene="scene_012_1_sphere" />
+
+	</scene>
+
+	<scene name="scene_013_1_sphere" title="013_1_sphere" onstart="" map="map1.png" mx="217" my="164" mheading="179.27" thumburl="panos/013_1_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/013_1_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/013_1_sphere.tiles/pano_%s.jpg" />
+		</image>
+
+		<hotspot name="spot1" style="skin_onoff_style" ath="44.176" crop="0|34|68|34" atv="2.773" linkedscene="scene_013_sphere" />
+
+	</scene>
+
+	<scene name="scene_013_sphere" title="013_sphere" onstart="" map="map1.png" mx="217" my="164" mheading="179.27" thumburl="panos/013_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/013_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/013_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot014" style="hs_circle" ath="131.723" atv="3.064" tag="복도" onclick="goto (scene_014_sphere)" />
+
+		<hotspot name="spot1" style="skin_onoff_style" ath="44.176" crop="0|0|68|34" atv="2.773" linkedscene="scene_013_1_sphere" />
+
+	</scene>
+
+	<scene name="scene_014_sphere" title="014_sphere" onstart="" map="map1.png" mx="174" my="128" mheading="-90.51" thumburl="panos/014_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/014_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/014_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot007" style="hs_circle" ath="0.000" atv="0.000" tag="침실1" onclick="goto (scene_007_sphere)" />
+		<hotspot name="spot001" style="hs_circle" ath="-12.652" atv="1.020" tag="거실" onclick="goto (scene_001_sphere)" />
+		<hotspot name="spot012" style="hs_circle" ath="-29.711" atv="1.634" tag="침실2" onclick="goto (scene_012_sphere)" />
+		<hotspot name="spot013" style="hs_circle" ath="-158.928" atv="1.823" tag="침실3" onclick="goto (scene_013_sphere)" />
+		<hotspot name="spot015" style="hs_circle" ath="179.167" atv="1.200" tag="욕실1(1)" onclick="goto (scene_015_sphere)" />
+		<hotspot name="spot017" style="hs_circle" ath="149.774" atv="2.135" tag="현관" onclick="goto (scene_017_sphere)" />
+
+	</scene>
+
+	<scene name="scene_015_1_sphere" title="015_1_sphere" onstart="" map="map1.png" mx="219" my="127" mheading="1.55" thumburl="panos/015_1_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/015_1_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/015_1_sphere.tiles/pano_%s.jpg" />
+		</image>
+
+		<hotspot name="spot1" style="skin_onoff_style" ath="80.336" crop="0|34|68|34" atv="35.194" linkedscene="scene_015_sphere" />
+
+	</scene>
+
+	<scene name="scene_015_sphere" title="015_sphere" onstart="" map="map1.png" mx="219" my="127" mheading="1.55" thumburl="panos/015_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="86.930" vlookat="0.000" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/015_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/015_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot016" style="hs_circle" ath="2.155" atv="4.269" tag="욕실1(2)" onclick="goto (scene_016_sphere)" />
+		<hotspot name="spot014" style="hs_circle" ath="-89.236" atv="10.362" tag="복도" onclick="goto (scene_014_sphere)" />
+
+		<hotspot name="spot1" style="skin_onoff_style" ath="80.336" crop="0|0|68|34" atv="35.194" linkedscene="scene_015_1_sphere" />
+
+	</scene>
+
+	<scene name="scene_016_1_sphere" title="016_1_sphere" onstart="" map="map1.png" mx="220" my="107" mheading="-83.10" thumburl="panos/016_1_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/016_1_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/016_1_sphere.tiles/pano_%s.jpg" />
+		</image>
+
+		<hotspot name="spot1" style="skin_onoff_style" ath="-174.236" crop="0|34|68|34" atv="-3.555" linkedscene="scene_016_sphere" />
+
+	</scene>
+
+	<scene name="scene_016_sphere" title="016_sphere" onstart="" map="map1.png" mx="220" my="107" mheading="-83.10" thumburl="panos/016_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="172.567" vlookat="0.000" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/016_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/016_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot015" style="hs_circle" ath="-92.385" atv="-3.544" tag="욕실1(1)" onclick="goto (scene_015_sphere)" />
+
+		<hotspot name="spot1" style="skin_onoff_style" ath="-174.236" crop="0|0|68|34" atv="-3.555" linkedscene="scene_016_1_sphere" />
+
+	</scene>
+
+	<scene name="scene_017_1_sphere" title="017_1_sphere" onstart="" map="map1.png" mx="198" my="101" mheading="-181.20" thumburl="panos/017_1_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/017_1_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/017_1_sphere.tiles/pano_%s.jpg" />
+		</image>
+
+		<hotspot name="spot1" style="skin_onoff_style" ath="-86.994" crop="0|34|68|34" atv="5.047" linkedscene="scene_017_sphere" />
+		<hotspot name="spot2" style="skin_onoff_style" ath="-21.912" crop="0|34|68|34" atv="2.581" linkedscene="scene_017_sphere" />
+
+	</scene>
+
+	<scene name="scene_017_sphere" title="017_sphere" onstart="" map="map1.png" mx="198" my="101" mheading="-181.20" thumburl="panos/017_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/017_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/017_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot014" style="hs_circle" ath="-2.404" atv="7.685" tag="복도" onclick="goto (scene_014_sphere)" />
+		<hotspot name="spot018" style="hs_circle" ath="78.302" atv="2.376" tag="현관창고" onclick="goto (scene_018_sphere)" />
+
+		<hotspot name="spot1" style="skin_onoff_style" ath="-86.994" crop="0|0|68|34" atv="5.047" linkedscene="scene_017_1_sphere" />
+		<hotspot name="spot2" style="skin_onoff_style" ath="-21.912" crop="0|0|68|34" atv="2.581" linkedscene="scene_017_1_sphere" />
+
+	</scene>
+
+	<scene name="scene_018_sphere" title="018_sphere" onstart="" map="map1.png" mx="181" my="101" mheading="-90.00" thumburl="panos/018_sphere.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/018_sphere.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/018_sphere.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot017" style="hs_circle" ath="-178.402" atv="1.893" tag="현관" onclick="goto (scene_017_sphere)" />
+
+	</scene>
+
+
+</krpano>

@@ -5,7 +5,7 @@ from mathutils import Vector
 root=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sc=bpy.context.scene
 for o in bpy.data.objects:
-    if o.name.startswith(('Ceiling_','Cove_','Q10_Ceiling','Q11_Ceiling')) or o.name=='Ground_Presentation':
+    if o.name.startswith(('Ceiling_','Cove_','Q10_Ceiling','Q11_Ceiling','Q24_Ceiling','Q24_AccessPanel','Q24_Vent','Q24_Downlight')) or o.name=='Ground_Presentation':
         o.hide_render=True
 camera=bpy.data.cameras.new('Q12_Review'); obj=bpy.data.objects.new(camera.name,camera)
 sc.collection.objects.link(obj); obj.location=(7.7,5.3,24)

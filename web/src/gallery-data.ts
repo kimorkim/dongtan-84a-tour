@@ -163,11 +163,17 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   {
     id: 'dressroom',
     room: '안방',
-    title: '드레스룸 및 파우더장',
-    description: '안방과 연결된 워크인 드레스룸 시스템',
+    title: '욕실 앞 붙박이 파우더장',
+    description: '큰 거울·양옆 상부 수납장·무손잡이 서랍 · 사용자 사진 기반',
     src: './gallery/dressroom.webp',
     thumb: './gallery/thumbs/dressroom.webp',
-    worldPos: [2.2, 1.35, -7.0],
+    worldPos: [1.45, 1.35, -6.45],
+  },
+  {
+    id: 'master-bath', room: '욕실', title: '안방 욕실',
+    description: '공식 e모델하우스 기반 욕조·벽걸이 세면대·거울 수납장 · 안으로 열리는 문',
+    src: './gallery/master-bath.webp', thumb: './gallery/thumbs/master-bath.webp',
+    worldPos: [2.90, 1.35, -6.60],
   },
   {
     id: 'topdown',

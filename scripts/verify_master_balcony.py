@@ -65,6 +65,14 @@ if data.get('master_bed_version') == 22:
     # Q22d: head on east door-side wall; foot aisle is west, balcony reached around the foot.
     goals.extend([('Restandard bed foot aisle',1.70,3.50),
                   ('Restandard bed south aisle',3.00,2.45),('Restandard bed north aisle',3.00,5.10)])
+if data.get('dressroom_powder_version') == 23:
+    goals.extend([('Powder vanity approach',1.45,6.45),
+                  ('Master bathroom approach',1.85,6.35),
+                  ('Cleared dressing room entry',1.60,7.55),
+                  ('Cleared dressing room interior',1.45,9.20)])
+if data.get('master_bath_version') == 24:
+    goals.extend([('Master bath doorway',2.75,6.45),('Master bath basin approach',3.13,6.90),
+                  ('Master bath tub approach',3.18,7.00)])
 for name,x,y in goals:
     distance = min(math.hypot(i * STEP - x, j * STEP - 0.6 - y) for i, j in visited)
     print(f'{name}: nearest reachable point {distance:.3f}m')
