@@ -481,6 +481,17 @@ Q23b에서는 사용자 제공 `references/furniture/powder-type-entry.png`, `po
 | `renders/presentation/render_7_dress_pov.png`, `renders/review/render_36_dimensioned_plan.png` | 웹 갤러리용 최신 파우더/전체 평면 |
 | `web/tests/dressroom-powder.test.mjs` | 실제 GLB의 행거 제거·무릎 공간·문 간격/충돌 검사 |
 
+# 웹 성능 검증 자료 (2026-10-28)
+
+| 경로 | 목적·상태 |
+| --- | --- |
+| `docs/web-performance-2026-10-28.md` | 동일 형상·화질 설정의 전후 CPU/GPU/그리기 호출 및 검증 한계 |
+| `assets/analysis/web-performance/{baseline,optimized}.json`, `{baseline,optimized}-{foyer,living,bath,overview}.png` | 실제 GLB 브라우저 측정 수치와 화면. 실물 참고사진/Blender 렌더 아님 |
+| `assets/analysis/web-performance/smoke.json`, `smoke-{walk,overview,walk-restored}.png`, `image-comparison.json` | DPR2 메인 화면 모드 전환·보행·초기화와 이미지 비교 결과 |
+| `scripts/benchmark_web.cjs`, `web/tests/performance-review.html` | Chromium CDP 측정 도구와 개발 전용 고정 카메라 페이지 |
+| `web/src/static-model.ts`, `web/tests/static-model.test.mjs` | 런타임 형상 보존 병합과 독립 행동 검사. 원본 GLB/Blender는 미변경 |
+| `docs/superpowers/specs/2026-10-28-web-performance-design.md`, `docs/superpowers/plans/2026-10-28-web-performance.md` | 사용자 승인 범위와 실행 기록 |
+
 # Q22 안방 리스탠다드 킹 자료 (2026-10-24)
 
 후속 Q22b: `scripts/fix_master_bed_wall.py`는 연출용 벽패널/띠조명 제거와 실제벽 밀착을 재현한다.

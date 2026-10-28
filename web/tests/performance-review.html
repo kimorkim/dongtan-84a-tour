@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><title>Full detail performance review</title>
+<style>body{margin:0}canvas{display:block}</style><canvas id="scene"></canvas>
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { SceneGTAOPass } from '../src/scene-gtao-pass.ts';
+import { loadWorld } from '../src/world.ts';
+const base=document.createElement('base');base.href='/';document.head.append(base);
+const params=new URLSearchParams(location.search);
+const renderer=new THREE.WebGLRenderer({canvas:document.querySelector('canvas'),antialias:true});
+renderer.setPixelRatio(Number(params.get('dpr')??1));
+renderer.setSize(innerWidth,innerHeight);
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
+renderer.info.autoReset=false;
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x101418);
+const camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.05,120);
+const world=await loadWorld(scene,renderer,()=>{}, { optimize: !params.has('baseline') });
+const composer=new EffectComposer(renderer);composer.addPass(new RenderPass(scene,camera));
+const ao=new SceneGTAOPass(scene,camera,innerWidth,innerHeight);
+ao.blendIntensity=.85;ao.pdRings=2;ao.pdSamples=8;ao.pdRadiusExponent=2;
+composer.addPass(ao);composer.addPass(new OutputPass());
+const gl=renderer.getContext();const ext=gl.getExtension('WEBGL_debug_renderer_info');
+const views={
+ foyer:[[12.33,1.65,-7.15],[12.33,1.65,-5]],
+ living:[[7.3,1.65,-4.3],[4.5,1.2,-3.3]],
+ bath:[[2.95,1.65,-6.25],[3.6,1.2,-7.8]],
+ overview:[[7.15,14,1.55],[7.15,0,-4.95]],
+};
+window.review={renderer:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER),
+ stats:world.stats,
+ async view(name,frames=45){
+  const [pos,target]=views[name];camera.position.fromArray(pos);camera.lookAt(...target);
+  world.setCeilingVisible(name!=='overview');
+  const times=[],cpu=[],gpu=[];let previous=0;let calls=0,triangles=0;
+  const timer=gl.getExtension('EXT_disjoint_timer_query_webgl2');
+  const pending=[];
+  for(let i=0;i<frames+12;i++){
+   const now=await new Promise(requestAnimationFrame);
+   if(i>12)times.push(now-previous);previous=now;
+   renderer.info.reset();
+   const query=timer?gl.createQuery():null;
+   if(query)gl.beginQuery(timer.TIME_ELAPSED_EXT,query);
+   const start=performance.now();composer.render();
+   if(i>=12)cpu.push(performance.now()-start);
+   if(query){gl.endQuery(timer.TIME_ELAPSED_EXT);pending.push({query,sample:i>=12});}
+   while(pending.length&&gl.getQueryParameter(pending[0].query,gl.QUERY_RESULT_AVAILABLE)){
+    const {query,sample}=pending.shift();
+    if(sample&&!gl.getParameter(timer.GPU_DISJOINT_EXT))gpu.push(gl.getQueryParameter(query,gl.QUERY_RESULT)/1e6);
+    gl.deleteQuery(query);
+   }
+   calls=renderer.info.render.calls;triangles=renderer.info.render.triangles;
+  }
+  gl.finish();
+  for(const {query,sample} of pending){
+   if(sample&&!gl.getParameter(timer.GPU_DISJOINT_EXT))gpu.push(gl.getQueryParameter(query,gl.QUERY_RESULT)/1e6);
+   gl.deleteQuery(query);
+  }
+  const median=a=>a.length?a.sort((x,y)=>x-y)[Math.floor(a.length*.5)]:null;
+  times.sort((a,b)=>a-b);
+  return {calls,triangles,frames:times.length,medianMs:median(times),p95Ms:times[Math.floor(times.length*.95)],meanMs:times.reduce((a,b)=>a+b,0)/times.length,cpuMedianMs:median(cpu),gpuMedianMs:median(gpu)};
+ }
+};
+</script></html>

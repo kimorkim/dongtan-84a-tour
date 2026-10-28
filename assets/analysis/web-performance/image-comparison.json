@@ -1,0 +1,21 @@
+{
+  "foyer": {
+    "meanAbsoluteChannelDifference": 0.10540653935185185,
+    "percentPixelsWithChannelDifferenceOver8": 0.1618923611111111
+  },
+  "living": {
+    "meanAbsoluteChannelDifference": 0.3735163483796296,
+    "percentPixelsWithChannelDifferenceOver8": 0.9296875
+  },
+  "bath": {
+    "meanAbsoluteChannelDifference": 0.36680121527777776,
+    "percentPixelsWithChannelDifferenceOver8": 0.5986328125
+  },
+  "overview": {
+    "meanAbsoluteChannelDifference": 0.157275390625,
+    "percentPixelsWithChannelDifferenceOver8": 0.3065321180555555
+  },
+  "walkOverviewWalk": {
+    "meanAbsoluteChannelDifference": 0.0
+  }
+}

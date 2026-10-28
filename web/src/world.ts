@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { optimizeStaticModel, type StaticModelStats } from './static-model';
 
 // Blender (x, y, z) -> three.js (x, z, -y). glTF export already applied this
 // to the model; use the same mapping for hand-placed lights.
@@ -13,12 +14,14 @@ const CEILING_PREFIXES = ['Ceiling_', 'Cove_', 'ProK_CeilStrip', 'Q10_Ceiling', 
 export interface World {
   model: THREE.Group;
   setCeilingVisible: (visible: boolean) => void;
+  stats?: Omit<StaticModelStats, 'ceilingMeshes'>;
 }
 
 export async function loadWorld(
   scene: THREE.Scene,
   renderer: THREE.WebGLRenderer,
   onProgress: (ratio: number) => void,
+  options: { optimize?: boolean } = {},
 ): Promise<World> {
   // Enable high-quality soft shadows
   renderer.shadowMap.enabled = true;
@@ -98,7 +101,7 @@ export async function loadWorld(
   const model = gltf.scene;
   scene.add(model);
 
-  const ceilingMeshes: THREE.Object3D[] = [];
+  let ceilingMeshes: THREE.Object3D[] = [];
   model.traverse((o) => {
     const isCeil =
       CEILING_NAMES.includes(o.name) ||
@@ -177,12 +180,27 @@ export async function loadWorld(
     }
   });
 
+  const optimized = options.optimize !== false;
+  const stats = optimized ? optimizeStaticModel(model, ceilingMeshes) : undefined;
+  if (stats) ceilingMeshes = stats.ceilingMeshes;
+  // The house and sun are static. Rebuild only when actual caster visibility changes.
+  renderer.shadowMap.autoUpdate = !optimized;
+  renderer.shadowMap.needsUpdate = true;
+  let ceilingVisible = true;
+
   return {
     model,
+    stats: stats ? {
+      meshesBefore: stats.meshesBefore, meshesAfter: stats.meshesAfter,
+      trianglesBefore: stats.trianglesBefore, trianglesAfter: stats.trianglesAfter,
+    } : undefined,
     setCeilingVisible: (visible: boolean) => {
+      if (visible === ceilingVisible) return;
+      ceilingVisible = visible;
       for (const o of ceilingMeshes) {
         o.visible = visible;
       }
+      renderer.shadowMap.needsUpdate = true;
     },
   };
 }

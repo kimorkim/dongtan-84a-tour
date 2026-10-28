@@ -1,0 +1,48 @@
+{
+  "label": "baseline",
+  "viewport": "1280x720 DPR1",
+  "renderer": "ANGLE (AMD, AMD Radeon(TM) 8060S Graphics (0x00001586) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "views": {
+    "foyer": {
+      "calls": 6276,
+      "triangles": 1707155,
+      "frames": 44,
+      "medianMs": 16.699999999999818,
+      "p95Ms": 16.800000000000182,
+      "meanMs": 16.66818181818181,
+      "cpuMedianMs": 12.700000002980232,
+      "gpuMedianMs": 15.87347
+    },
+    "living": {
+      "calls": 4503,
+      "triangles": 1372213,
+      "frames": 44,
+      "medianMs": 16.699999999999818,
+      "p95Ms": 16.700000000000728,
+      "meanMs": 17.045454545454525,
+      "cpuMedianMs": 14.299999997019768,
+      "gpuMedianMs": 15.01917
+    },
+    "bath": {
+      "calls": 4737,
+      "triangles": 1204059,
+      "frames": 44,
+      "medianMs": 16.700000000000728,
+      "p95Ms": 33.399999999999636,
+      "meanMs": 21.593181818181787,
+      "cpuMedianMs": 19,
+      "gpuMedianMs": 17.12426
+    },
+    "overview": {
+      "calls": 9504,
+      "triangles": 2611889,
+      "frames": 44,
+      "medianMs": 33.30000000000109,
+      "p95Ms": 33.5,
+      "meanMs": 31.065909090909084,
+      "cpuMedianMs": 29.400000005960464,
+      "gpuMedianMs": 27.65987
+    }
+  },
+  "errors": []
+}
