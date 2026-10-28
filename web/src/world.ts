@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { optimizeStaticModel, type StaticModelStats } from './static-model';
+import { optimizePointLightShaders } from './point-light-shader';
 
 // Blender (x, y, z) -> three.js (x, z, -y). glTF export already applied this
 // to the model; use the same mapping for hand-placed lights.
@@ -21,7 +22,7 @@ export async function loadWorld(
   scene: THREE.Scene,
   renderer: THREE.WebGLRenderer,
   onProgress: (ratio: number) => void,
-  options: { optimize?: boolean } = {},
+  options: { optimize?: boolean; optimizeLights?: boolean } = {},
 ): Promise<World> {
   // Enable high-quality soft shadows
   renderer.shadowMap.enabled = true;
@@ -183,6 +184,7 @@ export async function loadWorld(
   const optimized = options.optimize !== false;
   const stats = optimized ? optimizeStaticModel(model, ceilingMeshes) : undefined;
   if (stats) ceilingMeshes = stats.ceilingMeshes;
+  if (options.optimizeLights !== false) optimizePointLightShaders(model);
   // The house and sun are static. Rebuild only when actual caster visibility changes.
   renderer.shadowMap.autoUpdate = !optimized;
   renderer.shadowMap.needsUpdate = true;

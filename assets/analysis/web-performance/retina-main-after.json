@@ -1,0 +1,19 @@
+{
+  "url": "http://127.0.0.1:4173/",
+  "views": [
+    {
+      "width": 1512,
+      "height": 982,
+      "dpr": 2,
+      "drawingBuffer": [
+        3024,
+        1964
+      ],
+      "gpu": "ANGLE (AMD, AMD Radeon(TM) 8060S Graphics (0x00001586) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "meanFps": 33.95841980153191,
+      "medianMs": 33.30000000000018,
+      "p95Ms": 33.5
+    }
+  ],
+  "errors": []
+}

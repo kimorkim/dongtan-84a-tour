@@ -1,0 +1,45 @@
+{
+  "url": "https://kimorkim.github.io/dongtan-84a-tour/",
+  "views": [
+    {
+      "width": 1280,
+      "height": 720,
+      "dpr": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "gpu": "ANGLE (AMD, AMD Radeon(TM) 8060S Graphics (0x00001586) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "meanFps": 59.99400059993998,
+      "medianMs": 16.699999999999818,
+      "p95Ms": 16.800000000000182
+    },
+    {
+      "width": 1512,
+      "height": 982,
+      "dpr": 2,
+      "drawingBuffer": [
+        3024,
+        1964
+      ],
+      "gpu": "ANGLE (AMD, AMD Radeon(TM) 8060S Graphics (0x00001586) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "meanFps": 27.338588417551374,
+      "medianMs": 33.399999999999636,
+      "p95Ms": 50.099999999999454
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "dpr": 2,
+      "drawingBuffer": [
+        3840,
+        2160
+      ],
+      "gpu": "ANGLE (AMD, AMD Radeon(TM) 8060S Graphics (0x00001586) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "meanFps": 19.352549698422763,
+      "medianMs": 50,
+      "p95Ms": 66.69999999999982
+    }
+  ],
+  "errors": []
+}

@@ -483,6 +483,17 @@ Q23b에서는 사용자 제공 `references/furniture/powder-type-entry.png`, `po
 
 # 웹 성능 검증 자료 (2026-10-28)
 
+레티나 후속 검증 자료(로컬, 서버 미배포):
+
+| 경로 | 목적·상태 |
+| --- | --- |
+| `web/src/point-light-shader.ts`, `web/tests/point-light-shader.test.mjs` | 기여도0인 점광원 연산 제외. 기존 조명·재질/공유 유지 |
+| `web/src/ao-output-pass.ts`, `web/tests/ao-output-pass.test.mjs` | 원해상도 AO와 색 변환 합성. 기존 GTAO 샘플 수 유지 |
+| `assets/analysis/web-performance/retina-final-{before,after}.json`, 같은 접두사의4시점 PNG | 1512×982 DPR2 동일 카메라 전후 측정·화면. 브라우저 생성 검증 자료 |
+| 같은 폴더 `retina-final-image-comparison.json`, `retina-main-{before,after}.json`, `retina-smoke*` | 화면 차이·실제 배포본/로컬 빌드 FPS·모드/보행 검사 |
+| 같은 폴더 `live-resolution-check.json` | 최초 서버 해상도별 진단. M5 Pro 측정 아님 |
+| `docs/superpowers/specs/2026-10-28-retina-performance-design.md`, `docs/superpowers/plans/2026-10-28-retina-performance.md` | 후속 범위·설계·실행 결과 |
+
 | 경로 | 목적·상태 |
 | --- | --- |
 | `docs/web-performance-2026-10-28.md` | 동일 형상·화질 설정의 전후 CPU/GPU/그리기 호출 및 검증 한계 |

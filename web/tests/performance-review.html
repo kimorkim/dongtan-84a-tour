@@ -6,6 +6,7 @@ import * as THREE from 'three';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { AOOutputPass } from '../src/ao-output-pass.ts';
 import { SceneGTAOPass } from '../src/scene-gtao-pass.ts';
 import { loadWorld } from '../src/world.ts';
 const base=document.createElement('base');base.href='/';document.head.append(base);
@@ -17,11 +18,13 @@ renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.
 renderer.info.autoReset=false;
 const scene=new THREE.Scene();scene.background=new THREE.Color(0x101418);
 const camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.05,120);
-const world=await loadWorld(scene,renderer,()=>{}, { optimize: !params.has('baseline') });
+const world=await loadWorld(scene,renderer,()=>{}, { optimize: !params.has('baseline'), optimizeLights: !params.has('stocklights') && !params.has('baseline') && !params.has('nolights') });
+if(params.has('nolights'))scene.traverse(o=>{if(o.isPointLight)o.visible=false;});
 const composer=new EffectComposer(renderer);composer.addPass(new RenderPass(scene,camera));
 const ao=new SceneGTAOPass(scene,camera,innerWidth,innerHeight);
 ao.blendIntensity=.85;ao.pdRings=2;ao.pdSamples=8;ao.pdRadiusExponent=2;
-composer.addPass(ao);composer.addPass(new OutputPass());
+composer.addPass(ao);composer.addPass(params.has('stockcomposition') || params.has('baseline') || params.has('noao') ? new OutputPass() : new AOOutputPass(ao));
+ao.enabled=!params.has('noao');
 const gl=renderer.getContext();const ext=gl.getExtension('WEBGL_debug_renderer_info');
 const views={
  foyer:[[12.33,1.65,-7.15],[12.33,1.65,-5]],
@@ -31,21 +34,21 @@ const views={
 };
 window.review={renderer:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER),
  stats:world.stats,
- async view(name,frames=45){
+ async view(name,frames=180){
   const [pos,target]=views[name];camera.position.fromArray(pos);camera.lookAt(...target);
   world.setCeilingVisible(name!=='overview');
   const times=[],cpu=[],gpu=[];let previous=0;let calls=0,triangles=0;
   const timer=gl.getExtension('EXT_disjoint_timer_query_webgl2');
   const pending=[];
-  for(let i=0;i<frames+12;i++){
+  for(let i=0;i<frames+60;i++){
    const now=await new Promise(requestAnimationFrame);
-   if(i>12)times.push(now-previous);previous=now;
+   if(i>60)times.push(now-previous);previous=now;
    renderer.info.reset();
    const query=timer?gl.createQuery():null;
    if(query)gl.beginQuery(timer.TIME_ELAPSED_EXT,query);
    const start=performance.now();composer.render();
-   if(i>=12)cpu.push(performance.now()-start);
-   if(query){gl.endQuery(timer.TIME_ELAPSED_EXT);pending.push({query,sample:i>=12});}
+   if(i>=60)cpu.push(performance.now()-start);
+   if(query){gl.endQuery(timer.TIME_ELAPSED_EXT);pending.push({query,sample:i>=60});}
    while(pending.length&&gl.getQueryParameter(pending[0].query,gl.QUERY_RESULT_AVAILABLE)){
     const {query,sample}=pending.shift();
     if(sample&&!gl.getParameter(timer.GPU_DISJOINT_EXT))gpu.push(gl.getQueryParameter(query,gl.QUERY_RESULT)/1e6);
@@ -54,6 +57,7 @@ window.review={renderer:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):gl.getP
    calls=renderer.info.render.calls;triangles=renderer.info.render.triangles;
   }
   gl.finish();
+  if(gl.isContextLost())throw Error('WebGL context lost; performance result is invalid');
   for(const {query,sample} of pending){
    if(sample&&!gl.getParameter(timer.GPU_DISJOINT_EXT))gpu.push(gl.getQueryParameter(query,gl.QUERY_RESULT)/1e6);
    gl.deleteQuery(query);

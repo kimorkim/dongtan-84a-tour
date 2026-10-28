@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { SceneGTAOPass as GTAOPass } from './scene-gtao-pass';
-import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { AOOutputPass } from './ao-output-pass';
 import './style.css';
 import { loadColliders } from './colliders';
 import { GalleryModal } from './gallery-modal';
@@ -86,7 +86,7 @@ async function boot(): Promise<void> {
       gtaoPass.pdRadiusExponent = 2.0;
       composer.addPass(gtaoPass);
 
-      const outputPass = new OutputPass();
+      const outputPass = new AOOutputPass(gtaoPass);
       composer.addPass(outputPass);
     } catch (err) {
       console.warn('Postprocessing GTAO failed to initialize, falling back to standard renderer:', err);

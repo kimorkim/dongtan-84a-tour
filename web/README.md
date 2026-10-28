@@ -71,6 +71,11 @@ dev 서버가 켜져 있으면 브라우저 새로고침만으로 반영된다.
 
 ## 디테일 유지 성능 개선 (2026-10-28)
 
+레티나 후속 개선으로 기여도0인 점광원 계산을 생략하고 AO 합성을 최종 색 변환과 결합했다.
+모델·텍스처·광원·출력 DPR·AO 버퍼/샘플 수는 유지하며 전체화면 그리기2회를 줄인다.
+Radeon8060S/1512×982 DPR2의 실제 메인 화면은26.93→33.96fps이며 M5 Pro 검증값은 아니다.
+현재 로컬 변경으로 서버에는 미배포다. 상세 조건·화면 비교·한계는 성능 보고서의 후속 개선 절을 본다.
+
 실행 시 불투명 정적 메시를 같은 재질·그림자 설정·천장 표시 그룹·2.5m 공간 셀별로 묶는다.
 모델의 삼각형529,316개·UV·텍스처·조명·GTAO·출력 해상도는 유지한다.
 유리·다중 재질·미러 스케일·스킨/모프 메시는 병합하지 않는다. 원본 GLB는 바꾸지 않는다.
@@ -82,6 +87,11 @@ dev 서버가 켜져 있으면 브라우저 새로고침만으로 반영된다.
 `node scripts/benchmark_web.cjs optimized`, `node scripts/benchmark_web.cjs smoke`로 재현한다.
 Chromium 실행 파일은 `BROWSER_EXECUTABLE` 환경변수로 지정할 수 있다.
 `/tests/performance-review.html?baseline`은 병합·그림자 캐시를 끈 비교 화면이며 배포 진입점이 아니다.
+
+후속 개선만 끄는 비교는 `?stocklights&stockcomposition&dpr=2`다.
+측정 도구는 `BENCH_WIDTH`, `BENCH_HEIGHT`, `BENCH_DPR`, `BENCH_QUERY`, `BENCH_FRAMES`를 받는다.
+`BENCH_MAIN=1`은 지정 해상도의 실제 메인 화면을 측정하며 `BENCH_BASE_URL`로 빌드/서버 주소를 지정한다.
+`BENCH_PREFIX`는 smoke 증빙 이름을 지정한다. 기존 자료를 보존하도록 별도 이름을 사용한다.
 
 ## 우드 바닥 검증
 
