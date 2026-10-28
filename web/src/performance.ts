@@ -54,29 +54,3 @@ export class AdaptivePixelRatio {
     return null;
   }
 }
-
-export function aoUpdateInterval(pixelRatio: number): number {
-  return pixelRatio <= 1.25 + 1e-9 ? 3 : 2;
-}
-
-/** Reuses the last GTAO result on alternate frames while the camera moves. */
-export class AOFrameScheduler {
-  private framesSinceUpdate = 0;
-  private forced = true;
-
-  forceUpdate(): void {
-    this.forced = true;
-  }
-
-  shouldUpdate(moving: boolean, pixelRatio: number): boolean {
-    if (this.forced || !moving) {
-      this.forced = false;
-      this.framesSinceUpdate = 0;
-      return true;
-    }
-    this.framesSinceUpdate++;
-    if (this.framesSinceUpdate < aoUpdateInterval(pixelRatio)) return false;
-    this.framesSinceUpdate = 0;
-    return true;
-  }
-}
