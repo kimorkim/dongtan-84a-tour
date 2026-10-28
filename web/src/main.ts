@@ -80,6 +80,7 @@ async function boot(): Promise<void> {
       composer.addPass(renderPass);
 
       gtaoPass = new GTAOPass(scene, walkCam, window.innerWidth, window.innerHeight);
+      gtaoPass.setMathOptimization(true);
       gtaoPass.blendIntensity = 0.85;
       gtaoPass.pdRings = 2;
       gtaoPass.pdSamples = 8;

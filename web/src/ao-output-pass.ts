@@ -13,7 +13,7 @@ export class AOOutputPass extends OutputPass {
       .replace('uniform sampler2D tDiffuse;', 'uniform sampler2D tDiffuse;\nuniform sampler2D tAO;\nuniform float aoIntensity;')
       .replace('gl_FragColor = texture2D( tDiffuse, vUv );', `gl_FragColor = texture2D( tDiffuse, vUv );
         vec4 ao = texture2D( tAO, vUv );
-        gl_FragColor.rgb *= mix( vec3( 1.0 ), ao.rgb, aoIntensity );
+        gl_FragColor.rgb *= mix( vec3( 1.0 ), vec3( ao.r ), aoIntensity );
         gl_FragColor.a *= ao.a;`);
     // GTAOPass.OUTPUT.Off: compute normals, AO and denoising, then leave scene color alone.
     this.material.needsUpdate = true;

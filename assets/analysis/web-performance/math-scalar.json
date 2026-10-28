@@ -1,0 +1,55 @@
+{
+  "label": "math-scalar",
+  "viewport": "1512x982 DPR2",
+  "query": "stocklightmath",
+  "renderer": "ANGLE (AMD, AMD Radeon(TM) 8060S Graphics (0x00001586) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "views": {
+    "foyer": {
+      "calls": 579,
+      "triangles": 863561,
+      "frames": 179,
+      "medianMs": 33.29999999999927,
+      "p95Ms": 33.400000000001455,
+      "meanMs": 28.30893854748603,
+      "cpuMedianMs": 3.199999988079071,
+      "gpuMedianMs": 27.24896
+    },
+    "living": {
+      "calls": 231,
+      "triangles": 378771,
+      "frames": 179,
+      "medianMs": 16.69999999999891,
+      "p95Ms": 16.799999999999272,
+      "meanMs": 16.668715083798876,
+      "cpuMedianMs": 1.9000000059604645,
+      "gpuMedianMs": 14.6702
+    },
+    "bath": {
+      "calls": 290,
+      "triangles": 191229,
+      "frames": 179,
+      "medianMs": 16.700000000000728,
+      "p95Ms": 16.799999999999272,
+      "meanMs": 16.948044692737433,
+      "cpuMedianMs": 2,
+      "gpuMedianMs": 20.485
+    },
+    "overview": {
+      "calls": 1218,
+      "triangles": 1573655,
+      "frames": 179,
+      "medianMs": 16.69999999999709,
+      "p95Ms": 16.799999999999272,
+      "meanMs": 16.669273743016756,
+      "cpuMedianMs": 5,
+      "gpuMedianMs": 16.16788
+    }
+  },
+  "errors": [],
+  "stats": {
+    "meshesBefore": 1948,
+    "meshesAfter": 423,
+    "trianglesBefore": 529316,
+    "trianglesAfter": 529316
+  }
+}

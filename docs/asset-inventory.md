@@ -483,6 +483,16 @@ Q23b에서는 사용자 제공 `references/furniture/powder-type-entry.png`, `po
 
 # 웹 성능 검증 자료 (2026-10-28)
 
+AO 단일 채널 후속 자료(로컬 검증):
+
+| 경로 | 목적·상태 |
+| --- | --- |
+| `web/src/scene-gtao-pass.ts`, `web/tests/scene-gtao-pass.test.mjs` | 기존 hotspot 제외와 R16F AO 버퍼/스칼라 denoise, 설정 복원·정밀도·샘플 수 검사 |
+| `assets/analysis/web-performance/math-control*`, `math-final*` | 이전 개선본과 단일 채널 AO의 동일 DPR2 GPU/화면 비교. 브라우저 검증 자료이며 실물 사진 아님 |
+| 같은 폴더 `math-main.json`, `math-smoke*` | 프로덕션 빌드의 실제 FPS·보행·모드 전환·초기화 증빙 |
+| 같은 폴더 `math-{before,ao,light,scalar}.json` | 중간 비교 수치. AO 좌표/조명 수식만의 최적화는 효과 없어 폐기 |
+| `docs/superpowers/plans/2026-10-28-shader-math.md` | 승인 범위·실험·최종 결과 |
+
 레티나 후속 검증 자료(로컬, 서버 미배포):
 
 | 경로 | 목적·상태 |

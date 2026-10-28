@@ -1,0 +1,18 @@
+{
+  "foyer": {
+    "meanChannelDifference": 0.0624807491639637,
+    "pixelsOver8Percent": 0.08058411189775752
+  },
+  "living": {
+    "meanChannelDifference": 0.20667349594284423,
+    "pixelsOver8Percent": 0.3518356878845677
+  },
+  "bath": {
+    "meanChannelDifference": 0.20885944801847722,
+    "pixelsOver8Percent": 0.22210301296350177
+  },
+  "overview": {
+    "meanChannelDifference": 0.10891707705183605,
+    "pixelsOver8Percent": 0.22707006541018762
+  }
+}
