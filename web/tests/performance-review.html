@@ -34,7 +34,7 @@ const views={
  overview:[[7.15,14,1.55],[7.15,0,-4.95]],
 };
 window.review={renderer:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER),
- stats:world.stats,
+ stats:world.stats?{...world.stats,...world.materialSideStats}:undefined,
  async view(name,frames=180){
   const [pos,target]=views[name];camera.position.fromArray(pos);camera.lookAt(...target);
   world.setCeilingVisible(name!=='overview');

@@ -483,6 +483,16 @@ Q23b에서는 사용자 제공 `references/furniture/powder-type-entry.png`, `po
 
 # 웹 성능 검증 자료 (2026-10-28)
 
+메인 화면 프레임 안정화 자료(로컬 검증):
+
+| 경로 | 목적·상태 |
+| --- | --- |
+| web/src/performance.ts, web/tests/performance.test.mjs | 적응형 DPR(초기 1.5 이하) 및 카메라 이동 중 GTAO 격프레임 갱신 스케줄러 |
+| web/src/material-sides.ts, web/tests/material-sides.test.mjs | 수밀 불투명 메시 106개 재질의 FrontSide 단면 렌더링 제한 및 보존 검사 |
+| ssets/analysis/web-performance/devtools-trace-2026-10-28.json.gz | 사용자 제공 Chrome DevTools 프로파일 트레이스 원본(11.1fps 현상 분석용) |
+| ssets/analysis/web-performance/adaptive-main.json, daptive-main-walk.json | 1512x982 DPR2 정지(35.6fps) 및 보행(45.8fps) 실제 메인 화면 FPS 측정 증빙 |
+| ssets/analysis/web-performance/adaptive-smoke*, daptive-views* | 모드 전환·보행·스폰 초기화 및 4시점 화면/106개 재질 단면화 측정 증빙 |
+
 AO 단일 채널 후속 자료(로컬 검증):
 
 | 경로 | 목적·상태 |

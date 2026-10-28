@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { optimizeStaticModel, type StaticModelStats } from './static-model';
+import { restrictDoubleSidedMaterials, type MaterialSideStats } from './material-sides';
 import { optimizePointLightShaders } from './point-light-shader';
 
 // Blender (x, y, z) -> three.js (x, z, -y). glTF export already applied this
@@ -14,6 +15,7 @@ const CEILING_PREFIXES = ['Ceiling_', 'Cove_', 'ProK_CeilStrip', 'Q10_Ceiling', 
 
 export interface World {
   model: THREE.Group;
+  materialSideStats?: MaterialSideStats;
   setCeilingVisible: (visible: boolean) => void;
   stats?: Omit<StaticModelStats, 'ceilingMeshes'>;
 }
@@ -182,6 +184,7 @@ export async function loadWorld(
   });
 
   const optimized = options.optimize !== false;
+  const materialSideStats = optimized ? restrictDoubleSidedMaterials(model) : undefined;
   const stats = optimized ? optimizeStaticModel(model, ceilingMeshes) : undefined;
   if (stats) ceilingMeshes = stats.ceilingMeshes;
   if (options.optimizeLights !== false) optimizePointLightShaders(model);
@@ -192,6 +195,7 @@ export async function loadWorld(
 
   return {
     model,
+    materialSideStats,
     stats: stats ? {
       meshesBefore: stats.meshesBefore, meshesAfter: stats.meshesAfter,
       trianglesBefore: stats.trianglesBefore, trianglesAfter: stats.trianglesAfter,

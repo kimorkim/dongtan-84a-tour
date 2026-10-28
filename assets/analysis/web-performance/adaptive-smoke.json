@@ -1,0 +1,8 @@
+{
+  "viewport": "1512x982 DPR2",
+  "before": "x 12.33 · y 7.15",
+  "after": "x 12.33 · y 6.45",
+  "reset": "x 12.33 · y 7.15",
+  "modeTransitions": "walk -> overview -> walk",
+  "errors": []
+}

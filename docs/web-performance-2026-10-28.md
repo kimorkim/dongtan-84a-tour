@@ -1,5 +1,26 @@
 # 디테일 유지 웹 성능 검증 (2026-10-28)
 
+## 메인 화면 프레임 안정화: 적응형 DPR·이동 중 GTAO 재사용·닫힌 메시 단면화
+
+사용자가 제공한 Chrome DevTools 트레이스(devtools-trace-2026-10-28.json.gz, hostDPR 2, Intel Arc Graphics)에서 시선 이동·보행 시 평균 약 11.1fps(프레임 간격 중앙값 88.1ms, p95 114.4ms)까지 떨어지는 현상을 분석해 런타임 프레임 안정화를 추가했다. 모델 529,316삼각형·텍스처·조명 18개·원본 GLB는 변경하지 않았다.
+
+- **적응형 픽셀 비율(AdaptivePixelRatio, web/src/performance.ts):** 고해상도 화면(DPR<=2)에서 초기 픽셀 비율을 1.5 이하로 시작하고, 30프레임 구간의 p95가 26ms를 넘으면 [2, 1.75, 1.5, 1.25, 1] 단계로 낮춘다. 2개 연속 구간에서 p95가 13ms 미만일 때만 한 단계씩 높이며, 탭 전환 등 100ms 초과 정지는 제외한다.
+- **카메라 이동 중 GTAO 격프레임 재사용(AOFrameScheduler, web/src/performance.ts):** 카메라가 움직이는 동안 픽셀 비율이 1.25보다 크면 2프레임마다, 1.25 이하면 3프레임마다 GTAO를 갱신하고 사이 프레임에서는 직전 pdRenderTarget AO 맵을 재사용한다. 카메라가 멈추거나 모드/해상도/위치가 바뀌면(orceUpdate) 즉시 새 AO를 계산한다.
+- **닫힌 불투명 메시 단면 렌더링(
+estrictDoubleSidedMaterials, web/src/material-sides.ts):** GLTF 기본값으로 양면(DoubleSide) 설정된 173개 재질 중 모든 사용 메시가 닫힌 2-다양체(수밀 메시 1,634/1,948개)이고 불투명한 **106개 재질**만 FrontSide로 제한해 벽·가구 내부 뒷면 래스터화를 줄였다. 열린 평면(풍경 카드·커튼 등)과 투명 유리는 양면을 유지한다.
+- **렌더 루프 할당·DOM 갱신 절감(web/src/main.ts):** 매 프레임 입력 객체 재할당을 없애고 좌표 HUD(#pos) 텍스트 갱신을 100ms 주기로 제한했다.
+
+같은 Intel Arc Graphics(Chromium headless, 1512x982 DPR2 설정)에서 실제 메인 화면(daptive-main.json, daptive-main-walk.json) 측정 결과:
+
+| 조건 | 출력 버퍼 | 평균 FPS | 중앙값 ms | p95 ms |
+| --- | --- | ---: | ---: | ---: |
+| 사용자 트레이스 (적용 전, DPR2 고정) | 고해상도 DPR2 | 11.1 | 88.1 | 114.4 |
+| 메인 화면 정지 (daptive-main) | 1512x982 (DPR1 자동 하향) | 35.6 | 33.1 | 33.6 |
+| 메인 화면 보행 (daptive-main-walk) | 1512x982 (DPR1 + AO 격프레임) | 45.8 | 16.7 | 33.6 |
+
+4개 고정 시점(daptive-views.json, 1512x982 DPR1.5)과 메인 화면 보행·전체 보기 전환·초기화(daptive-smoke.json)에서 콘솔/셰이더 오류 0개, 열린 면 누락 없음을 화면으로 확인했다. 기존 18개+신규 6개(performance.test.mjs 4개, material-sides.test.mjs 2개) 총 **24개 단위 테스트**, 타입 검사, 프로덕션 빌드를 통과했다.
+
+
 ## AO 단일 채널 후속 최적화 — 로컬 검증, 서버 미배포
 
 사용자가 추천한 AO/조명 계산 최적화를 추가 승인했다. 앞선26% 개선본을 기준으로 같은1512×982 DPR2, Radeon8060S/Chromium, 준비60+측정180프레임으로 비교했다.

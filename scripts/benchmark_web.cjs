@@ -22,7 +22,7 @@ async function main() {
       server.close(() => resolve(port));
     });
   });
-  const executable = process.env.BROWSER_EXECUTABLE || path.join(os.homedir(), 'AppData/Local/ms-playwright/chromium-1208/chrome-win64/chrome.exe');
+  const executable = process.env.BROWSER_EXECUTABLE || path.join(os.homedir(), 'AppData/Local/ms-playwright/chromium-1234/chrome-win64/chrome.exe');
   const browser = spawn(executable, [
     '--headless=new', '--no-first-run', '--no-default-browser-check',
     '--disable-background-networking', '--disable-extensions',
@@ -77,7 +77,9 @@ async function main() {
           const canvas=document.querySelector('#scene');const gl=canvas.getContext('webgl2');
           const ext=gl.getExtension('WEBGL_debug_renderer_info');
           const values=[];let previous=await new Promise(requestAnimationFrame);
-          for(let i=0;i<180;i++){const t=await new Promise(requestAnimationFrame);values.push(t-previous);previous=t;}
+          const walk=${process.env.BENCH_WALK === '1'};if(walk)window.dispatchEvent(new KeyboardEvent('keydown',{code:'KeyW'}));
+          for(let i=0;i<180;i++){if(walk&&i===90){window.dispatchEvent(new KeyboardEvent('keyup',{code:'KeyW'}));window.dispatchEvent(new KeyboardEvent('keydown',{code:'KeyS'}));}const t=await new Promise(requestAnimationFrame);values.push(t-previous);previous=t;}
+          if(walk)window.dispatchEvent(new KeyboardEvent('keyup',{code:'KeyS'}));
           if(gl.isContextLost())throw Error('WebGL context lost; performance result is invalid');
           values.sort((a,b)=>a-b);
           return {drawingBuffer:[canvas.width,canvas.height],gpu:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):null,

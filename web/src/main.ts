@@ -8,6 +8,7 @@ import './style.css';
 import { loadColliders } from './colliders';
 import { GalleryModal } from './gallery-modal';
 import { HotspotManager } from './hotspots';
+import { AdaptivePixelRatio, AOFrameScheduler } from './performance';
 import { Player } from './player';
 import { TouchControls } from './touch';
 import { loadWorld } from './world';
@@ -36,7 +37,10 @@ async function boot(): Promise<void> {
 
   const canvas = el<HTMLCanvasElement>('scene');
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isTouch ? 1.5 : 2));
+  const adaptivePixelRatio = new AdaptivePixelRatio(
+    Math.min(window.devicePixelRatio || 1, isTouch ? 1.5 : 2),
+  );
+  renderer.setPixelRatio(adaptivePixelRatio.value);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
@@ -96,6 +100,14 @@ async function boot(): Promise<void> {
       gtaoPass = null;
     }
   }
+
+  const aoScheduler = new AOFrameScheduler();
+  const applyPixelRatio = (value: number): void => {
+    renderer.setPixelRatio(value);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    composer?.setPixelRatio(value);
+    aoScheduler.forceUpdate();
+  };
 
   const player = new Player(walkCam);
   player.setColliders(boxes);
@@ -194,6 +206,7 @@ async function boot(): Promise<void> {
     const activeCam = walk ? walkCam : overCam;
     if (renderPass) renderPass.camera = activeCam;
     if (gtaoPass) gtaoPass.camera = activeCam;
+    aoScheduler.forceUpdate();
     crosshair.hidden = !walk || document.pointerLockElement !== canvas;
     if (!walk && document.pointerLockElement === canvas) {
       document.exitPointerLock();
@@ -211,6 +224,7 @@ async function boot(): Promise<void> {
   btnOver.addEventListener('click', () => setMode('overview'));
   btnReset.addEventListener('click', () => {
     player.spawn(SPAWN.x, SPAWN.z, SPAWN_YAW);
+    aoScheduler.forceUpdate();
     setMode('walk');
   });
   speedInput.addEventListener('input', () => {
@@ -251,6 +265,7 @@ async function boot(): Promise<void> {
         break;
       case 'KeyR':
         player.spawn(SPAWN.x, SPAWN.z, SPAWN_YAW);
+        aoScheduler.forceUpdate();
         break;
     }
   });
@@ -304,6 +319,7 @@ async function boot(): Promise<void> {
     if (composer) {
       composer.setSize(w, h);
     }
+    aoScheduler.forceUpdate();
     walkCam.aspect = w / h;
     walkCam.updateProjectionMatrix();
     overCam.aspect = w / h;
@@ -311,20 +327,50 @@ async function boot(): Promise<void> {
   });
 
   const clock = new THREE.Clock();
-  renderer.setAnimationLoop(() => {
+  const walkInput = { ...keys, analogMove: { x: 0, y: 0 } };
+  const lastCameraPosition = new THREE.Vector3();
+  const lastCameraQuaternion = new THREE.Quaternion();
+  let cameraPoseInitialized = false;
+  let lastFrameTime: number | null = null;
+  let lastHudUpdate = -100;
+  renderer.setAnimationLoop((time) => {
+    if (lastFrameTime !== null) {
+      const nextPixelRatio = adaptivePixelRatio.observe(time - lastFrameTime);
+      if (nextPixelRatio !== null) applyPixelRatio(nextPixelRatio);
+    }
+    lastFrameTime = time;
+
     const dt = Math.min(clock.getDelta(), 0.05);
     const activeCam = mode === 'walk' ? walkCam : overCam;
     hotspots.update(dt, activeCam);
 
     if (mode === 'walk') {
       if (!galleryModal.isOpen()) {
-        const analog = touchControls.getAnalogMove();
-        player.update(dt, { ...keys, analogMove: analog });
+        walkInput.forward = keys.forward;
+        walkInput.back = keys.back;
+        walkInput.left = keys.left;
+        walkInput.right = keys.right;
+        walkInput.sprint = keys.sprint;
+        walkInput.analogMove = touchControls.getAnalogMove();
+        player.update(dt, walkInput);
       }
       // Show Blender coords (x=east, y=north) for cross-reference with the model.
-      posEl.textContent = `x ${player.pos.x.toFixed(2)} · y ${(-player.pos.z).toFixed(2)}`;
+      if (time - lastHudUpdate >= 100) {
+        posEl.textContent = `x ${player.pos.x.toFixed(2)} · y ${(-player.pos.z).toFixed(2)}`;
+        lastHudUpdate = time;
+      }
     } else {
       orbit.update();
+    }
+
+    const cameraMoving = !cameraPoseInitialized ||
+      activeCam.position.distanceToSquared(lastCameraPosition) > 1e-6 ||
+      activeCam.quaternion.angleTo(lastCameraQuaternion) > 0.001;
+    lastCameraPosition.copy(activeCam.position);
+    lastCameraQuaternion.copy(activeCam.quaternion);
+    cameraPoseInitialized = true;
+    if (gtaoPass) {
+      gtaoPass.enabled = aoScheduler.shouldUpdate(cameraMoving, adaptivePixelRatio.value);
     }
 
     if (composer) {

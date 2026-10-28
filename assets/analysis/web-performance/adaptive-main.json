@@ -1,0 +1,19 @@
+{
+  "url": "http://127.0.0.1:5173/",
+  "views": [
+    {
+      "width": 1512,
+      "height": 982,
+      "dpr": 2,
+      "drawingBuffer": [
+        1512,
+        982
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) Arc(TM) Graphics (0x00007D55) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "meanFps": 35.64356435643564,
+      "medianMs": 33.100000000000364,
+      "p95Ms": 33.60000000000218
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,59 @@
+{
+  "label": "adaptive-views",
+  "viewport": "1512x982 DPR1.5",
+  "query": "",
+  "renderer": "ANGLE (Intel, Intel(R) Arc(TM) Graphics (0x00007D55) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "views": {
+    "foyer": {
+      "calls": 579,
+      "triangles": 863561,
+      "frames": 179,
+      "medianMs": 16.700000000000728,
+      "p95Ms": 366.89999999999964,
+      "meanMs": 58.288268156424586,
+      "cpuMedianMs": 3.6999999284744263,
+      "gpuMedianMs": 54.097031
+    },
+    "living": {
+      "calls": 231,
+      "triangles": 378771,
+      "frames": 179,
+      "medianMs": 33.39999999999418,
+      "p95Ms": 50,
+      "meanMs": 34.45195530726258,
+      "cpuMedianMs": 2.6999999284744263,
+      "gpuMedianMs": 31.832239
+    },
+    "bath": {
+      "calls": 290,
+      "triangles": 191229,
+      "frames": 179,
+      "medianMs": 49.69999999999709,
+      "p95Ms": 66.59999999999854,
+      "meanMs": 43.57486033519554,
+      "cpuMedianMs": 2.5,
+      "gpuMedianMs": 39.804322
+    },
+    "overview": {
+      "calls": 1218,
+      "triangles": 1573655,
+      "frames": 179,
+      "medianMs": 49.599999999998545,
+      "p95Ms": 66.70000000000437,
+      "meanMs": 44.69050279329608,
+      "cpuMedianMs": 6.900000095367432,
+      "gpuMedianMs": 41.593802
+    }
+  },
+  "errors": [],
+  "stats": {
+    "meshesBefore": 1948,
+    "meshesAfter": 423,
+    "trianglesBefore": 529316,
+    "trianglesAfter": 529316,
+    "materialsSeen": 173,
+    "materialsRestricted": 106,
+    "meshesChecked": 1948,
+    "watertightMeshes": 1634
+  }
+}
